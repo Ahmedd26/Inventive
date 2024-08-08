@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IconsModule } from './icons/icons.module';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,8 @@ import { IconsModule } from './icons/icons.module';
 })
 export class AppComponent {
   title = 'inventory_management_system';
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
 }
