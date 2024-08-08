@@ -41,4 +41,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
+
+# USER DEFINED
 .installations.md
+.side-notes.md
