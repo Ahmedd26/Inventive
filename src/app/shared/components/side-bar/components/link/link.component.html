@@ -1,11 +1,11 @@
 <a
   routerLink="{{ link.path }}"
   [routerLinkActiveOptions]="{ exact: true }"
-  routerLinkActive="text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-stone-900"
+  routerLinkActive="text-amber-700 bg-stone-100 dark:text-amber-500 dark:bg-stone-900"
   class="flex items-center p-2 text-stone-700 rounded-lg dark:text-stone-50 hover:bg-stone-100 dark:hover:bg-stone-700 group"
 >
-  <span class="text-xl">
+  <span class="text-xl flex items-center">
     <i-feather [name]="link.iconName"></i-feather>
   </span>
-  <span class="ms-3">{{ link.title }}</span>
+  <span class="ms-3 flex items-center">{{ link.title }}</span>
 </a>
