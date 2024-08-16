@@ -19,7 +19,7 @@ export const links: ILink[] = [
 ];
 export const quickLinks: ILink[] = [
   {
-    path: '/',
+    path: '/profile',
     iconName: 'user',
     title: 'profile',
   },

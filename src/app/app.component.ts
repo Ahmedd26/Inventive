@@ -1,8 +1,6 @@
-import { Component, effect, HostBinding, signal } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { IconsModule } from './shared/icons/icons.module';
 import { initFlowbite } from 'flowbite';
-import { CommonModule } from '@angular/common';
 import { SideBarComponent } from './shared/components/side-bar/side-bar.component';
 import { TopBarComponent } from './shared/components/top-bar/top-bar.component';
 import { BodyContainerComponent } from './shared/components/body-container/body-container.component';
@@ -13,8 +11,6 @@ import { DarkModeService } from './core/services/dark-mode-service/dark-mode.ser
   standalone: true,
   imports: [
     RouterOutlet,
-    IconsModule,
-    CommonModule,
     SideBarComponent,
     TopBarComponent,
     BodyContainerComponent,
