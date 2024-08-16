@@ -1,0 +1,28 @@
+<aside
+  id="logo-sidebar"
+  class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-stone-50 border-r border-stone-200 sm:translate-x-0 dark:bg-stone-800 dark:border-stone-700"
+  aria-label="Sidebar"
+>
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-stone-50 dark:bg-stone-800">
+    <div class="flex flex-col justify-between h-full">
+      <!-- Main Links -->
+      <ul class="space-y-2 font-medium">
+        @for (link of links; track link.path) {
+        <li>
+          <app-link [link]="link"></app-link>
+        </li>
+        }
+      </ul>
+      <!-- Bottom Links -->
+      <ul
+        class="bg-stone-200 dark:bg-stone-600 dark:text-stone-300 px-4 py-2.5 rounded-xl text-2xl text-stone-800 grid grid-cols-3 gap-2"
+      >
+        @for(quickLink of quickLinks; track quickLink.title){
+        <li>
+          <app-link-tooltip [quickLink]="quickLink" />
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</aside>

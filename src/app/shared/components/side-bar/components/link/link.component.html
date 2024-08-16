@@ -1,0 +1,11 @@
+<a
+  routerLink="{{ link.path }}"
+  [routerLinkActiveOptions]="{ exact: true }"
+  routerLinkActive="text-amber-800 bg-stone-100 dark:text-amber-300 dark:bg-stone-900"
+  class="flex items-center p-2 text-stone-700 rounded-lg dark:text-stone-50 hover:bg-stone-100 dark:hover:bg-stone-700 group"
+>
+  <span class="text-xl">
+    <i-feather [name]="link.iconName"></i-feather>
+  </span>
+  <span class="ms-3">{{ link.title }}</span>
+</a>
