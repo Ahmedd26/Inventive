@@ -4,7 +4,11 @@ module.exports = {
   content: ["./src/**/*.{html,ts}", "./node_modules/flowbite/**/*.js"],
 
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        inventory: "url('/assets/images/inventory-cover.jpg')",
+      },
+    },
   },
   plugins: [require("flowbite/plugin")],
 };

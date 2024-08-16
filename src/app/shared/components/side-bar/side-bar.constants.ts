@@ -7,9 +7,9 @@ export const links: ILink[] = [
     title: 'Dashboard',
   },
   {
-    path: '/e-commerce',
-    iconName: 'shopping-cart',
-    title: 'E-commerce',
+    path: '/profile',
+    iconName: 'user',
+    title: 'Profile',
   },
   {
     path: '/users',
