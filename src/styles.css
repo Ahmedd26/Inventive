@@ -8,3 +8,7 @@ i-feather {
   height: 1em !important;
   color: inherit !important;
 }
+
+::selection {
+  @apply bg-stone-300 text-amber-900 dark:bg-amber-200 dark:text-stone-900;
+}
