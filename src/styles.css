@@ -12,3 +12,14 @@ i-feather {
 ::selection {
   @apply bg-stone-300 text-amber-900 dark:bg-amber-200 dark:text-stone-900;
 }
+
+.auth-input {
+  @apply bg-stone-50 border border-stone-300 text-stone-900 rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500;
+}
+.auth-invalid-input {
+  @apply bg-red-200 border border-red-600 placeholder:text-red-600 text-stone-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-red-950 dark:border-red-900 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500;
+}
+
+.invalid-message {
+  @apply text-red-600 dark:text-red-600 font-semibold;
+}

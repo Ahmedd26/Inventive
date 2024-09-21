@@ -1,11 +1,13 @@
 <div class="bg-stone-200 dark:bg-stone-900">
+  @if(isAuth){
   <app-top-bar />
   <app-side-bar />
-
   <div class="p-4 sm:ml-64">
     <style-body-container>
       <router-outlet></router-outlet>
     </style-body-container>
   </div>
+  }@else{
+  <router-outlet></router-outlet>
+  }
 </div>
-<!--  -->
