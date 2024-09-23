@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
@@ -5,6 +7,9 @@ module.exports = {
 
   theme: {
     extend: {
+      colors: {
+        gray: colors.stone,
+      },
       backgroundImage: {
         inventory: "url('/assets/images/inventory-cover.jpg')",
       },

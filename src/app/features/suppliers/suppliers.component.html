@@ -1,1 +1,78 @@
-<p>suppliers works!</p>
+<div class="text-stone-800 dark:text-white">
+  <div class="flex justify-between items-center mb-5">
+    <h1 class="text-4xl font-semibold">Suppliers</h1>
+    <app-create-supplier-modal (supplierCreated)="onCreateSupplier($event)" />
+  </div>
+  <!-- Table -->
+  <div class="">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div class="pb-4 bg-white dark:bg-stone-900">
+        <label for="table-search" class="sr-only">Search</label>
+        <div class="relative mt-1">
+          <div
+            class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none"
+          >
+            <svg
+              class="w-4 h-4 text-stone-500 dark:text-stone-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="table-search"
+            class="block pt-2 ps-10 text-sm text-stone-900 border border-stone-300 rounded-lg w-80 bg-stone-50 focus:ring-amber-500 focus:border-amber-500 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            placeholder="Search for items"
+          />
+        </div>
+      </div>
+      <table
+        class="w-full text-sm text-left rtl:text-right text-stone-500 dark:text-stone-400 rounded-lg overflow-hidden"
+      >
+        <thead
+          class="text-xs text-stone-700 uppercase bg-stone-50 dark:bg-stone-700 dark:text-stone-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Id</th>
+            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3">Email</th>
+            <th scope="col" class="px-6 py-3">Phone</th>
+            <th scope="col" class="px-6 py-3">Address</th>
+            <th scope="col" class="px-6 py-3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(supplier of suppliers; track supplier.id){
+          <tr
+            class="bg-white border-b dark:bg-stone-800 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-600"
+          >
+            <td class="text-center">{{ supplier.id }}</td>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-stone-900 whitespace-nowrap dark:text-white"
+            >
+              {{ supplier.name }}
+            </th>
+            <td class="px-6 py-4">{{ supplier.email }}</td>
+            <td class="px-6 py-4">{{ supplier.phone }}</td>
+            <td class="px-6 py-4">{{ supplier.address }}</td>
+            <td class="px-6 py-4">Edit</td>
+          </tr>
+          } @empty {
+          <p class="mx-auto">No suppliers were found</p>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
