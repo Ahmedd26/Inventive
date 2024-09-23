@@ -7,10 +7,36 @@ export const links: ILink[] = [
     title: 'Dashboard',
   },
   {
-    path: '/profile',
-    iconName: 'user',
-    title: 'Profile',
+    path: '/',
+    iconName: 'home',
+    title: 'Inventory',
   },
+  {
+    path: '/',
+    iconName: 'box',
+    title: 'products',
+  },
+  {
+    path: '/',
+    iconName: 'truck',
+    title: 'Orders',
+  },
+  {
+    path: '/',
+    iconName: 'share-2',
+    title: 'suppliers',
+  },
+  {
+    path: '/',
+    iconName: 'dollar-sign',
+    title: 'Purchases',
+  },
+  {
+    path: '/',
+    iconName: 'crosshair',
+    title: 'sales',
+  },
+
   {
     path: '/users',
     iconName: 'users',

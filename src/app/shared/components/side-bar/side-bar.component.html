@@ -7,7 +7,7 @@
     <div class="flex flex-col justify-between h-full">
       <!-- Main Links -->
       <ul class="space-y-2 font-medium">
-        @for (link of links; track link.path) {
+        @for (link of links; track (link.iconName)) {
         <li>
           <app-link [link]="link"></app-link>
         </li>
