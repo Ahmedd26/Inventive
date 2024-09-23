@@ -22,7 +22,7 @@ export const links: ILink[] = [
     title: 'Orders',
   },
   {
-    path: '/',
+    path: '/suppliers',
     iconName: 'share-2',
     title: 'suppliers',
   },

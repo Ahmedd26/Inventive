@@ -5,6 +5,7 @@ import { LoginComponent } from './core/auth/components/login/login.component';
 import { RegisterComponent } from './core/auth/components/register/register.component';
 import { AuthGuard } from './core/auth/guard/auth.guard';
 import { LoginRegisterGuard } from './core/auth/guard/login-register.guard';
+import { SuppliersComponent } from './features/suppliers/suppliers.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,13 @@ export const routes: Routes = [
     path: 'dashboard',
     title: 'Dashboard',
     component: DashboardComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'suppliers',
+    title: 'Suppliers',
+    component: SuppliersComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
