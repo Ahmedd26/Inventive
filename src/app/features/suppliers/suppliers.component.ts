@@ -3,18 +3,26 @@ import { SuppliersService } from './suppliers.service';
 import { type ISuppliers } from './suppliers.model';
 import { FormsModule } from '@angular/forms';
 import { CreateSupplierModalComponent } from './components/create-supplier-modal/create-supplier-modal.component';
+import { IconsModule } from '../../shared/icons/icons.module';
+import { TableComponent } from '../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-suppliers',
   standalone: true,
-  imports: [FormsModule, CreateSupplierModalComponent],
+  imports: [
+    FormsModule,
+    CreateSupplierModalComponent,
+    IconsModule,
+    TableComponent,
+  ],
   templateUrl: './suppliers.component.html',
   styleUrl: './suppliers.component.css',
 })
 export class SuppliersComponent {
   isLoading = false;
+  emptySup: ISuppliers[] = [];
   suppliers!: ISuppliers[];
-
+  tableHeaders = ['id', 'name', 'email', 'phone', 'address'];
   constructor(private suppliersService: SuppliersService) {}
 
   onCreateSupplier(supplier: ISuppliers) {

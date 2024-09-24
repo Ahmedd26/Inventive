@@ -1,0 +1,137 @@
+<div class="relative overflow-x-auto">
+  <!-- Search -->
+  <div class="pb-6">
+    <label for="table-search" class="sr-only">Search</label>
+    <div class="relative mt-1 inline-block shadow-md sm:rounded-lg">
+      <div
+        class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none"
+      >
+        <svg
+          class="w-4 h-4 text-stone-500 dark:text-stone-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+      <input
+        type="text"
+        id="table-search"
+        class="block pt-2 ps-10 text-sm text-stone-900 border border-stone-300 rounded-lg w-80 bg-stone-50 focus:ring-amber-500 focus:border-amber-500 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        placeholder="Search for items"
+      />
+    </div>
+  </div>
+  <table
+    class="w-full text-sm text-left rtl:text-right text-stone-500 dark:text-stone-400 rounded-lg overflow-hidden shadow-md sm:rounded-lg"
+  >
+    <thead
+      class="text-xs text-stone-700 uppercase bg-stone-50 dark:bg-stone-700 dark:text-stone-400"
+    >
+      <tr>
+        @for(tableHeader of tableHeaders; track tableHeader){
+        <th scope="col" class="px-6 py-3 capitalize">{{ tableHeader }}</th>
+        }
+        <th scope="col" class="px-6 py-3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(tableDataItem of displayList(currentPage); track tableDataItem.id){
+      <tr
+        class="bg-white border-b dark:bg-stone-800 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-600"
+      >
+        @for(key of tableHeaders; track tableHeaders.indexOf(key)){
+        <td class="px-6 py-4">{{ tableDataItem[key] }}</td>
+        }
+        <td class="px-6 py-4">Edit</td>
+      </tr>
+      } @empty {
+      <tr>
+        <td
+          colspan="6"
+          class="bg-white dark:bg-stone-800 p-10 text-center text-xl font-semibold"
+        >
+          <div class="text-5xl mb-4">
+            <i-feather name="inbox" />
+          </div>
+          No tableDataItems added yet.
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <nav
+    class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+    aria-label="Table navigation"
+  >
+    <span
+      class="text-sm font-normal text-stone-500 dark:text-stone-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
+      >Showing
+      <span class="font-semibold text-stone-900 dark:text-white"
+        >{{ start + 1 }}-{{ end }}</span
+      >
+      of
+      <span class="font-semibold text-stone-900 dark:text-white">{{
+        total
+      }}</span></span
+    >
+    <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+      <!-- Previous -->
+      <li>
+        <button
+          ngClass="{{
+            currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+          }}"
+          [disabled]="currentPage === 1"
+          (click)="decrementPage()"
+          class="select-none flex items-center justify-center px-3 h-8 ms-0 leading-tight text-stone-500 bg-white border border-stone-300 rounded-s-lg hover:bg-stone-100 hover:text-stone-700 dark:bg-stone-800 dark:border-stone-700 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
+        >
+          Previous
+        </button>
+      </li>
+      <!-- Pages -->
+      @for(page of pages; track page){
+      <li>
+        <button
+          class="cursor-pointer select-none flex items-center justify-center px-3 h-8 leading-tight border border-stone-300 hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-700 dark:hover:bg-stone-700 dark:hover:text-white"
+          (click)="changePage(page)"
+          [ngClass]="{
+            'text-stone-500 bg-white dark:bg-stone-800 dark:text-stone-400':
+              currentPage !== page,
+            'text-amber-600 bg-amber-50 hover:bg-amber-100 hover:text-amber-700 dark:text-white':
+              currentPage === page
+          }"
+        >
+          {{ page }}
+        </button>
+      </li>
+
+      }
+      <!-- Next -->
+      <li>
+        <button
+          ngClass="{{
+            currentPage === pagesCount
+              ? '!cursor-not-allowed'
+              : 'cursor-pointer'
+          }}"
+          [disabled]="currentPage === pagesCount"
+          (click)="incrementPage()"
+          class="cursor-pointer select-none flex items-center justify-center px-3 h-8 leading-tight text-stone-500 bg-white border border-stone-300 rounded-e-lg hover:bg-stone-100 hover:text-stone-700 dark:bg-stone-800 dark:border-stone-700 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>
