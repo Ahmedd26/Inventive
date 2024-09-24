@@ -16,7 +16,6 @@ import { TableComponent } from '../../shared/components/table/table.component';
     TableComponent,
   ],
   templateUrl: './suppliers.component.html',
-  styleUrl: './suppliers.component.css',
 })
 export class SuppliersComponent {
   isLoading = false;
