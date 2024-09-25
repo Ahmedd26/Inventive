@@ -2,12 +2,12 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { type IProduct } from './products.model';
 import { ProductsService } from './products.service';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf,NgFor],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -16,15 +16,17 @@ export class ProductsComponent {
 
   productsArray!: IProduct[]
   errorTypes = null
+  isLoading = false;
+
   constructor(private productServ: ProductsService) { }
 
   onCreateProduct(productData: IProduct) {
-    let newId = this.productsArray.length + 1
-    const newProduct = { ...productData, id: newId };
-    console.log(newProduct)
-    this.productServ.createNewProduct(newProduct)
+    console.log(productData)
+    this.isLoading = true;
+    this.productServ.createNewProduct(productData)
       .subscribe({
         next: (data) => {
+          this.isLoading = false;
           this.productsArray.push(data);
           console.log(data)
         },
@@ -55,9 +57,8 @@ export class ProductsComponent {
       }
     })
     console.log(this.productsArray.length)
-    console.log(this.productsArray[proId - 1])
     this.productsArray = this.productsArray.filter((element) => element.id !== proId)
-    // this.productsArray = this.productsArray.filter((element) => element !== this.productsArray[proId - 1])
     console.log(this.productsArray.length)
   }
 }
+
