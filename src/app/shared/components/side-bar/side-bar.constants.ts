@@ -12,7 +12,7 @@ export const links: ILink[] = [
     title: 'Inventory',
   },
   {
-    path: '/',
+    path: '/products',
     iconName: 'box',
     title: 'products',
   },

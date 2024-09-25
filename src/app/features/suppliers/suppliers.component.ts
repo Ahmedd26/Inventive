@@ -15,20 +15,20 @@ export class SuppliersComponent {
   isLoading = false;
   suppliers!: ISuppliers[];
 
-  constructor(private suppliersService: SuppliersService) {}
+  constructor(private suppliersService: SuppliersService) { }
 
   onCreateSupplier(supplier: ISuppliers) {
     this.isLoading = true;
     this.suppliersService.create(supplier).subscribe((supplier) => {
       this.isLoading = false;
       this.suppliers.push(supplier);
-      console.log(supplier);
     });
   }
 
   ngOnInit() {
     this.suppliersService.getAll().subscribe((data) => {
       this.suppliers = data;
+      console.log(data)
     });
   }
 }

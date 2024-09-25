@@ -1,0 +1,144 @@
+<div class="text-stone-800 dark:text-white">
+
+  <form #productForm="ngForm" (ngSubmit)="onCreateProduct(productForm.value)">
+
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product name</label>
+      <input type="text"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="name" required minlength="3" #name="ngModel" ngModel>
+      <!-- ERROR HANDLING -->
+      <div *ngIf="name.invalid && name.touched" class="text-red-500">
+        <p *ngIf="name.hasError('required')"> required</p>
+        <p *ngIf="name.hasError('minlength')"> minimum length is 3 characters</p>
+      </div>
+      <p *ngIf="errorTypes && errorTypes['name']" class="text-red-500">{{ errorTypes['name'] }} </p>
+    </div>
+
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product description</label>
+      <input type="text"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="description" required minlength="10" #description="ngModel" ngModel>
+      <!-- ERROR HANDLING -->
+      <div *ngIf="description.invalid && description.touched" class="text-red-500">
+        <p *ngIf="description.hasError('required')"> required</p>
+        <p *ngIf="description.hasError('minlength')"> minimum length is 10 characters</p>
+      </div>
+      <p *ngIf="errorTypes && errorTypes['description']" class="text-red-500">{{ errorTypes['description'] }} </p>
+    </div>
+
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product sku</label>
+      <input type="number"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="sku" required min="1" #sku="ngModel" ngModel>
+      <!-- ERROR HANDLING -->
+      <div *ngIf="sku.invalid && sku.touched" class="text-red-500">
+        <p *ngIf="sku.hasError('required')"> required</p>
+        <p *ngIf="sku.hasError('min')"> minimum value is 1</p>
+      </div>
+      <p *ngIf="errorTypes && errorTypes['sku']" class="text-red-500">{{ errorTypes['sku'] }} </p>
+
+    </div>
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product price</label>
+      <input type="number"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="price" required min="1" #price="ngModel" ngModel>
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="price.invalid && price.touched" class="text-red-500">
+        <p *ngIf="price.hasError('required')"> required</p>
+        <p *ngIf="price.hasError('min')"> minimum value is 1</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="errorTypes && errorTypes['price']" class="text-red-500">{{ errorTypes['price'] }} </p>
+    </div>
+
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product quantity</label>
+      <input type="number"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="quantity" required min="1" #quantity="ngModel" ngModel>
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="quantity.invalid && quantity.touched" class="text-red-500">
+        <p *ngIf="quantity.hasError('required')"> required</p>
+        <p *ngIf="quantity.hasError('min')"> minimum value is 1</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="errorTypes && errorTypes['quantity']" class="text-red-500">{{ errorTypes['quantity'] }} </p>
+    </div>
+
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Category ID</label>
+      <input type="number"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="category_id" required min="1" #category_id="ngModel" ngModel>
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="category_id.invalid && category_id.touched" class="text-red-500">
+        <p *ngIf="category_id.hasError('required')"> required</p>
+        <p *ngIf="category_id.hasError('min')"> minimum value is 1</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="errorTypes && errorTypes['category_id']" class="text-red-500">{{ errorTypes['category_id'] }} </p>
+    </div>
+
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier ID</label>
+      <input type="number"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="supplier_id" required min="1" #supplier_id="ngModel" ngModel>
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="supplier_id.invalid && supplier_id.touched" class="text-red-500">
+        <p *ngIf="supplier_id.hasError('required')"> required</p>
+        <p *ngIf="supplier_id.hasError('min')"> minimum value is 1</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="errorTypes && errorTypes['supplier_id']" class="text-red-500">{{ errorTypes['supplier_id'] }} </p>
+    </div>
+
+    <div class="mb-2">
+      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Image</label>
+      <input type="file"
+        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        name="image" required #image="ngModel" ngModel>
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="image.invalid && image.touched" class="text-red-500">
+        <p *ngIf="image.hasError('required')"> required</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="errorTypes && errorTypes['image']" class="text-red-500">{{ errorTypes['image'] }} </p>
+    </div>
+
+    <div class="flex flex-row-reverse items-center gap-2 mt-2">
+      <button type="submit"
+        class="duration-150 text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800">
+        <!-- [disabled]="productForm.invalid"> -->
+        Create
+      </button>
+    </div>
+  </form>
+
+
+
+  <div class="border border-red-300">
+    @for (product of productsArray; track product.id) {
+    <div class="m-2">
+      <p> Name: {{ product.name }}</p>
+      <p> Description: {{ product.description }}</p>
+      <p> Sku: {{ product.sku }}</p>
+      <p> Price: {{ product.price }}</p>
+      <p> Quantity: {{ product.quantity }}</p>
+      <img src="http://picsum.photos/seed/{{product.id}}/90/90" alt="Product Image">
+      <p> Product ID: {{product.id}}</p>
+      <button type="submit" (click)="onDeleteProduct(product.id)" class="bg-red-700 hover:bg-red-800 p-2">
+        Delete
+      </button>
+      <hr class="m-2">
+    </div>
+    } @empty {
+    <p class="mx-auto">No products were found</p>
+    }
+  </div>
+
+</div>
