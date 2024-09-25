@@ -1,0 +1,13 @@
+@if(fetchingState){
+<app-loading />
+} @if(supplier){
+<div class="space-y-6">
+  <h1>{{ supplier.name }}</h1>
+  <p>Email: {{ supplier.email }}</p>
+  <p>Phone: {{ supplier.phone }}</p>
+  <p>Address: {{ supplier.address }}</p>
+</div>
+} @if(error){
+<h2 class="mb-4">An error occurred...</h2>
+<p>{{ error }}</p>
+}

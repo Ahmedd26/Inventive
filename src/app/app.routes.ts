@@ -6,6 +6,7 @@ import { RegisterComponent } from './core/auth/components/register/register.comp
 import { AuthGuard } from './core/auth/guard/auth.guard';
 import { LoginRegisterGuard } from './core/auth/guard/login-register.guard';
 import { SuppliersComponent } from './features/suppliers/suppliers.component';
+import { ShowSupplierComponent } from './features/suppliers/show-supplier/show-supplier.component';
 
 export const routes: Routes = [
   {
@@ -44,7 +45,13 @@ export const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
-
+  {
+    path: 'suppliers/:id',
+    title: 'Supplier',
+    component: ShowSupplierComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
   {
     path: 'profile',
     title: 'Profile',

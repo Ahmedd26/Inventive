@@ -12,6 +12,7 @@ import { IconsModule } from '../../icons/icons.module';
 import { CommonModule } from '@angular/common';
 import { initFlowbite } from 'flowbite';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
+import { MenuComponent } from "./components/menu/menu.component";
 
 interface ITable {
   id: number | string;
@@ -21,7 +22,7 @@ interface ITable {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [IconsModule, CommonModule, DeletePopUpComponent],
+  imports: [IconsModule, CommonModule, DeletePopUpComponent, MenuComponent],
   templateUrl: './table.component.html',
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
