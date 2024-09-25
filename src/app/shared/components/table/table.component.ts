@@ -5,10 +5,13 @@ import {
   OnInit,
   AfterViewInit,
   OnChanges,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { IconsModule } from '../../icons/icons.module';
 import { CommonModule } from '@angular/common';
 import { initFlowbite } from 'flowbite';
+import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
 
 interface ITable {
   id: number | string;
@@ -18,20 +21,21 @@ interface ITable {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [IconsModule, CommonModule],
+  imports: [IconsModule, CommonModule, DeletePopUpComponent],
   templateUrl: './table.component.html',
 })
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input({ required: true }) tableData: ITable[] = [];
   @Input({ required: true }) tableHeaders: string[] = [];
   @Input() limit: number = 5;
+  @Output() deleteById = new EventEmitter();
+  @Output() updateById = new EventEmitter();
   currentPage = 1;
   total: number = 0;
   start = 0;
   end = 0;
   pages: number[] = [];
   pagesCount = 1;
-
   // Pagination
   changePage(page: number): void {
     this.currentPage = page;
@@ -88,17 +92,36 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     return item.id;
   }
 
-  ngOnInit(): void {
+  //** CONTEXT MENU METHODS **//
+  // Delete
+  deleteItem(id: number) {
+    this.deleteById.emit(id);
+    this.tableData = this.tableData.filter((item) => item.id !== id);
     this.total = this.tableData.length;
     this.pagesCount = Math.ceil(this.total / this.limit);
     this.updatePages();
     this.updateDisplayRange();
   }
-
-  ngAfterViewInit(): void {
-    initFlowbite();
+  // View
+  viewItem(id: number) {}
+  updateItem(id: number) {
+    this.updateById.emit(id);
   }
 
+  //** Component life cycle methods **//
+  ngAfterViewInit(): void {
+    // this.total = this.tableData.length;
+    this.pagesCount = Math.ceil(this.total / this.limit);
+    this.updatePages();
+    this.updateDisplayRange();
+    initFlowbite();
+  }
+  ngOnInit(): void {
+    // this.total = this.tableData.length;
+    this.pagesCount = Math.ceil(this.total / this.limit);
+    this.updatePages();
+    this.updateDisplayRange();
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] && this.tableData) {
       this.total = this.tableData.length;

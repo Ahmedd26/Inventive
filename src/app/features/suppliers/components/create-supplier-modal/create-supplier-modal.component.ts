@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { type ISuppliers } from '../../suppliers.model';
+import { type ISupplier } from '../../suppliers.model';
 
 @Component({
   selector: 'app-create-supplier-modal',
@@ -9,7 +9,7 @@ import { type ISuppliers } from '../../suppliers.model';
   templateUrl: './create-supplier-modal.component.html',
 })
 export class CreateSupplierModalComponent {
-  @Output() supplierCreated = new EventEmitter<ISuppliers>();
+  @Output() supplierCreated = new EventEmitter<ISupplier>();
 
   onSubmit(supplierForm: NgForm) {
     if (supplierForm.valid) {

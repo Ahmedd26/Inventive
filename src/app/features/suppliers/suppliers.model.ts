@@ -1,4 +1,4 @@
-export interface ISuppliers {
+export interface ISupplier {
   id: number;
   name: string;
   email: string;
