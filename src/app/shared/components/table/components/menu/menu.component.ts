@@ -18,7 +18,7 @@ import { IconsModule } from '../../../../icons/icons.module';
 export class MenuComponent implements AfterViewInit {
   @Input({ required: true }) menuId!: string | number;
   @Output() edit = new EventEmitter();
-
+  @Input({ required: true }) viewName!: string;
   update(id: number) {
     this.edit.emit(id);
   }

@@ -9,6 +9,7 @@
     [limit]="8"
     (deleteById)="onDeleteSupplier($event)"
     (updateById)="onUpdateSupplier($event)"
+    resourceNameForRouting="suppliers"
   ></app-table>
   @if(supplier){
   <app-update-supplier-modal

@@ -1,13 +1,48 @@
 @if(fetchingState){
 <app-loading />
-} @if(supplier){
-<div class="space-y-6">
-  <h1>{{ supplier.name }}</h1>
-  <p>Email: {{ supplier.email }}</p>
-  <p>Phone: {{ supplier.phone }}</p>
-  <p>Address: {{ supplier.address }}</p>
+}
+<!--  -->
+@if(error){
+<div
+  class="min-h-[calc(100dvh-120px)] flex flex-col justify-center items-center"
+>
+  <div
+    class="animate-pulse flex flex-col justify-center items-center gap-4 text-stone-900 dark:text-stone-200"
+  >
+    <div class="text-6xl">
+      <i-feather name="alert-circle" />
+    </div>
+    <h2 class="text-5xl font-extrabold">An error occurred</h2>
+    <p class="text-2xl">{{ error }}</p>
+  </div>
+  <a
+    [routerLink]="['/suppliers']"
+    class="mt-20 group relative inline-flex h-12 items-center justify-center rounded-md bg-stone-700 hover:bg-stone-800 text-stone-100 hover:text-amber-300 dark:bg-stone-800 dark:hover:bg-stone-950 dark:text-stone-200 dark:hover:text-amber-300 duration-300 px-6 font-medium gap-4"
+  >
+    <span>Go back to suppliers list?</span>
+    <div class="-rotate-45 transition-all group-hover:rotate-0">
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+      >
+        <path
+          d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </div>
+  </a>
 </div>
-} @if(error){
-<h2 class="mb-4">An error occurred...</h2>
-<p>{{ error }}</p>
+}
+<!--  -->
+@if(supplier){
+<div class="">
+  <!-- card -->
+</div>
 }

@@ -12,7 +12,7 @@ import { IconsModule } from '../../icons/icons.module';
 import { CommonModule } from '@angular/common';
 import { initFlowbite } from 'flowbite';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
-import { MenuComponent } from "./components/menu/menu.component";
+import { MenuComponent } from './components/menu/menu.component';
 
 interface ITable {
   id: number | string;
@@ -28,6 +28,7 @@ interface ITable {
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input({ required: true }) tableData: ITable[] = [];
   @Input({ required: true }) tableHeaders: string[] = [];
+  @Input({ required: true }) resourceNameForRouting: string = '';
   @Input() limit: number = 5;
   @Output() deleteById = new EventEmitter();
   @Output() updateById = new EventEmitter();
