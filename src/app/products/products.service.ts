@@ -2,8 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { API } from "../core/utils/constants.utils";
 import { IProduct } from "./products.model";
-import { ISuppliers } from "../features/suppliers/suppliers.model";
-
 
 const ENDPOINT = `${API}products/`;
 
@@ -25,6 +23,6 @@ export class ProductsService {
   }
 
   delete(productID: any) {
-    return this.http.delete<IProduct>(ENDPOINT + productID)
+    return this.http.delete(ENDPOINT + productID)
   }
 }

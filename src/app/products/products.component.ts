@@ -5,6 +5,8 @@ import { ProductsService } from './products.service';
 import { NgFor, NgIf } from '@angular/common';
 import { ISuppliers } from '../features/suppliers/suppliers.model';
 import { SuppliersService } from '../features/suppliers/suppliers.service';
+import { CategoriesService } from '../features/categories/categories.service';
+import { ICategory } from '../features/categories/categories.model';
 
 @Component({
   selector: 'app-products',
@@ -18,10 +20,11 @@ export class ProductsComponent {
 
   productsArray!: IProduct[]
   suppliersArray!: ISuppliers[]
+  categoriesArray!: ICategory[]
   errorTypes = null
   isLoading = false;
 
-  constructor(private productServ: ProductsService, private supplierServ: SuppliersService) { }
+  constructor(private productServ: ProductsService, private supplierServ: SuppliersService, private categoryServ: CategoriesService) { }
 
   onCreateProduct(productData: IProduct) {
     console.log(productData)
@@ -43,16 +46,6 @@ export class ProductsComponent {
       })
   }
 
-  ngOnInit() {
-    this.productServ.getAllProducts().subscribe((data) => {
-      this.productsArray = data
-      console.log("Products array length is", this.productsArray.length)
-    })
-    this.supplierServ.getAll().subscribe(supData => {
-      this.suppliersArray = supData
-      // console.log(this.suppliersArray)
-    })
-  }
   onDeleteProduct(proId: any) {
     console.log(proId)
     this.productServ.delete(proId).subscribe({
@@ -67,5 +60,22 @@ export class ProductsComponent {
     this.productsArray = this.productsArray.filter((element) => element.id !== proId)
     console.log(this.productsArray.length)
   }
+
+  ngOnInit() {
+    this.productServ.getAllProducts().subscribe((data) => {
+      this.productsArray = data
+      console.log("Products array length is", this.productsArray.length)
+    })
+    this.supplierServ.getAll().subscribe(supData => {
+      this.suppliersArray = supData
+      // console.log(this.suppliersArray)
+    })
+    this.categoryServ.getAllCategories().subscribe(catData => {
+      this.categoriesArray = catData
+      // console.log(catData)
+      // console.log(this.categoriesArray)
+    })
+  }
+
 }
 

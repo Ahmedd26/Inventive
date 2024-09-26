@@ -12,6 +12,7 @@
         <p *ngIf="name.hasError('required')"> required</p>
         <p *ngIf="name.hasError('minlength')"> minimum length is 3 characters</p>
       </div>
+      <!-- ERROR HANDLING Backend -->
       <p *ngIf="errorTypes && errorTypes['name']" class="text-red-500">{{ errorTypes['name'] }} </p>
     </div>
 
@@ -25,6 +26,7 @@
         <p *ngIf="description.hasError('required')"> required</p>
         <p *ngIf="description.hasError('minlength')"> minimum length is 10 characters</p>
       </div>
+      <!-- ERROR HANDLING Backend -->
       <p *ngIf="errorTypes && errorTypes['description']" class="text-red-500">{{ errorTypes['description'] }} </p>
     </div>
 
@@ -38,9 +40,10 @@
         <p *ngIf="sku.hasError('required')"> required</p>
         <p *ngIf="sku.hasError('min')"> minimum value is 1</p>
       </div>
+      <!-- ERROR HANDLING Backend -->
       <p *ngIf="errorTypes && errorTypes['sku']" class="text-red-500">{{ errorTypes['sku'] }} </p>
-
     </div>
+
     <div class="mb-2">
       <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product price</label>
       <input type="number"
@@ -70,19 +73,25 @@
     </div>
 
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Category ID</label>
-      <input type="number"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="category_id" required min="1" #category_id="ngModel" ngModel>
+      <label for="category_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Category ID</label>
+      <select id="category_id"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        name="category_id" required #category_id="ngModel" ngModel>
+        <option value="">Choose a Category</option>
+        @for (category of categoriesArray; track $index) {
+        <option value="{{category.id}}"> {{category.name}}</option>
+        }
+        @empty {
+        <p class="mx-auto">No categories were found</p>
+        }
+      </select>
       <!-- ERROR HANDLING Frontend -->
       <div *ngIf="category_id.invalid && category_id.touched" class="text-red-500">
         <p *ngIf="category_id.hasError('required')"> required</p>
-        <p *ngIf="category_id.hasError('min')"> minimum value is 1</p>
       </div>
       <!-- ERROR HANDLING Backend -->
       <p *ngIf="errorTypes && errorTypes['category_id']" class="text-red-500">{{ errorTypes['category_id'] }} </p>
     </div>
-
 
     <div class="mb-2">
       <label for="supplier_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier ID</label>
@@ -129,8 +138,8 @@
   </form>
 
 
+  
   <div class="border border-red-300">
-
     @for (product of productsArray; track product.id) {
     <div class="m-2">
       <p> Name: {{ product.name }}</p>
@@ -151,19 +160,6 @@
     }
   </div>
 
+
+
 </div>
-
-
-
-
-<!-- <div class="mb-2">
-  <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier ID</label>
-  <input type="number"
-    class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-    name="supplier_id" required min="1" #supplier_id="ngModel" ngModel>
-  <div *ngIf="supplier_id.invalid && supplier_id.touched" class="text-red-500">
-    <p *ngIf="supplier_id.hasError('required')"> required</p>
-    <p *ngIf="supplier_id.hasError('min')"> minimum value is 1</p>
-  </div>
-  <p *ngIf="errorTypes && errorTypes['supplier_id']" class="text-red-500">{{ errorTypes['supplier_id'] }} </p>
-</div> -->

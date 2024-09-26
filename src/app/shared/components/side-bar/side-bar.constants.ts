@@ -17,6 +17,11 @@ export const links: ILink[] = [
     title: 'products',
   },
   {
+    path: '/categories',
+    iconName: 'hash',
+    title: 'Categories',
+  },
+  {
     path: '/',
     iconName: 'truck',
     title: 'Orders',
