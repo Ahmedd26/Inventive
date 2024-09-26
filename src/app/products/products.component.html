@@ -83,19 +83,28 @@
       <p *ngIf="errorTypes && errorTypes['category_id']" class="text-red-500">{{ errorTypes['category_id'] }} </p>
     </div>
 
+
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier ID</label>
-      <input type="number"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="supplier_id" required min="1" #supplier_id="ngModel" ngModel>
+      <label for="supplier_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier ID</label>
+      <select id="supplier_id"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        name="supplier_id" required #supplier_id="ngModel" ngModel>
+        <option value="">Choose a Supplier</option>
+        @for (supplier of suppliersArray; track $index) {
+        <option value="{{supplier.id}}"> {{supplier.name}}</option>
+        }
+        @empty {
+        <p class="mx-auto">No suppliers were found</p>
+        }
+      </select>
       <!-- ERROR HANDLING Frontend -->
       <div *ngIf="supplier_id.invalid && supplier_id.touched" class="text-red-500">
         <p *ngIf="supplier_id.hasError('required')"> required</p>
-        <p *ngIf="supplier_id.hasError('min')"> minimum value is 1</p>
       </div>
       <!-- ERROR HANDLING Backend -->
       <p *ngIf="errorTypes && errorTypes['supplier_id']" class="text-red-500">{{ errorTypes['supplier_id'] }} </p>
     </div>
+
 
     <div class="mb-2">
       <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Image</label>
@@ -143,3 +152,18 @@
   </div>
 
 </div>
+
+
+
+
+<!-- <div class="mb-2">
+  <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier ID</label>
+  <input type="number"
+    class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+    name="supplier_id" required min="1" #supplier_id="ngModel" ngModel>
+  <div *ngIf="supplier_id.invalid && supplier_id.touched" class="text-red-500">
+    <p *ngIf="supplier_id.hasError('required')"> required</p>
+    <p *ngIf="supplier_id.hasError('min')"> minimum value is 1</p>
+  </div>
+  <p *ngIf="errorTypes && errorTypes['supplier_id']" class="text-red-500">{{ errorTypes['supplier_id'] }} </p>
+</div> -->

@@ -3,11 +3,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { type IProduct } from './products.model';
 import { ProductsService } from './products.service';
 import { NgFor, NgIf } from '@angular/common';
+import { ISuppliers } from '../features/suppliers/suppliers.model';
+import { SuppliersService } from '../features/suppliers/suppliers.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [FormsModule, NgIf,NgFor],
+  imports: [FormsModule, NgIf, NgFor],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -15,10 +17,11 @@ import { NgFor, NgIf } from '@angular/common';
 export class ProductsComponent {
 
   productsArray!: IProduct[]
+  suppliersArray!: ISuppliers[]
   errorTypes = null
   isLoading = false;
 
-  constructor(private productServ: ProductsService) { }
+  constructor(private productServ: ProductsService, private supplierServ: SuppliersService) { }
 
   onCreateProduct(productData: IProduct) {
     console.log(productData)
@@ -44,6 +47,10 @@ export class ProductsComponent {
     this.productServ.getAllProducts().subscribe((data) => {
       this.productsArray = data
       console.log("Products array length is", this.productsArray.length)
+    })
+    this.supplierServ.getAll().subscribe(supData => {
+      this.suppliersArray = supData
+      // console.log(this.suppliersArray)
     })
   }
   onDeleteProduct(proId: any) {
