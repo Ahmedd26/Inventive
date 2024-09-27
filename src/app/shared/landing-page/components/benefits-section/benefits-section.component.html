@@ -1,0 +1,330 @@
+<section
+  id="benefits"
+  class="min-h-dvh relative z-10 bg-stone-200 dark:bg-stone-900"
+>
+  <div class="pt-8 pb-12 px-4 mx-auto container sm:pt-32 lg:px-4">
+    <div class="space-y-4 lg:space-y-32">
+      <div class="grid md:grid-cols-12 gap-4 md:gap-8">
+        <img
+          src="/assets/images/truck-unload.png"
+          class="col-span-5 object-center mx-auto block drop-shadow-xl"
+          alt="A truck unloading"
+        />
+        <div class="space-y-4 col-span-7">
+          <h2
+            class="text-4xl font-extrabold text-stone-800 dark:text-stone-200 md:text-5xl pb-4"
+          >
+            Maximize Efficiency. Minimize Costs. Optimize Your Inventory.
+          </h2>
+          <p class="text-stone-600 dark:text-stone-400">
+            Inventive is more than just an inventory management tool; it's your
+            strategic partner. By streamlining your operations, reducing errors,
+            and improving decision-making, Inventive empowers you to achieve new
+            levels of efficiency and profitability.
+          </p>
+          <p class="text-stone-600 dark:text-stone-400">
+            With Inventive, you can say goodbye to manual processes,
+            spreadsheets, and the constant stress of inventory management. Our
+            intuitive platform automates tasks, provides real-time insights, and
+            offers a seamless user experience, saving you time and effort.
+          </p>
+
+          <p class="text-stone-600 dark:text-stone-400">
+            Invest in Inventive and unlock the potential of your inventory.
+            Experience the difference today and discover how our powerful
+            solution can transform your business.
+          </p>
+          <div class="flex justify-end">
+            <a
+              (click)="scrollToSection('features')"
+              class="cursor-pointer bg-stone-600 hover:bg-stone-700 text-white font-bold py-2 px-4 rounded-md"
+            >
+              Read More
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-12 gap-4 md:gap-8">
+        <div class="col-span-7 space-y-4">
+          <div class="grid lg:grid-cols-2 gap-4">
+            @for(card of benefitCards; track card.heading){
+            <landing-page-card [card]="card" />
+            }
+          </div>
+        </div>
+        <img
+          src="/assets/images/Cardboard-boxes.png"
+          class="col-span-5 row-start-1 md:col-start-8 object-center mx-auto block drop-shadow-xl"
+          alt="Cardboard boxes"
+        />
+      </div>
+    </div>
+  </div>
+  <!-- End section -->
+  <!-- SVG BG -->
+  <div
+    class="hidden lg:block lg:scale-x-[1.5] lg:scale-y-[2] lg:translate-y-[65%] lg:-translate-x-[10%] xl:translate-y-[27%] rotate-12 absolute inset-0 -z-10 xl:scale-[1.15] top-[20%] lg:top-0"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:svgjs="http://svgjs.dev/svgjs"
+      viewBox="0 0 1422 800"
+      opacity="1"
+    >
+      <defs>
+        <linearGradient
+          x1="50%"
+          y1="0%"
+          x2="50%"
+          y2="100%"
+          id="oooscillate-grad"
+        >
+          <stop
+            class="text-amber-500"
+            stop-color="currentColor"
+            stop-opacity="1"
+            offset="0%"
+          ></stop>
+          <stop
+            class="text-amber-800"
+            stop-color="currentColor"
+            stop-opacity="1"
+            offset="100%"
+          ></stop>
+        </linearGradient>
+      </defs>
+      <g
+        stroke-width="1.5"
+        stroke="url(#oooscillate-grad)"
+        fill="none"
+        stroke-linecap="round"
+      >
+        <path
+          d="M 0 440 Q 355.5 -100 711 400 Q 1066.5 900 1422 440"
+          stroke-dasharray="49 85"
+          opacity="0.05"
+        ></path>
+        <path
+          d="M 0 418 Q 355.5 -100 711 400 Q 1066.5 900 1422 418"
+          stroke-dasharray="6 27"
+          opacity="0.10"
+        ></path>
+        <path
+          d="M 0 396 Q 355.5 -100 711 400 Q 1066.5 900 1422 396"
+          stroke-dasharray="116 4"
+          opacity="0.15"
+        ></path>
+        <path
+          d="M 0 374 Q 355.5 -100 711 400 Q 1066.5 900 1422 374"
+          stroke-dasharray="75 29"
+          opacity="0.20"
+        ></path>
+        <path
+          d="M 0 352 Q 355.5 -100 711 400 Q 1066.5 900 1422 352"
+          stroke-dasharray="95 46"
+          opacity="0.25"
+        ></path>
+        <path
+          d="M 0 330 Q 355.5 -100 711 400 Q 1066.5 900 1422 330"
+          stroke-dasharray="112 104"
+          opacity="0.30"
+        ></path>
+        <path
+          d="M 0 308 Q 355.5 -100 711 400 Q 1066.5 900 1422 308"
+          stroke-dasharray="42 10"
+          opacity="0.35"
+        ></path>
+        <path
+          d="M 0 286 Q 355.5 -100 711 400 Q 1066.5 900 1422 286"
+          stroke-dasharray="34 56"
+          opacity="0.40"
+        ></path>
+        <path
+          d="M 0 264 Q 355.5 -100 711 400 Q 1066.5 900 1422 264"
+          stroke-dasharray="42 116"
+          opacity="0.45"
+        ></path>
+        <path
+          d="M 0 242 Q 355.5 -100 711 400 Q 1066.5 900 1422 242"
+          stroke-dasharray="6 84"
+          opacity="0.50"
+        ></path>
+        <path
+          d="M 0 220 Q 355.5 -100 711 400 Q 1066.5 900 1422 220"
+          stroke-dasharray="86 18"
+          opacity="0.55"
+        ></path>
+        <path
+          d="M 0 198 Q 355.5 -100 711 400 Q 1066.5 900 1422 198"
+          stroke-dasharray="52 25"
+          opacity="0.60"
+        ></path>
+        <path
+          d="M 0 176 Q 355.5 -100 711 400 Q 1066.5 900 1422 176"
+          stroke-dasharray="79 22"
+          opacity="0.65"
+        ></path>
+        <path
+          d="M 0 154 Q 355.5 -100 711 400 Q 1066.5 900 1422 154"
+          stroke-dasharray="116 93"
+          opacity="0.70"
+        ></path>
+        <path
+          d="M 0 132 Q 355.5 -100 711 400 Q 1066.5 900 1422 132"
+          stroke-dasharray="67 50"
+          opacity="0.75"
+        ></path>
+        <path
+          d="M 0 110 Q 355.5 -100 711 400 Q 1066.5 900 1422 110"
+          stroke-dasharray="23 95"
+          opacity="0.80"
+        ></path>
+        <path
+          d="M 0 88 Q 355.5 -100 711 400 Q 1066.5 900 1422 88"
+          stroke-dasharray="24 59"
+          opacity="0.85"
+        ></path>
+        <path
+          d="M 0 66 Q 355.5 -100 711 400 Q 1066.5 900 1422 66"
+          stroke-dasharray="100 85"
+          opacity="0.90"
+        ></path>
+        <path
+          d="M 0 44 Q 355.5 -100 711 400 Q 1066.5 900 1422 44"
+          stroke-dasharray="100 48"
+          opacity="0.95"
+        ></path>
+      </g>
+    </svg>
+  </div>
+  <!-- SVG BORDER -->
+  <div class="-z-30 relative -mt-[10%]">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:svgjs="http://svgjs.dev/svgjs"
+      viewBox="0 0 325 100"
+    >
+      <rect
+        width="100%"
+        height="100%"
+        fill=""
+        class="fill-stone-100 dark:fill-stone-800"
+      ></rect>
+      <g fill="" class="fill-stone-200 dark:fill-stone-900">
+        <rect
+          width="100%"
+          height="40"
+          fill=""
+          class="fill-stone-200 dark:fill-stone-900"
+        ></rect>
+
+        <rect x="0" width="5.88%" height="94.0395879688611" rx="12"></rect>
+        <rect
+          x="11.76%"
+          width="5.88%"
+          height="74.04144326153816"
+          rx="12"
+        ></rect>
+        <rect
+          x="23.53%"
+          width="5.88%"
+          height="61.31231424116173"
+          rx="12"
+        ></rect>
+        <rect
+          x="35.29%"
+          width="5.88%"
+          height="93.01929770603282"
+          rx="12"
+        ></rect>
+        <rect
+          x="47.06%"
+          width="5.88%"
+          height="67.88704662731246"
+          rx="12"
+        ></rect>
+        <rect
+          x="58.82%"
+          width="5.88%"
+          height="83.92298101477444"
+          rx="12"
+        ></rect>
+        <rect x="70.59%" width="5.88%" height="57.2789493930401" rx="12"></rect>
+        <rect
+          x="82.35%"
+          width="5.88%"
+          height="65.97754725825554"
+          rx="12"
+        ></rect>
+        <rect
+          x="94.12%"
+          width="5.88%"
+          height="78.39108994367447"
+          rx="12"
+        ></rect>
+      </g>
+      <g fill="" class="fill-stone-100 dark:fill-stone-800">
+        <rect
+          x="5.88%"
+          y="12.844494455699877"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+        <rect
+          x="17.65%"
+          y="18.404191337372424"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+        <rect
+          x="29.41%"
+          y="24.101651902388305"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+        <rect
+          x="41.18%"
+          y="16.7692111203148"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+        <rect
+          x="52.94%"
+          y="10.034094196495998"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+        <rect
+          x="64.71%"
+          y="22.12672286429243"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+        <rect
+          x="76.47%"
+          y="4.0367650929078165"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+        <rect
+          x="88.24%"
+          y="26.881440114951435"
+          width="5.88%"
+          height="60"
+          rx="12"
+        ></rect>
+      </g>
+    </svg>
+  </div>
+</section>

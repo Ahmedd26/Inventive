@@ -1,7 +1,8 @@
 <section
+  id="features"
   class="relative z-50 bg-gradient-to-b from-stone-200 from-5% via-stone-100 to-white dark:from-stone-900 dark:to-stone-800"
 >
-  <div class="py-8 px-4 mx-auto container sm:py-32 lg:px-4">
+  <div class="pt-8 pb-12 px-4 mx-auto container sm:pt-32 lg:px-4">
     <h2 class="text-6xl font-extrabold mb-8 text-center dark:text-white">
       Features
     </h2>
@@ -188,8 +189,20 @@
       class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0"
     >
       @for(featureCard of featureCards; track featureCard.heading){
-      <features-card [card]="featureCard" />
+      <landing-page-card [card]="featureCard" />
       }
     </div>
+  </div>
+  <div class="">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1000 100"
+      class="fill-stone-200 dark:fill-stone-900 rotate-180"
+    >
+      <path d="M0 0v100l500-48 500 48V0H0z" opacity=".5"></path>
+      <path d="M0 0h1000v52H0z" opacity=".5"></path>
+      <path d="M0 0v4l500 48 500-48V0H0z" opacity=".5"></path>
+      <path d="M0 0v4l500 48 500-48V0H0z"></path>
+    </svg>
   </div>
 </section>

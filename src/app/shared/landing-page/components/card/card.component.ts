@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconsModule } from '../../../../icons/icons.module';
+import { IconsModule } from '../../../icons/icons.module';
 
 export interface ICard {
   heading: string;
@@ -7,7 +7,7 @@ export interface ICard {
   iconName: string;
 }
 @Component({
-  selector: 'features-card',
+  selector: 'landing-page-card',
   standalone: true,
   imports: [IconsModule],
   templateUrl: './card.component.html',

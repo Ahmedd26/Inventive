@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CardComponent, ICard } from './card/card.component';
+import { CardComponent, ICard } from '../card/card.component';
 
 @Component({
   selector: 'app-features-section',
