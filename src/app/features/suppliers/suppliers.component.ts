@@ -37,7 +37,6 @@ export class SuppliersComponent {
     this.suppliersService.create(supplier).subscribe((supplier) => {
       this.isLoading = false;
       this.suppliers.push(supplier);
-      console.log(supplier);
     });
   }
 
@@ -58,6 +57,7 @@ export class SuppliersComponent {
   ngOnInit() {
     this.suppliersService.getAll().subscribe((data) => {
       this.suppliers = data;
+      console.log(data)
     });
   }
 }

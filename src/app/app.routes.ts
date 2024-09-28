@@ -7,6 +7,8 @@ import { AuthGuard } from './core/auth/guard/auth.guard';
 import { LoginRegisterGuard } from './core/auth/guard/login-register.guard';
 import { SuppliersComponent } from './features/suppliers/suppliers.component';
 import { ShowSupplierComponent } from './features/suppliers/show-supplier/show-supplier.component';
+import { ProductsComponent } from './products/products.component';
+import { CategoriesComponent } from './features/categories/categories.component';
 
 export const routes: Routes = [
   {
@@ -49,6 +51,20 @@ export const routes: Routes = [
     path: 'suppliers/:id',
     title: 'Supplier',
     component: ShowSupplierComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'products',
+    title: 'Products',
+    component: ProductsComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'categories',
+    title: 'Categories',
+    component: CategoriesComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
