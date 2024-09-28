@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
+import { initFlowbite } from 'flowbite';
 
 interface ITestimonial {
   testimonial: string;
@@ -12,7 +13,10 @@ interface ITestimonial {
   imports: [],
   templateUrl: './testimonials-section.component.html',
 })
-export class TestimonialsSectionComponent {
+export class TestimonialsSectionComponent implements AfterViewInit {
+  ngAfterViewInit() {
+    initFlowbite();
+  }
   testimonials: ITestimonial[] = [
     {
       testimonial:
