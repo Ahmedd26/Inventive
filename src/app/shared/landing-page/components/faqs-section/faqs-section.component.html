@@ -1,0 +1,22 @@
+<section id="features" class="relative z-10 bg-stone-100 dark:bg-stone-800">
+  <div class="relative z-10 py-16 px-4 mx-auto container sm:py-32 lg:px-4">
+    <h2
+      class="text-center text-4xl md:text-5xl xl:text-6xl font-extrabold text-stone-900 dark:text-stone-50 mb-16 xl:mb-20"
+    >
+      Frequently asked questions
+    </h2>
+
+    <div class="">
+      <div
+        id="accordion-flush"
+        data-accordion="collapse"
+        data-active-classes="bg-white dark:bg-stone-900 text-stone-900 dark:text-white"
+        data-inactive-classes="text-stone-500 dark:text-stone-400"
+      >
+        @for(faq of faqs; track faq.id){
+        <app-accordion-tab [FAQtab]="faq" />
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+<h2 [id]="'accordion-flush-heading-' + FAQtab.id">
+  <button
+    type="button"
+    class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-stone-500 border-b border-stone-200 dark:border-stone-700 dark:text-stone-400 gap-3 px-4"
+    [attr.data-accordion-target]="'#accordion-flush-body-' + FAQtab.id"
+    aria-expanded="false"
+    [attr.aria-controls]="'accordion-flush-body-' + FAQtab.id"
+  >
+    <span>{{ FAQtab.question }}</span>
+    <svg
+      data-accordion-icon
+      class="w-3 h-3 rotate-180 shrink-0"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 10 6"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5 5 1 1 5"
+      />
+    </svg>
+  </button>
+</h2>
+<div
+  [id]="'accordion-flush-body-' + FAQtab.id"
+  class="hidden"
+  [attr.aria-labelledby]="'accordion-flush-heading-' + FAQtab.id"
+>
+  <div class="py-5 px-4 border-b border-stone-200 dark:border-stone-700">
+    <p class="mb-2 text-stone-500 dark:text-stone-400">
+      {{ FAQtab.answer }}
+    </p>
+  </div>
+</div>

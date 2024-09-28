@@ -9,6 +9,7 @@ import { SuppliersComponent } from './features/suppliers/suppliers.component';
 import { ShowSupplierComponent } from './features/suppliers/show-supplier/show-supplier.component';
 import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './features/categories/categories.component';
+import { LandingPageComponent } from './shared/landing-page/landing-page.component';
 
 export const routes: Routes = [
   {
@@ -29,9 +30,10 @@ export const routes: Routes = [
 
   {
     path: '',
-    title: 'Dashboard',
-    component: DashboardComponent,
+    title: 'Inventive',
+    component: LandingPageComponent,
     pathMatch: 'full',
+    canActivate: [LoginRegisterGuard],
   },
   {
     path: 'dashboard',
