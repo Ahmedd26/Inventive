@@ -1,7 +1,7 @@
 <nav class="bg-stone-50 border-stone-200 dark:bg-stone-900">
-  <!-- class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4" -->
+  <!-- class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto" -->
   <div
-    class="container flex flex-wrap items-center justify-between mx-auto p-4"
+    class="container flex flex-wrap items-center justify-between p-4 mx-auto"
   >
     <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <span
@@ -9,17 +9,17 @@
         >Inventive</span
       >
     </a>
-    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+    <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
       <a
         routerLink="/login"
-        class="text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
+        class="px-4 py-2 text-sm font-medium text-center text-white rounded-lg bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
       >
         Login
       </a>
       <button
         data-collapse-toggle="navbar-cta"
         type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-stone-500 rounded-lg md:hidden hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-stone-200 dark:text-stone-400 dark:hover:bg-stone-700 dark:focus:ring-stone-600"
+        class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm rounded-lg text-stone-500 md:hidden hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-stone-200 dark:text-stone-400 dark:hover:bg-stone-700 dark:focus:ring-stone-600"
         aria-controls="navbar-cta"
         aria-expanded="false"
       >
@@ -46,13 +46,12 @@
       id="navbar-cta"
     >
       <ul
-        class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-stone-100 rounded-lg bg-stone-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-stone-800 md:dark:bg-stone-900 dark:border-stone-700"
+        class="flex flex-col p-4 mt-4 font-medium border rounded-lg md:p-0 border-stone-100 bg-stone-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-stone-800 md:dark:bg-stone-900 dark:border-stone-700"
       >
         <li>
           <button
             (click)="scrollToSection('features')"
-            class="cursor-pointer capitalize block py-2 px-3 md:p-0 text-white bg-amber-700 rounded md:bg-transparent md:text-amber-700 md:dark:text-amber-500"
-            aria-current="page"
+            class="block px-3 py-2 capitalize rounded cursor-pointer md:p-0 text-stone-900 hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
           >
             Features
           </button>
@@ -60,14 +59,14 @@
         <li>
           <button
             (click)="scrollToSection('benefits')"
-            class="cursor-pointer capitalize block py-2 px-3 md:p-0 text-stone-900 rounded hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
+            class="block px-3 py-2 capitalize rounded cursor-pointer md:p-0 text-stone-900 hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
           >
             Benefits
           </button>
         </li>
-        <li class="dark:text-white order-last md:order-none">
+        <li class="order-last dark:text-white md:order-none">
           <span
-            class="block py-2 px-3 md:p-0 text-stone-900 rounded hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
+            class="block px-3 py-2 rounded md:p-0 text-stone-900 hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
           >
             <div class="flex items-center gap-4">
               <app-toggle-dark-light />
@@ -78,7 +77,7 @@
         <li>
           <button
             (click)="scrollToSection('pricing')"
-            class="cursor-pointer capitalize block py-2 px-3 md:p-0 text-stone-900 rounded hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
+            class="block px-3 py-2 capitalize rounded cursor-pointer md:p-0 text-stone-900 hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
           >
             Pricing
           </button>
@@ -86,7 +85,7 @@
         <li>
           <button
             (click)="scrollToSection('about')"
-            class="cursor-pointer capitalize block py-2 px-3 md:p-0 text-stone-900 rounded hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
+            class="block px-3 py-2 capitalize rounded cursor-pointer md:p-0 text-stone-900 hover:bg-stone-100 md:hover:bg-transparent md:hover:text-amber-700 md:dark:hover:text-amber-500 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-stone-700"
           >
             About
           </button>
