@@ -7,6 +7,7 @@ import { BenefitsSectionComponent } from './components/benefits-section/benefits
 import { TestimonialsSectionComponent } from './components/testimonials-section/testimonials-section.component';
 import { AboutUsSectionComponent } from './components/about-us-section/about-us-section.component';
 import { PricingSectionComponent } from './components/pricing-section/pricing-section.component';
+import { FAQsSectionComponent } from './components/faqs-section/faqs-section.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -20,6 +21,7 @@ import { PricingSectionComponent } from './components/pricing-section/pricing-se
     TestimonialsSectionComponent,
     AboutUsSectionComponent,
     PricingSectionComponent,
+    FAQsSectionComponent,
   ],
   templateUrl: './landing-page.component.html',
 })
