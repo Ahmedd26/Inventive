@@ -18,12 +18,16 @@ export class CategoriesService {
     return this.http.get<ICategory[]>(ENDPOINT)
   }
 
-  createNewCategory(category: ICategory) {
+  createCategory(category: ICategory) {
     return this.http.post<ICategory>(ENDPOINT, category)
   }
 
   deleteCategory(categId: any) {
     return this.http.delete(ENDPOINT + categId)
+  }
+
+  updateCategory(categoryData: ICategory, categId: any) {
+    return this.http.patch<ICategory>(ENDPOINT + categId, categoryData)
   }
 
 
