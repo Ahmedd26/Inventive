@@ -7,6 +7,7 @@ import { ISupplier } from '../features/suppliers/suppliers.model';
 import { SuppliersService } from '../features/suppliers/suppliers.service';
 import { CategoriesService } from '../features/categories/categories.service';
 import { ICategory } from '../features/categories/categories.model';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -20,13 +21,14 @@ export class ProductsComponent {
   suppliersArray!: ISupplier[];
   categoriesArray!: ICategory[];
   errorTypes = null;
+  errorUpdates = null
   isLoading = false;
 
   constructor(
     private productServ: ProductsService,
     private supplierServ: SuppliersService,
     private categoryServ: CategoriesService
-  ) {}
+  ) { }
 
   onCreateProduct(productData: IProduct) {
     console.log(productData);
@@ -64,6 +66,17 @@ export class ProductsComponent {
     console.log(this.productsArray.length);
   }
 
+  onUpdateProduct(productData: IProduct, prodId: any) {
+    this.productServ.updateProduct(productData, prodId).subscribe({
+      next: data => {
+        console.log(data)
+      },
+      error: errorRes => {
+        console.log(errorRes)
+        this.errorUpdates = errorRes.error.errors
+      }
+    })
+  }
   ngOnInit() {
     this.productServ.getAllProducts().subscribe((data) => {
       this.productsArray = data;
@@ -76,7 +89,7 @@ export class ProductsComponent {
     this.categoryServ.getAllCategories().subscribe((catData) => {
       this.categoriesArray = catData;
       // console.log(catData)
-      // console.log(this.categoriesArray)
+      // console.log( this.categoriesArray)
     });
   }
 }

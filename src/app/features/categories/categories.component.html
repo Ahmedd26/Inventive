@@ -3,8 +3,8 @@
 
   <form #categoryForm="ngForm" (ngSubmit)="onCreateCategory(categoryForm.value)">
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product name</label>
-      <input type="text"
+      <label for="name" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product name</label>
+      <input id="name" type="text"
         class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500 "
         name="name" required minlength="3" #name="ngModel" ngModel>
       <!-- ERROR HANDLING -->
@@ -33,16 +33,16 @@
   <div class="flex justify-between">
 
     <div class="">
-      <form #updatedName="ngForm" (ngSubmit)="onUpdateCategory(updatedName.value,category.id)">
+      <form #updateCategory="ngForm" (ngSubmit)="onUpdateCategory(updateCategory.value,category.id)">
         <label for="updatedCategory"> update category </label>
         <input id="updatedCategory" type="text" name="name"
           class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-          required minlength="3" #updatedName="ngModel" ngModel>
+          required minlength="3" #updatedName="ngModel" ngModel [ngModel]="category.name">
         <div *ngIf="updatedName.invalid && updatedName.touched" class="text-red-500">
           <p *ngIf="updatedName.hasError('required')"> required</p>
           <p *ngIf="updatedName.hasError('minlength')"> minimum length is 3 characters</p>
         </div>
-        <p *ngIf="errorUpdates && errorUpdates['name'] && updatedName.dirty" class="text-red-500">{{
+        <p *ngIf="errorUpdates && errorUpdates['name']" class="text-red-500">{{
           errorUpdates['name'] }}
         </p>
 

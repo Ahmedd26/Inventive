@@ -1,8 +1,8 @@
 <div class="text-stone-800 dark:text-white">
   <form #productForm="ngForm" (ngSubmit)="onCreateProduct(productForm.value)">
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product name</label>
-      <input type="text"
+      <label for="name" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product name</label>
+      <input id="name" type="text"
         class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
         name="name" required minlength="3" #name="ngModel" ngModel />
       <!-- ERROR HANDLING -->
@@ -17,8 +17,9 @@
     </div>
 
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product description</label>
-      <input type="text"
+      <label for="description" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product
+        description</label>
+      <input id="description" type="text"
         class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
         name="description" required minlength="10" #description="ngModel" ngModel />
       <!-- ERROR HANDLING -->
@@ -35,8 +36,8 @@
     </div>
 
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product sku</label>
-      <input type="number"
+      <label for="sku" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product sku</label>
+      <input id="sku" type="number"
         class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
         name="sku" required min="1" #sku="ngModel" ngModel />
       <!-- ERROR HANDLING -->
@@ -51,8 +52,8 @@
     </div>
 
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product price</label>
-      <input type="number"
+      <label for="price" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product price</label>
+      <input id="price" type="number"
         class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
         name="price" required min="1" #price="ngModel" ngModel />
       <!-- ERROR HANDLING Frontend -->
@@ -67,8 +68,9 @@
     </div>
 
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product quantity</label>
-      <input type="number"
+      <label for="quantity" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product
+        quantity</label>
+      <input id="quantity" type="number"
         class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
         name="quantity" required min="1" #quantity="ngModel" ngModel />
       <!-- ERROR HANDLING Frontend -->
@@ -127,8 +129,8 @@
     </div>
 
     <div class="mb-2">
-      <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Image</label>
-      <input type="file"
+      <label for="image" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Image</label>
+      <input id="image" type="file"
         class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
         name="image" required #image="ngModel" ngModel />
       <!-- ERROR HANDLING Frontend -->
@@ -158,12 +160,174 @@
       <p>Sku: {{ product.sku }}</p>
       <p>Price: {{ product.price }}</p>
       <p>Quantity: {{ product.quantity }}</p>
+      <p>category_id: {{ product.category_id }}</p>
+      <p>supplier_id {{ product.supplier_id }}</p>
       <img [src]="product.image" alt="Product Image" class="w-48" />
       <p>Product ID: {{ product.id }}</p>
-      <button type="submit" (click)="onDeleteProduct(product.id)"
-        class="p-2 mx-2 rounded-md bg-green-700 hover:bg-green-800">
-        Edit
-      </button>
+      <!--------------------------------------------------------------------------->
+
+
+
+      <form #updatedProduct="ngForm" (ngSubmit)="onUpdateProduct(updatedProduct.value,product.id)">
+        <div class="mb-2">
+          <label for="updatedName" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product
+            name</label>
+          <input id="updatedName" type="text"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="name" required minlength="3" #updatedName="ngModel" ngModel [ngModel]="product.name" />
+          <!-- ERROR HANDLING -->
+          <div *ngIf="updatedName.invalid && updatedName.touched" class="text-red-500">
+            <p *ngIf="updatedName.hasError('required')">required</p>
+            <p *ngIf="updatedName.hasError('minlength')">minimum length is 3 characters</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['name'] " class="text-red-500">
+            {{ errorUpdates["name"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updatedDescription" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product
+            description</label>
+          <input id="updatedDescription" type="text"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="description" required minlength="10" #updatedDescription="ngModel" ngModel
+            [ngModel]="product.description" />
+          <!-- ERROR HANDLING -->
+          <div *ngIf="updatedDescription.invalid && updatedDescription.touched" class="text-red-500">
+            <p *ngIf="updatedDescription.hasError('required')">required</p>
+            <p *ngIf="updatedDescription.hasError('minlength')">minimum length is 10 characters </p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['description'] " class="text-red-500">
+            {{ errorUpdates["description"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updatedSku" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product
+            sku</label>
+          <input id="updatedSku" type="number"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="sku" required min="1" #updatedSku="ngModel" ngModel [ngModel]="product.sku" />
+          <!-- ERROR HANDLING -->
+          <div *ngIf="updatedSku.invalid && updatedSku.touched" class="text-red-500">
+            <p *ngIf="updatedSku.hasError('required')">required</p>
+            <p *ngIf="updatedSku.hasError('min')">minimum value is 1</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['sku']  " class="text-red-500">
+            {{ errorUpdates["sku"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updatedPrice" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product
+            price</label>
+          <input id="updatedPrice" type="number"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="price" required min="1" #updatedPrice="ngModel" ngModel [ngModel]="product.price" />
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedPrice.invalid && updatedPrice.touched" class="text-red-500">
+            <p *ngIf="updatedPrice.hasError('required')">required</p>
+            <p *ngIf="updatedPrice.hasError('min')">minimum value is 1</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['price'] " class="text-red-500">
+            {{ errorUpdates["price"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updatedQuantity"  class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product quantity</label>
+          <input id="updatedQuantity" type="number"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="quantity" required min="1" #updatedQuantity="ngModel" ngModel [ngModel]="product.quantity" />
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedQuantity.invalid && updatedQuantity.touched" class="text-red-500">
+            <p *ngIf="updatedQuantity.hasError('required')">required</p>
+            <p *ngIf="updatedQuantity.hasError('min')">minimum value is 1</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['quantity'] " class="text-red-500">
+            {{ errorUpdates["quantity"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updatedCategory_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Category
+            ID</label>
+          <select id="updatedCategory_id"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="category_id" required #updatedCategory_id="ngModel" ngModel>
+            <option value="">Choose a Category</option>
+            @for (category of categoriesArray; track $index) {
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            } @empty {
+            <p class="mx-auto">No categories were found</p>
+            }
+          </select>
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedCategory_id.invalid && updatedCategory_id.touched" class="text-red-500">
+            <p *ngIf="updatedCategory_id.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['category_id'] " class="text-red-500">
+            {{ errorUpdates["category_id"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updatedSupplier_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier
+            ID</label>
+          <select id="updatedSupplier_id"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="supplier_id" required #updatedSupplier_id="ngModel" ngModel>
+            <option value="">Choose a Supplier</option>
+            @for (supplier of suppliersArray; track $index) {
+            <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+            } @empty {
+            <p class="mx-auto">No suppliers were found</p>
+            }
+          </select>
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedSupplier_id.invalid && updatedSupplier_id.touched" class="text-red-500">
+            <p *ngIf="updatedSupplier_id.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['supplier_id']" class="text-red-500">
+            {{ errorUpdates["supplier_id"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updatedImage"  class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Image</label>
+          <input id="updatedImage" type="file"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="image" required #updatedImage="ngModel" ngModel />
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedImage.invalid && updatedImage.touched" class="text-red-500">
+            <p *ngIf="updatedImage.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="errorUpdates && errorUpdates['image'] " class="text-red-500">
+            {{ errorUpdates["image"] }}
+          </p>
+        </div>
+
+        <div class="flex flex-row-reverse items-center gap-2 mt-2">
+          <button type="submit"
+            class="duration-150 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+            <!-- [disabled]="productForm.invalid" -->
+            Update
+          </button>
+        </div>
+      </form>
+
+
+
+
+      <!--------------------------------------------------------------------------->
       <button type="submit" (click)="onDeleteProduct(product.id)"
         class="p-2 mx-2 rounded-md bg-red-700 hover:bg-red-800">
         Delete

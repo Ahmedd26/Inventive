@@ -22,6 +22,10 @@ export class ProductsService {
     return this.http.post<IProduct>(ENDPOINT, product)
   }
 
+  updateProduct(productData: IProduct, prodId: any) {
+    return this.http.patch<IProduct>(ENDPOINT + prodId, productData)
+  }
+
   delete(productID: any) {
     return this.http.delete(ENDPOINT + productID)
   }
