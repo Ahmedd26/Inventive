@@ -69,7 +69,7 @@ export class RegisterComponent {
         password: this.registerForm.value.password,
         password_confirmation: this.registerForm.value.confirmPassword,
         rememberMe: this.registerForm.value.rememberMe,
-        role_id: 5,
+        role_id: 1,
       };
       this.isLoading = true;
 

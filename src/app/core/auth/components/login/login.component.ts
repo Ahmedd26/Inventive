@@ -35,7 +35,7 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = new FormGroup({
-      email: new FormControl('duckman@test.com', [
+      email: new FormControl('admin@admin.com', [
         Validators.required,
         Validators.email,
       ]),

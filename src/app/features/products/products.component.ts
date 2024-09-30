@@ -3,17 +3,16 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { type IProduct } from './products.model';
 import { ProductsService } from './products.service';
 import { NgFor, NgIf } from '@angular/common';
-import { ISupplier } from '../features/suppliers/suppliers.model';
-import { SuppliersService } from '../features/suppliers/suppliers.service';
-import { CategoriesService } from '../features/categories/categories.service';
-import { ICategory } from '../features/categories/categories.model';
+import { ISupplier } from '../suppliers/suppliers.model';
+import { SuppliersService } from '../suppliers/suppliers.service';
+import { CategoriesService } from '../categories/categories.service';
+import { ICategory } from './../categories/categories.model';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [FormsModule, NgIf, NgFor],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css',
 })
 export class ProductsComponent {
   productsArray!: IProduct[];
