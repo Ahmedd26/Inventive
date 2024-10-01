@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IProduct } from '../../products.model';
 import { ISupplier } from '../../../suppliers/suppliers.model';
@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './create-product-modal.component.html',
 })
 export class CreateProductModalComponent implements OnInit {
+  @Output() product = new EventEmitter<IProduct>();
   productForm: FormGroup;
   errorTypes = null;
   isLoading = false;
@@ -59,6 +60,7 @@ export class CreateProductModalComponent implements OnInit {
     this.productService.create(formData).subscribe({
       next: (data) => {
         console.log(data);
+        this.product.emit(data);
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
@@ -67,11 +69,34 @@ export class CreateProductModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.supplierService.getAll().subscribe((supData) => {
-      this.suppliersArray = supData;
+    // Get supplier list for the dropdown list
+    this.supplierService.getAll().subscribe({
+      next: (suppliers) => {
+        this.suppliersArray = suppliers;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+        this.suppliersArray.push({
+          id: 0,
+          name: 'There was an error retrieving suppliers list',
+          email: '',
+          phone: '',
+          address: '',
+        });
+      },
     });
-    this.categoryService.getAllCategories().subscribe((catData) => {
-      this.categoriesArray = catData;
+    // Get Categories list for the dropdown list
+    this.categoryService.getAllCategories().subscribe({
+      next: (categories) => {
+        this.categoriesArray = categories;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+        this.categoriesArray.push({
+          id: 0,
+          name: 'There was an error retrieving categories list',
+        });
+      },
     });
   }
 }
