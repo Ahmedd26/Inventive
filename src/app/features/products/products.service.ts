@@ -8,8 +8,9 @@ const ENDPOINT = `${API}products/`;
 @Injectable({
   providedIn: 'root',
 })
+
 export class ProductsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllProducts() {
     return this.http.get<IProduct[]>(ENDPOINT);
@@ -18,7 +19,7 @@ export class ProductsService {
   createNewProduct(product: IProduct) {
     return this.http.post<IProduct>(ENDPOINT, product);
   }
-
+  
   delete(productID: any) {
     return this.http.delete(ENDPOINT + productID);
   }

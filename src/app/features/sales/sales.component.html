@@ -1,0 +1,197 @@
+<div class="text-stone-800 dark:text-white">
+  <div class="my-4">
+    <form #salesForm="ngForm" (ngSubmit)="onCreateSales(salesForm.value)">
+      <div class="mb-2">
+        <label for="total_amount" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Total
+          Amount</label>
+        <input id="total_amount" type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="total_amount" required minlength="3" #total_amount="ngModel" ngModel />
+        <!-- ERROR HANDLING -->
+        <div *ngIf="total_amount.invalid && total_amount.touched" class="text-red-500">
+          <p *ngIf="total_amount.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="errorBack && errorBack['total_amount']" class="text-red-500">
+          {{ errorBack["total_amount"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="user_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">User</label>
+        <select id="user_id"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="user_id" required #user_id="ngModel" ngModel>
+          <option value="">Choose a User</option>
+          @for (user of usersArray; track $index) {
+          <option value="{{ user.id }}">{{ user.name }}</option>
+          } @empty {
+          <p class="mx-auto">No users were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="user_id.invalid && user_id.touched" class="text-red-500">
+          <p *ngIf="user_id.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="errorBack && errorBack['user_id']" class="text-red-500">
+          {{ errorBack["user_id"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="status" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Status</label>
+        <select id="status"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="status" required #status="ngModel" ngModel>
+          <option value="">Choose a Status</option>
+          <option value="pending">Pending</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="completed">Completed</option>
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="status.invalid && status.touched" class="text-red-500">
+          <p *ngIf="status.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="errorBack && errorBack['status']" class="text-red-500">
+          {{ errorBack["status"] }}
+        </p>
+      </div>
+
+      <div class="flex flex-row-reverse items-center gap-2 mt-2">
+        <button type="submit"
+          class="duration-150 text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800">
+          <!-- [disabled]="productForm.invalid" -->
+          Create
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+
+  <div class="my-4">
+    @for (salesOrder of salesArray; track $index) {
+    <p class="text-3xl">Sales Order Information</p>
+    <p>salesOrder ID: {{salesOrder.id}} </p>
+    <p>User ID: {{salesOrder.user_id}} </p>
+    <p>Total Amount: {{salesOrder.total_amount}} </p>
+    <p>status: {{salesOrder.status}} </p>
+    @if(salesOrder.user){
+    <p class="text-3xl">User Information</p>
+    <p>User Name: {{salesOrder.user.name }}</p>
+    <p>User ID: {{salesOrder.user.id }}</p>
+    <p>User Email: {{salesOrder.user.email }}</p>
+    <p>User Role ID: {{salesOrder.user.role_id }}</p>
+    }
+    @if(salesOrder.product_sales_orders){
+    @for(product_sales_order of salesOrder.product_sales_orders; track $index ){
+    <p class="text-3xl">Product Sales Order Information</p>
+    <p>Product Sales Order ID: {{product_sales_order.id }}</p>
+    <p>Product ID: {{product_sales_order.product_id }}</p>
+    <p>Sales Order ID: {{product_sales_order.sales_order_id }}</p>
+    <p>Product's quantity in the order : {{product_sales_order.quantity }}</p>
+    <p>Product's total Price in the order: {{product_sales_order.price }}</p>
+    @if (product_sales_order.product) {
+    <p>Product's Name: {{product_sales_order.product.name }}</p>
+    <p>Product's Price (for single item): {{product_sales_order.product.price }}</p>
+    <p>Product's Description: {{product_sales_order.product.description }}</p>
+    }
+    }
+    }
+
+    <form #updateSalesForm="ngForm" (ngSubmit)="onUpdateSales(updateSalesForm.value,salesOrder.id )">
+
+      <div class="mb-2">
+        <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Total Amount</label>
+        <input type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="total_amount" [ngModel]="salesOrder.total_amount" required minlength="3" #updatedTotalAmount="ngModel"
+          ngModel />
+        <!-- ERROR HANDLING -->
+        <div *ngIf="updatedTotalAmount.invalid && updatedTotalAmount.touched" class="text-red-500">
+          <p *ngIf="updatedTotalAmount.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="updateErrorBack && updateErrorBack['total_amount']" class="text-red-500">
+          {{ updateErrorBack["total_amount"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="updatedUserId" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">User</label>
+        <select id="updatedUserId"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="user_id" required #updatedUserId="ngModel" ngModel>
+          <option value="">Choose a User</option>
+          @for (user of usersArray; track $index) {
+          <option value="{{ user.id }}">{{ user.name }}</option>
+          } @empty {
+          <p class="mx-auto">No users were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="updatedUserId.invalid && updatedUserId.touched" class="text-red-500">
+          <p *ngIf="updatedUserId.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="updateErrorBack && updateErrorBack['user_id']" class="text-red-500">
+          {{ updateErrorBack["user_id"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="updatedStatus" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Status</label>
+        <select id="updatedStatus"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="status" required #updatedStatus="ngModel" ngModel>
+          <option value="">Choose a Status</option>
+          <option value="pending">Pending</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="completed">Completed</option>
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="updatedStatus.invalid && updatedStatus.touched" class="text-red-500">
+          <p *ngIf="updatedStatus.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="updateErrorBack && updateErrorBack['status']" class="text-red-500">
+          {{ updateErrorBack["status"] }}
+        </p>
+      </div>
+
+      <button type="submit" class="p-2 bg-green-700 hover:bg-green-800">
+        Edit
+      </button>
+    </form>
+
+    <button type="submit" (click)="onDeleteSales(salesOrder.id)" class="p-2 bg-red-700 hover:bg-red-800 my-4">
+      Delete
+    </button>
+
+    <hr class="m-4">
+    }
+    @empty {
+    <p> no sales were found</p>
+    }
+  </div>
+
+
+
+
+
+</div>
+
+
+

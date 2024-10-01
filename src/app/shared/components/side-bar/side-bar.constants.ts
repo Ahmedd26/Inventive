@@ -37,7 +37,7 @@ export const links: ILink[] = [
     title: 'Purchases',
   },
   {
-    path: '/',
+    path: '/sales',
     iconName: 'crosshair',
     title: 'sales',
   },
