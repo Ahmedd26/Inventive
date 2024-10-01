@@ -34,7 +34,16 @@ export interface IProduct {
   product_purchase_orders?: any[];
   adjustments?: IAdjustment[];
 }
-
+export interface IProductError {
+  name?: string[];
+  description?: string[];
+  sku?: string[];
+  price?: string[];
+  quantity?: string[];
+  category_id?: string[];
+  supplier_id?: string[];
+  image?: string[];
+}
 export interface IInventoryMovement {
   id: number;
   product_id: number;

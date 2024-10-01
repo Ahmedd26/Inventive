@@ -1,6 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IProduct } from '../../products.model';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { IProduct, IProductError } from '../../products.model';
 import { ISupplier } from '../../../suppliers/suppliers.model';
 import { ICategory } from '../../../categories/categories.model';
 import { ProductsService } from '../../products.service';
@@ -17,7 +22,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CreateProductModalComponent implements OnInit {
   @Output() product = new EventEmitter<IProduct>();
   productForm: FormGroup;
-  errorTypes = null;
+  apiErrors: IProductError | null = null;
+  frontEndErrors: IProductError = {};
   isLoading = false;
   productsArray!: IProduct[];
   suppliersArray!: ISupplier[];
@@ -29,21 +35,29 @@ export class CreateProductModalComponent implements OnInit {
     private categoryService: CategoriesService
   ) {
     this.productForm = new FormGroup({
-      name: new FormControl(null),
-      description: new FormControl(null),
-      sku: new FormControl(null),
-      price: new FormControl(null),
-      quantity: new FormControl(null),
-      category_id: new FormControl(null),
-      supplier_id: new FormControl(null),
-      image: new FormControl(null),
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      description: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(15),
+      ]),
+      sku: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required),
+      quantity: new FormControl(null, Validators.required),
+      category_id: new FormControl(null, Validators.required),
+      supplier_id: new FormControl(null, Validators.required),
+      image: new FormControl(null, Validators.required),
     });
+  }
+  getControl(controlName: string) {
+    return this.productForm.get(controlName);
   }
 
   file: any = '';
   getFile(event: any) {
     this.file = event.target.files[0];
-    console.log(this.file);
     this.productForm.patchValue({
       image: this.file,
     });
@@ -51,23 +65,37 @@ export class CreateProductModalComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.productForm);
     console.log(this.productForm.value);
-    const formData = new FormData();
-    Object.keys(this.productForm.controls).forEach((key) => {
-      formData.append(key, this.productForm.get(key)?.value);
-    });
+    if (this.productForm.valid) {
+      const formData = new FormData();
+      Object.keys(this.productForm.controls).forEach((key) => {
+        formData.append(key, this.productForm.get(key)?.value);
+      });
 
-    this.productService.create(formData).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.product.emit(data);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      },
-    });
+      this.productService.create(formData).subscribe({
+        next: (data) => {
+          this.product.emit(data);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.apiErrors = error.error.errors;
+        },
+      });
+    }
   }
 
+  validateNumberOnInput(event: Event, field: keyof IProductError): void {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.value;
+    const regex = /^\d*$/;
+
+    if (!regex.test(value)) {
+      inputElement.value = value.slice(0, -1);
+      this.frontEndErrors[field] = ['This input accepts numbers only'];
+    } else {
+      this.frontEndErrors[field] = [];
+    }
+  }
   ngOnInit() {
     // Get supplier list for the dropdown list
     this.supplierService.getAll().subscribe({
