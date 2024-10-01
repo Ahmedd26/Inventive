@@ -1,0 +1,101 @@
+@if(fetchingState){
+<app-loading />
+}
+@if(error){
+<h1>{{error}}</h1>
+}
+
+<form #createUserForm="ngForm" (ngSubmit)="onCreateUser(createUserForm.value)">
+    <label>Get User By ID</label>
+    <br>
+    <input type="text" ngModel name="name" placeholder="enter your name">
+    <br>
+    <input type="email" ngModel name="email" placeholder="enter your email">
+    <br>
+    <input type="password" ngModel name="password"
+        placeholder="enter your password">
+    <br>
+    <input type="password" ngModel name="password_confirmation"
+        placeholder="confirm your password">
+    <br>
+    <select name="role_id" ngModel>
+        @for (role of roles; track role.id) {
+        <option [value]="role.id">{{role.name}}</option>
+        }
+    </select>
+    <br>
+    <button type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+</form>
+<form #userForm="ngForm" (ngSubmit)="getUser(userForm)">
+    <label>Get User By ID</label>
+    <br>
+    <input type="text" ngModel name="id">
+    <br>
+    <button type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+</form>
+
+@if (users){
+<ul>
+    @for(user of users;track user.id){
+    <li>
+        {{user.id}}
+    </li>
+    <li>
+        {{user.name}}
+    </li>
+    <li>
+        {{user.email}}
+    </li>
+    <li>
+        <button
+            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:red:bg-red-700 focus:outline-none dark:focus:ring-red-800"
+            (click)="onDeleteUser(user.id)">Delete</button>
+    </li>
+    <li>
+        <form #updateUserForm="ngForm"
+            (ngSubmit)="onUpdateUser(updateUserForm.value)">
+            <label>Get User By ID</label>
+            <br>
+            <input [(ngModel)]="user.name" type="text" ngModel name="name"
+                placeholder="enter your name">
+            <br>
+            <input [(ngModel)]="user.id" type="hidden" ngModel name="id">
+            <br>
+            <input type="email" [(ngModel)]="user.email" ngModel name="email"
+                placeholder="enter your email">
+            <br>
+            <input type="password" ngModel name="password"
+                placeholder="enter your password">
+            <br>
+            <input type="password" ngModel name="password_confirmation"
+                placeholder="confirm your password">
+            <br>
+            <select name="role_id" ngModel [(ngModel)]="user.role_id">
+                @for (role of roles; track role.id) {
+                <option [value]="role.id">{{role.name}}</option>
+                }
+            </select>
+            <br>
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+        </form>
+    </li>
+    }
+</ul>
+}
+<hr />
+@if(user){
+<ul>
+    <li>
+        {{user.id}}
+    </li>
+    <li>
+        {{user.name}}
+    </li>
+    <li>
+        {{user.email}}
+    </li>
+</ul>
+}

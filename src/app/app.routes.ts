@@ -10,6 +10,7 @@ import { ShowSupplierComponent } from './features/suppliers/show-supplier/show-s
 import { ProductsComponent } from './features/products/products.component';
 import { CategoriesComponent } from './features/categories/categories.component';
 import { LandingPageComponent } from './shared/landing-page/landing-page.component';
+import { UsersComponent } from './features/users/users.component';
 
 export const routes: Routes = [
   {
@@ -74,6 +75,13 @@ export const routes: Routes = [
     path: 'profile',
     title: 'Profile',
     component: ProfileComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'users',
+    title: 'Users',
+    component: UsersComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
