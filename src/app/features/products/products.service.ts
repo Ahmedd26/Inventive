@@ -11,11 +11,11 @@ const ENDPOINT = `${API}products/`;
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
-  getAllProducts() {
+  getAll() {
     return this.http.get<IProduct[]>(ENDPOINT);
   }
 
-  createNewProduct(product: IProduct) {
+  create(product: FormData) {
     return this.http.post<IProduct>(ENDPOINT, product);
   }
 

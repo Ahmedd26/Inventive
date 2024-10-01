@@ -1,264 +1,79 @@
+@if(isLoading){
+<app-loading />
+} @if(error){
+<div
+  class="min-h-[calc(100dvh-120px)] flex flex-col justify-center items-center gap-6"
+>
+  <span
+    class="block text-7xl font-extrabold text-stone-700 dark:text-stone-600"
+    >{{ error.status }}</span
+  >
+  <h2 class="text-4xl font-extrabold text-stone-800 dark:text-stone-200">
+    An error occurred
+  </h2>
+  <p>{{ error.status === 404 ? "Resource was not found" : error.message }}</p>
+</div>
+}@else{
 <div class="text-stone-800 dark:text-white">
-  <form #productForm="ngForm" (ngSubmit)="onCreateProduct(productForm.value)">
-    <div class="mb-2">
-      <label
-        for=""
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Product name</label
-      >
-      <input
-        type="text"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="name"
-        required
-        minlength="3"
-        #name="ngModel"
-        ngModel
+  <div class="flex justify-between items-center mb-5">
+    <h1 class="text-4xl font-semibold">Products</h1>
+    <!-- <app-create-supplier-modal (supplierCreated)="onCreateSupplier($event)" /> -->
+    <!-- <app-create-product-modal /> -->
+  </div>
+
+  <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+    @for(product of products; track product.id){
+
+    <div
+      class="p-4 bg-stone-50 dark:bg-stone-800 rounded-lg h-full min-h-36 grid grid-cols-1 sm:grid-cols-3 gap-4"
+    >
+      <img
+        [src]="product.image"
+        alt="Product Image"
+        class="w-full h-full aspect-square object-cover rounded-md overflow-hidden"
       />
-      <!-- ERROR HANDLING -->
-      <div *ngIf="name.invalid && name.touched" class="text-red-500">
-        <p *ngIf="name.hasError('required')">required</p>
-        <p *ngIf="name.hasError('minlength')">minimum length is 3 characters</p>
+      <div class="col-span-2 h-full flex-col flex gap-4">
+        <h3 class="text-lg font-semibold text-stone-800 dark:text-stone-200">
+          {{ product.name }}
+        </h3>
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="flex items-center flex-1 gap-2">
+            <h4 class="font-extrabold">SKU:</h4>
+            <h4>{{ product.sku }}</h4>
+          </div>
+          <div class="flex items-center flex-1 gap-2">
+            <h4 class="font-extrabold">Price:</h4>
+            <h4>{{ product.price | currency }}</h4>
+          </div>
+          <div class="flex items-center flex-1 gap-2">
+            <h4 class="font-extrabold">Added:</h4>
+            <h4>{{ product.created_at | date : "shortDate" }}</h4>
+          </div>
+          <div class="flex items-center flex-1 gap-2">
+            <h4 class="font-extrabold">Updated:</h4>
+            <h4>{{ product.price | date : "shortDate" }}</h4>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 mt-auto">
+          <span
+            class="bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-amber-900 dark:text-amber-300"
+            >{{ product.category?.name }}</span
+          >
+          <span
+            class="bg-stone-200 text-stone-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-stone-900 dark:text-stone-300"
+          >
+            <span class="font-extrabold"> FROM: </span>
+            {{ product.supplier?.name }}</span
+          >
+          <a
+            [routerLink]="['/products', product.id]"
+            class="ml-auto text-stone-400 hover:text-amber-600 duration-150"
+            >View</a
+          >
+        </div>
       </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['name']" class="text-red-500">
-        {{ errorTypes["name"] }}
-      </p>
     </div>
-
-    <div class="mb-2">
-      <label
-        for=""
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Product description</label
-      >
-      <input
-        type="text"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="description"
-        required
-        minlength="10"
-        #description="ngModel"
-        ngModel
-      />
-      <!-- ERROR HANDLING -->
-      <div
-        *ngIf="description.invalid && description.touched"
-        class="text-red-500"
-      >
-        <p *ngIf="description.hasError('required')">required</p>
-        <p *ngIf="description.hasError('minlength')">
-          minimum length is 10 characters
-        </p>
-      </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['description']" class="text-red-500">
-        {{ errorTypes["description"] }}
-      </p>
-    </div>
-
-    <div class="mb-2">
-      <label
-        for=""
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Product sku</label
-      >
-      <input
-        type="number"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="sku"
-        required
-        min="1"
-        #sku="ngModel"
-        ngModel
-      />
-      <!-- ERROR HANDLING -->
-      <div *ngIf="sku.invalid && sku.touched" class="text-red-500">
-        <p *ngIf="sku.hasError('required')">required</p>
-        <p *ngIf="sku.hasError('min')">minimum value is 1</p>
-      </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['sku']" class="text-red-500">
-        {{ errorTypes["sku"] }}
-      </p>
-    </div>
-
-    <div class="mb-2">
-      <label
-        for=""
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Product price</label
-      >
-      <input
-        type="number"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="price"
-        required
-        min="1"
-        #price="ngModel"
-        ngModel
-      />
-      <!-- ERROR HANDLING Frontend -->
-      <div *ngIf="price.invalid && price.touched" class="text-red-500">
-        <p *ngIf="price.hasError('required')">required</p>
-        <p *ngIf="price.hasError('min')">minimum value is 1</p>
-      </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['price']" class="text-red-500">
-        {{ errorTypes["price"] }}
-      </p>
-    </div>
-
-    <div class="mb-2">
-      <label
-        for=""
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Product quantity</label
-      >
-      <input
-        type="number"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="quantity"
-        required
-        min="1"
-        #quantity="ngModel"
-        ngModel
-      />
-      <!-- ERROR HANDLING Frontend -->
-      <div *ngIf="quantity.invalid && quantity.touched" class="text-red-500">
-        <p *ngIf="quantity.hasError('required')">required</p>
-        <p *ngIf="quantity.hasError('min')">minimum value is 1</p>
-      </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['quantity']" class="text-red-500">
-        {{ errorTypes["quantity"] }}
-      </p>
-    </div>
-
-    <div class="mb-2">
-      <label
-        for="category_id"
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Category ID</label
-      >
-      <select
-        id="category_id"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        name="category_id"
-        required
-        #category_id="ngModel"
-        ngModel
-      >
-        <option value="">Choose a Category</option>
-        @for (category of categoriesArray; track $index) {
-        <option value="{{ category.id }}">{{ category.name }}</option>
-        } @empty {
-        <p class="mx-auto">No categories were found</p>
-        }
-      </select>
-      <!-- ERROR HANDLING Frontend -->
-      <div
-        *ngIf="category_id.invalid && category_id.touched"
-        class="text-red-500"
-      >
-        <p *ngIf="category_id.hasError('required')">required</p>
-      </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['category_id']" class="text-red-500">
-        {{ errorTypes["category_id"] }}
-      </p>
-    </div>
-
-    <div class="mb-2">
-      <label
-        for="supplier_id"
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Supplier ID</label
-      >
-      <select
-        id="supplier_id"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        name="supplier_id"
-        required
-        #supplier_id="ngModel"
-        ngModel
-      >
-        <option value="">Choose a Supplier</option>
-        @for (supplier of suppliersArray; track $index) {
-        <option value="{{ supplier.id }}">{{ supplier.name }}</option>
-        } @empty {
-        <p class="mx-auto">No suppliers were found</p>
-        }
-      </select>
-      <!-- ERROR HANDLING Frontend -->
-      <div
-        *ngIf="supplier_id.invalid && supplier_id.touched"
-        class="text-red-500"
-      >
-        <p *ngIf="supplier_id.hasError('required')">required</p>
-      </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['supplier_id']" class="text-red-500">
-        {{ errorTypes["supplier_id"] }}
-      </p>
-    </div>
-
-    <div class="mb-2">
-      <label
-        for=""
-        class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-        >Image</label
-      >
-      <input
-        type="file"
-        class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-        name="image"
-        required
-        #image="ngModel"
-        ngModel
-      />
-      <!-- ERROR HANDLING Frontend -->
-      <div *ngIf="image.invalid && image.touched" class="text-red-500">
-        <p *ngIf="image.hasError('required')">required</p>
-      </div>
-      <!-- ERROR HANDLING Backend -->
-      <p *ngIf="errorTypes && errorTypes['image']" class="text-red-500">
-        {{ errorTypes["image"] }}
-      </p>
-    </div>
-
-    <div class="flex flex-row-reverse items-center gap-2 mt-2">
-      <button
-        type="submit"
-        class="duration-150 text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800"
-      >
-        <!-- [disabled]="productForm.invalid" -->
-        Create
-      </button>
-    </div>
-  </form>
-
-  <div class="border border-red-300">
-    @for (product of productsArray; track product.id) {
-    <div class="m-2">
-      <p>Name: {{ product.name }}</p>
-      <p>Description: {{ product.description }}</p>
-      <p>Sku: {{ product.sku }}</p>
-      <p>Price: {{ product.price }}</p>
-      <p>Quantity: {{ product.quantity }}</p>
-      <img [src]="product.image" alt="Product Image" />
-      <p>Product ID: {{ product.id }}</p>
-      <button
-        type="submit"
-        (click)="onDeleteProduct(product.id)"
-        class="p-2 bg-red-700 hover:bg-red-800"
-      >
-        Delete
-      </button>
-      <hr class="m-2" />
-    </div>
-    } @empty {
-    <p class="mx-auto">No products were found</p>
     }
   </div>
 </div>
+}
