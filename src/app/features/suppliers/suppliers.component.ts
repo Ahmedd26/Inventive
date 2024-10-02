@@ -32,14 +32,32 @@ export class SuppliersComponent {
     );
     this.suppliers[index] = newSupplier;
   }
-  onCreateSupplier(supplier: ISupplier) {
+  onSupplierCreated(event: { supplier: ISupplier, file: File | null }) {
     this.isLoading = true;
-    this.suppliersService.create(supplier).subscribe((supplier) => {
-      this.isLoading = false;
-      this.suppliers.push(supplier);
-    });
+    const formData = new FormData();
+    formData.append('name', event.supplier.name);
+    formData.append('email', event.supplier.email);
+    formData.append('phone', event.supplier.phone);
+    formData.append('address', event.supplier.address);
+    if (event.file) {
+      formData.append('image', event.file);
+      console.log('File appended:', event.file);
+  } else {
+      console.error('No file selected');
   }
 
+    this.suppliersService.create(formData).subscribe({
+        next: (supplier) => {
+            this.isLoading = false;
+            this.suppliers.push(supplier);
+            console.log('Supplier created:', supplier);
+        },
+        error: (error) => {
+            this.isLoading = false;
+            console.error('Error creating supplier:', error);
+        }
+    });
+  }
   onDeleteSupplier(id: number) {
     this.suppliersService.delete(id);
   }

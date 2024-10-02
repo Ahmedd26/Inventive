@@ -4,6 +4,7 @@ export interface ISupplier {
   email: string;
   phone: string;
   address: string;
+  image?:string;
   created_at?: string;
   updated_at?: string;
 }

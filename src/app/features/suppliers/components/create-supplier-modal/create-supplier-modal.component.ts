@@ -9,13 +9,23 @@ import { type ISupplier } from '../../suppliers.model';
   templateUrl: './create-supplier-modal.component.html',
 })
 export class CreateSupplierModalComponent {
-  @Output() supplierCreated = new EventEmitter<ISupplier>();
+  @Output() supplierCreated = new EventEmitter<{ supplier: ISupplier, file: File | null }>();
+
+  selectedFile: File | null = null;
+
+  onFileSelected(event: Event) {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length > 0) {
+          this.selectedFile = input.files[0];
+      }
+  }
 
   onSubmit(supplierForm: NgForm) {
-    if (supplierForm.valid) {
-      this.supplierCreated.emit(supplierForm.value);
-      console.log(supplierForm);
-      supplierForm.reset();
-    }
+      if (supplierForm.valid) {
+          const supplier: ISupplier = supplierForm.value;
+          this.supplierCreated.emit({ supplier, file: this.selectedFile });
+          console.log(supplierForm.value);
+          supplierForm.reset();
+      }
   }
 }

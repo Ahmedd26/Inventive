@@ -18,9 +18,9 @@ export class SuppliersService {
     return this.http.get<ISupplier[]>(ENDPOINT);
   }
 
-  create(supplier: ISupplier) {
-    return this.http.post<ISupplier>(ENDPOINT, supplier);
-  }
+  create(supplierData: FormData) {
+    return this.http.post<ISupplier>(ENDPOINT, supplierData);
+}
   update(supplier: ISupplier, id: number) {
     return this.http.post<ISupplier>(`${ENDPOINT}/${id}?_method=put`, supplier);
   }
