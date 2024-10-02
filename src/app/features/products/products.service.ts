@@ -23,7 +23,11 @@ export class ProductsService {
     return this.http.post<IProduct>(ENDPOINT, product);
   }
 
+  update(product: FormData, id: number) {
+    return this.http.post<IProduct>(`${ENDPOINT}/${id}`, product);
+  }
+
   delete(id: number) {
-    return this.http.delete<any>(`${ENDPOINT}/${id}`);
+    return this.http.delete<{ message: string }>(`${ENDPOINT}/${id}`);
   }
 }
