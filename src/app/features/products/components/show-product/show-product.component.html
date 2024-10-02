@@ -1,0 +1,142 @@
+@if (isLoading) {
+  <app-loading />
+}
+@if (product && product.id) {
+  <div
+    class="grid grid-cols-1 gap-4 text-stone-800 dark:text-stone-200 md:grid-cols-12"
+  >
+    <div
+      class="overflow-hidden rounded-lg border border-stone-100 shadow dark:border-stone-700 md:col-span-4 lg:col-span-3"
+    >
+      <img
+        [src]="product.image"
+        alt="product image"
+        class="image-skeleton aspect-square h-full w-full object-cover"
+      />
+    </div>
+    <div
+      class="flex flex-col gap-4 rounded-lg border border-stone-100 bg-stone-50 p-4 shadow dark:border-stone-700 dark:bg-stone-800 md:col-span-8 lg:col-span-9"
+    >
+      <h1 class="text-4xl font-bold">
+        {{ product.name }}
+      </h1>
+      <p class="text-stone-600 dark:text-stone-400">
+        {{ product.description }}
+      </p>
+      <div
+        class="grid grid-cols-1 gap-4 bg-stone-50 p-4 dark:bg-stone-800 sm:grid-cols-2"
+      >
+        <!-- SKU -->
+        <div class="grid grid-cols-[auto,1fr,1fr] items-center gap-2">
+          <i-feather
+            name="menu"
+            class="text-stone-600 dark:text-stone-400"
+          ></i-feather>
+          <span class="font-semibold text-stone-800 dark:text-stone-200"
+            >SKU:</span
+          >
+          <span class="text-stone-700 dark:text-stone-300">{{
+            product.sku
+          }}</span>
+        </div>
+
+        <!-- Price -->
+        <div class="grid grid-cols-[auto,1fr,1fr] items-center gap-2">
+          <i-feather
+            name="dollar-sign"
+            class="text-stone-600 dark:text-stone-400"
+          ></i-feather>
+          <span class="font-semibold text-stone-800 dark:text-stone-200"
+            >Price:</span
+          >
+          <span class="text-stone-700 dark:text-stone-300">{{
+            product.price | currency
+          }}</span>
+        </div>
+
+        <!-- Created At -->
+        <div class="grid grid-cols-[auto,1fr,1fr] items-center gap-2">
+          <i-feather
+            name="calendar"
+            class="text-stone-600 dark:text-stone-400"
+          ></i-feather>
+          <span class="font-semibold text-stone-800 dark:text-stone-200"
+            >Added to our inventory on:</span
+          >
+          <span class="text-stone-700 dark:text-stone-300"
+            >{{ product.created_at | date: "mediumDate" }} at
+            {{ product.created_at | date: "shortTime" }}</span
+          >
+        </div>
+
+        <!-- Updated At -->
+        <div class="grid grid-cols-[auto,1fr,1fr] items-center gap-2">
+          <i-feather
+            name="tool"
+            class="text-stone-600 dark:text-stone-400"
+          ></i-feather>
+          <span class="font-semibold text-stone-800 dark:text-stone-200"
+            >Last update:</span
+          >
+          <span class="text-stone-700 dark:text-stone-300"
+            >{{ product.updated_at | date: "mediumDate" }} at
+            {{ product.updated_at | date: "shortTime" }}</span
+          >
+        </div>
+
+        <!-- Quantity -->
+        <div class="grid grid-cols-[auto,1fr,1fr] items-center gap-2">
+          <i-feather
+            name="layers"
+            class="text-stone-600 dark:text-stone-400"
+          ></i-feather>
+          <span class="font-semibold text-stone-800 dark:text-stone-200"
+            >Quantity on hand:</span
+          >
+          <span class="text-stone-700 dark:text-stone-300"
+            >{{ product.quantity }} Unit</span
+          >
+        </div>
+
+        <!-- Category -->
+        <div class="grid grid-cols-[auto,1fr,1fr] items-center gap-2">
+          <i-feather
+            name="bookmark"
+            class="text-stone-600 dark:text-stone-400"
+          ></i-feather>
+          <span class="font-semibold text-stone-800 dark:text-stone-200"
+            >Category:</span
+          >
+          <span class="text-stone-700 dark:text-stone-300">{{
+            product.category?.name
+          }}</span>
+        </div>
+
+        <!-- Supplier -->
+        <div class="grid grid-cols-[auto,1fr,1fr] items-center gap-2">
+          <i-feather
+            name="user"
+            class="text-stone-600 dark:text-stone-400"
+          ></i-feather>
+          <span class="font-semibold text-stone-800 dark:text-stone-200"
+            >Supplied by:</span
+          >
+          <span class="text-stone-700 dark:text-stone-300">{{
+            product.supplier?.name
+          }}</span>
+        </div>
+      </div>
+      <!-- CTAs -->
+      <div class="mt-auto flex items-center justify-end gap-4">
+        <button
+          type="button"
+          class="inline-flex items-center gap-2.5 rounded-lg bg-stone-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-stone-800 focus:outline-none focus:ring-4 focus:ring-stone-300 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-stone-800"
+        >
+          <i-feather name="edit-2" />
+          Edit
+        </button>
+        <app-product-delete-modal [productId]="product.id" />
+      </div>
+    </div>
+  </div>
+}
