@@ -6,7 +6,7 @@
 }
 
 <form #createUserForm="ngForm" (ngSubmit)="onCreateUser(createUserForm.value)">
-    <label>Get User By ID</label>
+    <label>Create User</label>
     <br>
     <input type="text" ngModel name="name" placeholder="enter your name">
     <br>
@@ -25,43 +25,32 @@
     </select>
     <br>
     <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</button>
 </form>
+<p>this is seperation as i cant make hr</p>
 <form #userForm="ngForm" (ngSubmit)="getUser(userForm)">
     <label>Get User By ID</label>
     <br>
     <input type="text" ngModel name="id">
     <br>
     <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Find</button>
 </form>
+<p>this is seperation as i cant make hr</p>
 
 @if (users){
 <ul>
     @for(user of users;track user.id){
-    <li>
-        {{user.id}}
-    </li>
-    <li>
-        {{user.name}}
-    </li>
-    <li>
-        {{user.email}}
-    </li>
-    <li>
-        <button
-            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:red:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-            (click)="onDeleteUser(user.id)">Delete</button>
-    </li>
+
     <li>
         <form #updateUserForm="ngForm"
             (ngSubmit)="onUpdateUser(updateUserForm.value)">
-            <label>Get User By ID</label>
+            <label>Update User</label>
+            <br>
+            <input [(ngModel)]="user.id" type="hidden" ngModel name="id">
             <br>
             <input [(ngModel)]="user.name" type="text" ngModel name="name"
                 placeholder="enter your name">
-            <br>
-            <input [(ngModel)]="user.id" type="hidden" ngModel name="id">
             <br>
             <input type="email" [(ngModel)]="user.email" ngModel name="email"
                 placeholder="enter your email">
@@ -79,8 +68,13 @@
             </select>
             <br>
             <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update</button>
         </form>
+    </li>
+    <li>
+        <button
+            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:red:bg-red-700 focus:outline-none dark:focus:ring-red-800"
+            (click)="onDeleteUser(user.id)">Delete</button>
     </li>
     }
 </ul>

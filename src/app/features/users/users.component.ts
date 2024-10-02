@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from './users.service';
 import { IUser ,IRole} from './users.model';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit  {
   user!: IUser;
   roles!: IRole[];
 
-  constructor(private usersService: UsersService, private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.fetchingState = true;
@@ -49,11 +49,13 @@ export class UsersComponent implements OnInit  {
     this.usersService.get(+id).subscribe({
       next: (user) => {
         this.user = user;
+        console.log('the user data is',user);
+
         this.fetchingState = false;
       },
       error: (error) => {
         this.error = error.error.message;
-        console.log(error);
+        console.log('could not get the user',error);
         this.fetchingState = false;
       }
     });
@@ -66,13 +68,10 @@ export class UsersComponent implements OnInit  {
         console.log('deleted');
         this.users = this.users.filter(user => user.id !== id);
         this.fetchingState = false;
-        this.ngZone.run(() => {
-          this.cdr.detectChanges(); // Manually trigger change detection within Angular's zone
-        });
       },
       error: (error) => {
         this.error = error.error.message;
-        console.log(error);
+        console.log('not deleted', error);
         this.fetchingState = false;
       }
     });
@@ -81,12 +80,12 @@ export class UsersComponent implements OnInit  {
     this.fetchingState=true;
     this.usersService.create(user).subscribe({
       next: (user) => {
-        console.log(user);
+        console.log('user created successfully',user);
         this.users.push(user);
         this.fetchingState = false;
       }, error: (error) => {
         this.error = error.error.message;
-        console.log(error);
+        console.log('failed to create user',error);
         this.fetchingState = false;
       }
     })
@@ -95,13 +94,11 @@ export class UsersComponent implements OnInit  {
     this.fetchingState=true;
     this.usersService.update(user, user.id).subscribe({
       next: (user) => {
-        console.log(user);
-        this.users = this.users.filter(test => test.id !== user.id);
-        this.users.push(user);
+        console.log('user updated successfully',user);
     this.fetchingState=false;
       }, error: (error) => {
         this.error = error.error.message;
-        console.log(error);
+        console.log('failed to update user',error);
         this.fetchingState = false;
       }
     })

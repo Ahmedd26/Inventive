@@ -24,10 +24,10 @@ export class UsersService {
   }
 
   update( user: IUser , id:any){
-    return this.http.post<IUser>(`${ENDPOINT}/${id}?_method=put`,user);
+    return this.http.put<IUser>(`${ENDPOINT}/${id}`,user);
   }
   delete(id: number){
-    return this.http.post(`${ENDPOINT}/${id}?_method=delete`,null);
+    return this.http.delete(`${ENDPOINT}/${id}`);
   }
 
 }
