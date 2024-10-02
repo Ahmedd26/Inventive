@@ -21,9 +21,9 @@ export class SuppliersService {
   create(supplierData: FormData) {
     return this.http.post<ISupplier>(ENDPOINT, supplierData);
 }
-  update(supplier: ISupplier, id: number) {
-    return this.http.post<ISupplier>(`${ENDPOINT}/${id}?_method=put`, supplier);
-  }
+  update(id: number, supplierData: FormData) {
+  return this.http.post<ISupplier>(`${ENDPOINT}/${id}?_method=put`, supplierData);
+}
 
   delete(id: number) {
     this.http

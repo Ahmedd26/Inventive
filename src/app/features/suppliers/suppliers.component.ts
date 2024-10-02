@@ -32,6 +32,7 @@ export class SuppliersComponent {
     );
     this.suppliers[index] = newSupplier;
   }
+  
   onSupplierCreated(event: { supplier: ISupplier, file: File | null }) {
     this.isLoading = true;
     const formData = new FormData();
@@ -58,6 +59,8 @@ export class SuppliersComponent {
         }
     });
   }
+
+  
   onDeleteSupplier(id: number) {
     this.suppliersService.delete(id);
   }
