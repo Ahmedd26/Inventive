@@ -6,7 +6,7 @@
           Amount</label>
         <input id="total_amount" type="text"
           class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-          name="total_amount" required minlength="3" #total_amount="ngModel" ngModel />
+          name="total_amount" required #total_amount="ngModel" ngModel />
         <!-- ERROR HANDLING -->
         <div *ngIf="total_amount.invalid && total_amount.touched" class="text-red-500">
           <p *ngIf="total_amount.hasError('required')">required</p>
@@ -112,7 +112,7 @@
         <label for="" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Total Amount</label>
         <input type="text"
           class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-          name="total_amount" [ngModel]="salesOrder.total_amount" required minlength="3" #updatedTotalAmount="ngModel"
+          name="total_amount" [ngModel]="salesOrder.total_amount" required #updatedTotalAmount="ngModel"
           ngModel />
         <!-- ERROR HANDLING -->
         <div *ngIf="updatedTotalAmount.invalid && updatedTotalAmount.touched" class="text-red-500">
