@@ -24,6 +24,7 @@ export class SalesComponent {
       next: data => {
         // console.log(data)
         console.log('Added Successfully')
+        this.errorBack = null
         this.salesArray.push(data)
       },
       error: errorRes => {
@@ -37,15 +38,15 @@ export class SalesComponent {
     this.salesServ.deleteSales(salesId).subscribe({
       next: data => {
         // console.log(data)
+        console.log('DELETED Successfully')
+        this.salesArray = this.salesArray.filter(
+          (element) => element.id !== salesId
+        );
       },
       error: errorRes => {
         // console.log(errorRes)
       }
     })
-    console.log('DELETED Successfully')
-    this.salesArray = this.salesArray.filter(
-      (element) => element.id !== salesId
-    );
   }
 
   onUpdateSales(form: ISalesOrder, salesId: number) {
@@ -53,6 +54,7 @@ export class SalesComponent {
       next: data => {
         // console.log(data)
         console.log("updated successfully")
+        this.updateErrorBack = null
         this.salesArray = this.salesArray.map((element) => {
           if (element.id === salesId) {
             return {
@@ -91,6 +93,5 @@ export class SalesComponent {
       }
     })
   }
-
 
 }
