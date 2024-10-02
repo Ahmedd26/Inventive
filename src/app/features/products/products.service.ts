@@ -24,7 +24,7 @@ export class ProductsService {
   }
 
   update(product: FormData, id: number) {
-    return this.http.post<IProduct>(`${ENDPOINT}/${id}`, product);
+    return this.http.post<IProduct>(`${ENDPOINT}/${id}?_method=put`, product);
   }
 
   delete(id: number) {

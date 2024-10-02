@@ -32,7 +32,7 @@ export class CreateProductModalComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private supplierService: SuppliersService,
-    private categoryService: CategoriesService
+    private categoryService: CategoriesService,
   ) {
     this.productForm = new FormGroup({
       name: new FormControl(null, [
@@ -65,23 +65,23 @@ export class CreateProductModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.productForm);
-    console.log(this.productForm.value);
-    if (this.productForm.valid) {
-      const formData = new FormData();
-      Object.keys(this.productForm.controls).forEach((key) => {
-        formData.append(key, this.productForm.get(key)?.value);
-      });
+    // console.log(this.productForm);
+    // console.log(this.productForm.value);
+    // if (this.productForm.valid) {
+    const formData = new FormData();
+    Object.keys(this.productForm.controls).forEach((key) => {
+      formData.append(key, this.productForm.get(key)?.value);
+    });
 
-      this.productService.create(formData).subscribe({
-        next: (data) => {
-          this.product.emit(data);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.apiErrors = error.error.errors;
-        },
-      });
-    }
+    this.productService.create(formData).subscribe({
+      next: (data) => {
+        this.product.emit(data);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.apiErrors = error.error.errors;
+      },
+    });
+    // }
   }
 
   validateNumberOnInput(event: Event, field: keyof IProductError): void {

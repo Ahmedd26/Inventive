@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { IconsModule } from '../../../../shared/icons/icons.module';
 import { initFlowbite } from 'flowbite';
 import { ProductDeleteModalComponent } from '../product-delete-modal/product-delete-modal.component';
+import { UpdateProductModalComponent } from '../update-product-modal/update-product-modal.component';
 
 @Component({
   selector: 'app-show-product',
@@ -16,6 +17,7 @@ import { ProductDeleteModalComponent } from '../product-delete-modal/product-del
     CommonModule,
     IconsModule,
     ProductDeleteModalComponent,
+    UpdateProductModalComponent,
   ],
   templateUrl: './show-product.component.html',
 })
