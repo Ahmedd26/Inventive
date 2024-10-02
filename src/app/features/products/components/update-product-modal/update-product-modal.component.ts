@@ -72,7 +72,7 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
           this.inputProduct.supplier_id,
           Validators.required,
         ),
-        image: new FormControl(null, Validators.required),
+        image: new FormControl(null),
       });
     }
   }
