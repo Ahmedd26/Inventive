@@ -11,7 +11,8 @@ import { ISalesOrder, IUser } from './sales.model';
   templateUrl: './sales.component.html',
 })
 export class SalesComponent {
-
+  amountPattern = "^[1-9][0-9]*$"
+  updateAmountPattern = "^[1-9][0-9]*$"
   salesArray!: ISalesOrder[]
   usersArray!: IUser[]
   errorBack = null;
