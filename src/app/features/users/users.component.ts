@@ -24,10 +24,13 @@ export class UsersComponent implements OnInit  {
     this.usersService.getAll().subscribe({
       next: (users) => {
         this.users = users;
+        console.log('all users retreived successfully',users);
+        
         this.fetchingState = false;
       },
       error: (error) => {
         this.error = error.error.message;
+        console.log('could not get all users',error);
         this.fetchingState = false;
       }
     });
