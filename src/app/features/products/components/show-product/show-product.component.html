@@ -94,8 +94,10 @@
       </div>
       <!-- CTAs -->
       <div class="mt-auto flex items-center justify-end gap-4 pt-2">
-        <!-- <app-update-product-modal [inputProduct]="product" (product)="" /> -->
-        <app-update-product-modal [inputProduct]="product" />
+        <app-update-product-modal
+          [inputProduct]="product"
+          (product)="setUpdatedProductInView($event)"
+        />
         <app-product-delete-modal [productId]="product.id" />
       </div>
     </div>

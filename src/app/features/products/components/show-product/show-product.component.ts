@@ -47,4 +47,9 @@ export class ShowProductComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     initFlowbite();
   }
+
+  setUpdatedProductInView(newProduct: IProduct) {
+    // This function is responsible to update the product in the view
+    this.product = newProduct;
+  }
 }
