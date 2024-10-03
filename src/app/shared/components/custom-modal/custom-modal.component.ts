@@ -38,10 +38,10 @@ export class CustomModalComponent {
     this.isOpened = false;
   }
 
-  declineClicked() {
-    this.closeModal();
-  }
   acceptClicked() {
     this.accept.emit();
+  }
+  declineClicked() {
+    this.closeModal();
   }
 }

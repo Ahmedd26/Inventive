@@ -1,12 +1,6 @@
-import { initFlowbite } from 'flowbite';
 import { IconsModule } from '../../../../shared/icons/icons.module';
 import { ProductsService } from './../../products.service';
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
@@ -18,17 +12,32 @@ import { take } from 'rxjs/operators';
   imports: [IconsModule],
   templateUrl: './product-delete-modal.component.html',
 })
-export class ProductDeleteModalComponent implements AfterViewInit {
+export class ProductDeleteModalComponent {
   @Input() productId!: number;
   isLoading: boolean = false;
   success: string = '';
   error: string = '';
   countDown: number = 5;
+  isOpened: boolean = false;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  }
+
+  openModal() {
+    this.isOpened = true;
+  }
+
+  closeModal() {
+    this.isOpened = false;
+  }
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private viewContainerRef: ViewContainerRef,
   ) {}
 
   onDelete(productId: number) {
@@ -76,13 +85,5 @@ export class ProductDeleteModalComponent implements AfterViewInit {
     this.router.navigate(['/products']).then(() => {
       this.closeModal();
     });
-  }
-
-  closeModal() {
-    this.viewContainerRef.clear();
-  }
-
-  ngAfterViewInit() {
-    initFlowbite();
   }
 }
