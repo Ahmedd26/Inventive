@@ -38,7 +38,25 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
   productsArray!: IProduct[];
   suppliersArray!: ISupplier[];
   categoriesArray!: ICategory[];
+  // MODAL
+  // @Input({ required: true }) buttonText!: string;
+  // @Input({ required: true }) buttonClasses!: string;
+  // @Input({ required: true }) modalHeader!: string;
+  // @Input({ required: true }) acceptButtonText!: string;
+  // @Input() declineButtonText!: string;
 
+  // @Output() accept = new EventEmitter();
+
+  isOpened: boolean = true;
+
+  openModal() {
+    this.isOpened = true;
+  }
+
+  closeModal() {
+    this.isOpened = false;
+  }
+  // END MODAL
   constructor(
     private productService: ProductsService,
     private supplierService: SuppliersService,
@@ -104,6 +122,7 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
         this.productService.update(formData, id).subscribe({
           next: (data) => {
             this.product.emit(data);
+            this.closeModal();
           },
           error: (error: HttpErrorResponse) => {
             this.apiErrors = error.error.errors;

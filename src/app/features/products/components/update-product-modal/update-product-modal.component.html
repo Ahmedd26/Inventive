@@ -1,37 +1,30 @@
 <button
-  data-modal-target="update-product-modal"
-  data-modal-toggle="update-product-modal"
   class="inline-flex items-center gap-2.5 rounded-lg bg-stone-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-stone-800 focus:outline-none focus:ring-4 focus:ring-stone-300 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-stone-800"
-  type="button"
+  (click)="openModal()"
 >
   <i-feather name="edit-2" />
   Edit
 </button>
 
-<!-- Main modal -->
-<div
-  id="update-product-modal"
-  data-modal-backdrop="static"
-  tabindex="-1"
-  aria-hidden="true"
-  class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0"
->
-  <div class="relative max-h-full w-full max-w-3xl p-4">
-    <!-- Modal content -->
-    <div
-      class="relative overflow-hidden rounded-lg bg-white shadow dark:bg-stone-700"
-    >
+@if (isOpened) {
+  <div
+    class="absolute inset-0 z-[90] bg-stone-200/30 backdrop-blur-sm dark:bg-stone-900/30"
+  ></div>
+  <div
+    class="absolute left-1/2 top-1/2 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-stone-100 bg-stone-50 dark:border-stone-700 dark:bg-stone-800"
+  >
+    <div class="max-h-full w-full min-w-96 max-w-3xl">
       <!-- Modal header -->
       <div
         class="flex items-center justify-between rounded-t border-b p-4 dark:border-stone-600 md:p-5"
       >
         <h3 class="text-xl font-semibold text-stone-900 dark:text-white">
-          Create a new product
+          Update {{ inputProduct.name }}
         </h3>
         <button
           type="button"
           class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-stone-400 hover:bg-stone-200 hover:text-stone-900 dark:hover:bg-stone-600 dark:hover:text-white"
-          data-modal-hide="update-product-modal"
+          (click)="closeModal()"
         >
           <svg
             class="h-3 w-3"
@@ -51,11 +44,11 @@
           <span class="sr-only">Close modal</span>
         </button>
       </div>
-      <!-- Modal body -->
+      <!-- Modal Content -->
       <div class="p-4 dark:bg-stone-800 md:p-5">
         <form
           enctype="multipart/form-data"
-          class="mx-auto grid grid-cols-1 gap-x-6 md:grid-cols-2 lg:grid-cols-6"
+          class="mx-auto grid grid-cols-6 gap-x-6"
           [formGroup]="productForm"
           (ngSubmit)="onSubmit()"
         >
@@ -147,7 +140,7 @@
             }
           </div>
 
-          <div class="col-span-2 mb-4">
+          <div class="col-span-6 mb-4 lg:col-span-2">
             <label
               for=""
               class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
@@ -175,7 +168,7 @@
             }
           </div>
 
-          <div class="col-span-2 mb-4">
+          <div class="col-span-3 mb-4 lg:col-span-2">
             <label
               for=""
               class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
@@ -204,7 +197,7 @@
             }
           </div>
 
-          <div class="col-span-2 mb-4">
+          <div class="col-span-3 mb-4 lg:col-span-2">
             <label
               for=""
               class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
@@ -293,18 +286,20 @@
               <p class="mt-2.5 text-sm text-red-500">Required.</p>
             }
           </div>
-
-          <div class="col-span-6 mt-2">
+          <!-- MODAL FOOTER -->
+          <div
+            class="col-span-6 mt-2 flex items-center justify-end gap-4 rounded-b border-t border-stone-200 pt-4 dark:border-stone-600 md:pt-5"
+          >
             <button
               type="submit"
               [disabled]="productForm.invalid"
               class="rounded-lg bg-amber-700 px-5 py-2.5 text-sm font-medium text-white duration-150 hover:bg-amber-800 focus:outline-none focus:ring-4 focus:ring-amber-300 disabled:cursor-not-allowed disabled:bg-amber-600/65 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800 dark:disabled:bg-amber-800/35"
             >
-              Create
+              Update
             </button>
           </div>
         </form>
       </div>
     </div>
   </div>
-</div>
+}
