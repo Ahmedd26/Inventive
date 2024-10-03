@@ -10,6 +10,7 @@ import { ProductDeleteModalComponent } from '../product-delete-modal/product-del
 import { UpdateProductModalComponent } from '../update-product-modal/update-product-modal.component';
 import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 import { ProductAdjustmentComponent } from './components/product-adjustment/product-adjustment.component';
+import { ProductInventoryMovementsComponent } from './components/product-inventory-movements/product-inventory-movements.component';
 
 @Component({
   selector: 'app-show-product',
@@ -22,6 +23,7 @@ import { ProductAdjustmentComponent } from './components/product-adjustment/prod
     UpdateProductModalComponent,
     CustomModalComponent,
     ProductAdjustmentComponent,
+    ProductInventoryMovementsComponent,
   ],
   templateUrl: './show-product.component.html',
 })

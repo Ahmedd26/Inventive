@@ -108,6 +108,18 @@
   </div>
 }
 
-@if (product.adjustments && product.adjustments.length > 1) {
+@if (product.adjustments && product.adjustments.length > 0) {
   <app-product-adjustment [adjustments]="product.adjustments" />
+} @else {
+  <h4 class="mt-8 text-xl dark:text-stone-600">
+    No adjustments were made for this product.
+  </h4>
+}
+
+@if (product.inventory_movements && product.inventory_movements.length > 0) {
+  <app-product-inventory-movements [movements]="product.inventory_movements" />
+} @else {
+  <h4 class="mt-8 text-xl dark:text-stone-600">
+    No Inventory movements were made for this product.
+  </h4>
 }
