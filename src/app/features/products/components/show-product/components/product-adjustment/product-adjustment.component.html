@@ -22,12 +22,14 @@
         @for (adjustment of adjustments; track adjustment.id) {
           <tr class="border-b bg-white dark:border-stone-700 dark:bg-stone-800">
             <td class="px-6 py-4">{{ adjustment.id }}</td>
-            <td class="px-6 py-4">{{ adjustment.user_id }}</td>
+            <td class="px-6 py-4">
+              {{ getUserName(adjustment.user_id) }}
+            </td>
             <td
               class="px-6 py-4 font-semibold"
               [ngClass]="
                 adjustment.quantity_adjusted > 0
-                  ? 'text-amber-600 dark:text-amber-600'
+                  ? ''
                   : 'text-red-700 dark:text-red-500'
               "
             >
