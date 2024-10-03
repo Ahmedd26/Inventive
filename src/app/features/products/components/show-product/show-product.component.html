@@ -94,9 +94,16 @@
       </div>
       <!-- CTAs -->
       <div class="mt-auto flex items-center justify-end gap-4 pt-2">
-        <app-update-product-modal
+        <!-- <app-update-product-modal
           [inputProduct]="product"
           (product)="setUpdatedProductInView($event)"
+        /> -->
+        <custom-modal
+          buttonText="Edit"
+          modalHeader="Edit product"
+          buttonClasses="inline-flex items-center gap-2.5 rounded-lg bg-stone-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-stone-800 focus:outline-none focus:ring-4 focus:ring-stone-300 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-stone-800"
+          acceptButtonText="Update"
+          declineButtonText="decline"
         />
         <app-product-delete-modal [productId]="product.id" />
       </div>

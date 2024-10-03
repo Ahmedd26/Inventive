@@ -1,0 +1,70 @@
+<button [class]="buttonClasses" (click)="openModal()">{{ buttonText }}</button>
+
+@if (isOpened) {
+  <div
+    class="absolute inset-0 z-[90] bg-stone-200/30 backdrop-blur-sm dark:bg-stone-900/30"
+  ></div>
+  <div
+    class="absolute left-1/2 top-1/2 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-stone-100 bg-stone-50 dark:border-stone-700 dark:bg-stone-800"
+  >
+    <div class="max-h-full w-full min-w-96 max-w-3xl">
+      <!-- Modal header -->
+      <div
+        class="flex items-center justify-between rounded-t border-b p-4 dark:border-stone-600 md:p-5"
+      >
+        <h3 class="text-xl font-semibold text-stone-900 dark:text-white">
+          Create a new product
+        </h3>
+        <button
+          type="button"
+          class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-stone-400 hover:bg-stone-200 hover:text-stone-900 dark:hover:bg-stone-600 dark:hover:text-white"
+          (click)="declineClicked()"
+        >
+          <svg
+            class="h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal Content -->
+      <div class="p-4 dark:bg-stone-800 md:p-5">
+        <ng-content />
+      </div>
+      <!-- Modal footer -->
+      <div
+        class="flex items-center justify-end gap-4 rounded-b border-t border-stone-200 p-4 dark:border-stone-600 md:p-5"
+      >
+        @if (declineButtonText) {
+          <button
+            type="button"
+            (click)="declineClicked()"
+            class="rounded-lg border border-stone-200 bg-white px-5 py-2.5 text-sm font-medium text-stone-900 hover:bg-stone-100 hover:text-amber-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-stone-100 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white dark:focus:ring-stone-700"
+          >
+            {{ declineButtonText }}
+          </button>
+        }
+        @if (acceptButtonText) {
+          <button
+            (click)="acceptClicked()"
+            type="button"
+            class="rounded-lg bg-amber-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-4 focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
+          >
+            {{ acceptButtonText }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+}

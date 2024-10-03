@@ -8,6 +8,7 @@ import { IconsModule } from '../../../../shared/icons/icons.module';
 import { initFlowbite } from 'flowbite';
 import { ProductDeleteModalComponent } from '../product-delete-modal/product-delete-modal.component';
 import { UpdateProductModalComponent } from '../update-product-modal/update-product-modal.component';
+import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 
 @Component({
   selector: 'app-show-product',
@@ -18,6 +19,7 @@ import { UpdateProductModalComponent } from '../update-product-modal/update-prod
     IconsModule,
     ProductDeleteModalComponent,
     UpdateProductModalComponent,
+    CustomModalComponent,
   ],
   templateUrl: './show-product.component.html',
 })
