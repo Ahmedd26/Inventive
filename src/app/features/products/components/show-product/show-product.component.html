@@ -11,9 +11,19 @@
       />
     </div>
     <div class="flex flex-col gap-4 xl:flex-1">
-      <h1 class="text-2xl font-bold text-stone-700 dark:text-stone-300">
-        {{ product.name }}
-      </h1>
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold text-stone-700 dark:text-stone-300">
+          {{ product.name }}
+        </h1>
+        <!-- CTAs -->
+        <div class="mt-auto flex items-center justify-end gap-4 pt-2 xl:mt-0">
+          <app-update-product-modal
+            [inputProduct]="product"
+            (product)="setUpdatedProductInView($event)"
+          />
+          <app-product-delete-modal [productId]="product.id" />
+        </div>
+      </div>
       <p class="text-lg text-stone-600 dark:text-stone-500">
         {{ product.description }}
       </p>
@@ -91,14 +101,6 @@
             {{ product.updated_at | date: "shortTime" }}
           </span>
         </div>
-      </div>
-      <!-- CTAs -->
-      <div class="mt-auto flex items-center justify-end gap-4 pt-2 xl:mt-0">
-        <app-update-product-modal
-          [inputProduct]="product"
-          (product)="setUpdatedProductInView($event)"
-        />
-        <app-product-delete-modal [productId]="product.id" />
       </div>
     </div>
   </div>
