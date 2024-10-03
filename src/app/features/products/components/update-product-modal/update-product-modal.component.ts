@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  HostListener,
   Input,
   OnChanges,
   OnInit,
@@ -40,6 +41,13 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
   categoriesArray!: ICategory[];
 
   isOpened: boolean = false;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  }
 
   openModal() {
     this.isOpened = true;

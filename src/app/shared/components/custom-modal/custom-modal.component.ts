@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'custom-modal',
@@ -16,6 +22,13 @@ export class CustomModalComponent {
   @Output() accept = new EventEmitter();
 
   isOpened: boolean = false;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  }
 
   openModal() {
     this.isOpened = true;
