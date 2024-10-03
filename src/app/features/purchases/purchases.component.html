@@ -1,0 +1,246 @@
+<div class="text-stone-800 dark:text-white">
+
+
+  <div class="p-2">
+
+    <form #purchaseForm="ngForm" (ngSubmit)="onCreatePurchase(purchaseForm.value)">
+
+      <div class="mb-2">
+        <label for="total_amount" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Total
+          Amount</label>
+        <input id="total_amount" type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="total_amount" required [pattern]="amountPattern" #total_amount="ngModel" ngModel />
+        <!-- ERROR HANDLING -->
+        <div *ngIf="total_amount.invalid && total_amount.touched" class="text-red-500">
+          <p *ngIf="total_amount.hasError('required')">required</p>
+          <p *ngIf="total_amount.hasError('pattern')">amount must be a valid number</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['total_amount']" class="text-red-500">
+          {{ APIerrors["total_amount"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="status" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Status</label>
+        <select id="status"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="status" required #status="ngModel" ngModel>
+          <option value="">Choose a Status</option>
+          <option value="pending">Pending</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="completed">Completed</option>
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="status.invalid && status.touched" class="text-red-500">
+          <p *ngIf="status.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['status']" class="text-red-500">
+          {{ APIerrors["status"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="supplier_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier</label>
+        <select id="supplier_id"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="supplier_id" required #supplier_id="ngModel" ngModel>
+          <option value="">Choose a Supplier</option>
+          @for (supplier of suppliersArray; track $index) {
+          <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+          } @empty {
+          <p class="mx-auto">No suppliers were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="supplier_id.invalid && supplier_id.touched" class="text-red-500">
+          <p *ngIf="supplier_id.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['supplier_id']" class="text-red-500">
+          {{ APIerrors["supplier_id"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="user_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">User</label>
+        <select id="user_id"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="user_id" required #user_id="ngModel" ngModel>
+          <option value="">Choose a User</option>
+          @for (user of usersArray; track $index) {
+          <option value="{{ user.id }}">{{ user.name }}</option>
+          } @empty {
+          <p class="mx-auto">No users were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="user_id.invalid && user_id.touched" class="text-red-500">
+          <p *ngIf="user_id.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['user_id']" class="text-red-500">
+          {{ APIerrors["user_id"] }}
+        </p>
+      </div>
+
+
+      <div class="flex flex-row-reverse items-center gap-2 mt-2">
+        <button type="submit"
+          class="duration-150 text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800">
+          Create
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="p-2">
+    @for (purchase of purchasesArray; track $index) {
+    <h2 class="text-3xl">Purchase Information</h2>
+    <p>Purchase ID: {{purchase.id}} </p>
+    <p>Purchase total amount: {{purchase.total_amount}} </p>
+    <p>Purchase status: {{purchase.status}} </p>
+
+    @if (purchase.product_purchase_orders) {
+    @for (item of purchase.product_purchase_orders; track $index) {
+    <h2 class="text-3xl">Item Information </h2>
+    <p>Item price: {{item.price}} </p>
+    <p>Item quantity: {{item.quantity}} </p>
+    <p>Item name: {{item.product.name}} </p>
+    }
+    @if(purchase.supplier){
+    <h2 class="text-3xl">Supplier Information </h2>
+    <p>Supplier name: {{purchase.supplier.name}} </p>
+    }
+    @if(purchase.user){
+    <h2 class="text-3xl">User Information </h2>
+    <p>User name: {{purchase.user.name}} </p>
+    }
+    }
+
+
+    <div class="my-4">
+      @if(purchase.id){
+      <form #purchaseForm="ngForm" (ngSubmit)="onUpdatePurchase(purchaseForm.value,purchase.id)">
+
+        <div class="mb-2">
+          <label for="total_amount" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Total
+            Amount</label>
+          <input id="total_amount" type="text"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="total_amount" required [pattern]="updateAmountPattern" #updatedTotal="ngModel"
+            [ngModel]="purchase.total_amount" ngModel />
+          <!-- ERROR HANDLING -->
+          <div *ngIf="updatedTotal.invalid && updatedTotal.touched" class="text-red-500">
+            <p *ngIf="updatedTotal.hasError('required')">required</p>
+            <p *ngIf="updatedTotal.hasError('pattern')">Amount must be a number</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['total_amount']" class="text-red-500">
+            {{ updateAPIerrors["total_amount"] }}
+          </p>
+        </div>
+
+
+        <div class="mb-2">
+          <label for="status" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Status</label>
+          <select id="status"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="status" required #updatedStatus="ngModel" ngModel>
+            <option value="">Choose a Status</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="completed">Completed</option>
+          </select>
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedStatus.invalid && updatedStatus.touched" class="text-red-500">
+            <p *ngIf="updatedStatus.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['status']" class="text-red-500">
+            {{ updateAPIerrors["status"] }}
+          </p>
+        </div>
+
+
+        <div class="mb-2">
+          <label for="supplier_id"
+            class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Supplier</label>
+          <select id="supplier_id"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="supplier_id" required #updatedSupplier="ngModel" ngModel>
+            <option value="">Choose a Supplier</option>
+            @for (supplier of suppliersArray; track $index) {
+            <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+            } @empty {
+            <p class="mx-auto">No suppliers were found</p>
+            }
+          </select>
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedSupplier.invalid && updatedSupplier.touched" class="text-red-500">
+            <p *ngIf="updatedSupplier.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['supplier_id']" class="text-red-500">
+            {{ updateAPIerrors["supplier_id"] }}
+          </p>
+        </div>
+
+
+        <div class="mb-2">
+          <label for="user_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">User</label>
+          <select id="user_id"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="user_id" required #updatedUser="ngModel" ngModel>
+            <option value="">Choose a User</option>
+            @for (user of usersArray; track $index) {
+            <option value="{{ user.id }}">{{ user.name }}</option>
+            } @empty {
+            <p class="mx-auto">No users were found</p>
+            }
+          </select>
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedUser.invalid && updatedUser.touched" class="text-red-500">
+            <p *ngIf="updatedUser.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['user_id']" class="text-red-500">
+            {{ updateAPIerrors["user_id"] }}
+          </p>
+        </div>
+
+
+        <button type="submit" class="p-2 bg-green-700 hover:bg-green-800">
+          Edit
+        </button>
+      </form>
+      }
+
+    </div>
+
+    @if(purchase.id){
+    <button type="submit" (click)="onDeletePurchase(purchase.id)" class="p-2 bg-red-700 hover:bg-red-800 my-4">
+      Delete
+    </button>
+    }
+
+    <hr class="m-4">
+    }
+    @empty {
+    <p>No purchases were found</p> }
+
+  </div>
+
+</div>

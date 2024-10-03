@@ -11,6 +11,7 @@ import { ProductsComponent } from './features/products/products.component';
 import { CategoriesComponent } from './features/categories/categories.component';
 import { LandingPageComponent } from './shared/landing-page/landing-page.component';
 import { SalesComponent } from './features/sales/sales.component';
+import { PurchasesComponent } from './features/purchases/purchases.component';
 
 export const routes: Routes = [
   {
@@ -75,6 +76,13 @@ export const routes: Routes = [
     path: 'sales',
     title: 'Sales',
     component: SalesComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'purchases',
+    title: 'Purchases',
+    component: PurchasesComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },

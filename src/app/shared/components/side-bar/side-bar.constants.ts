@@ -32,7 +32,7 @@ export const links: ILink[] = [
     title: 'suppliers',
   },
   {
-    path: '/',
+    path: '/purchases',
     iconName: 'dollar-sign',
     title: 'Purchases',
   },
