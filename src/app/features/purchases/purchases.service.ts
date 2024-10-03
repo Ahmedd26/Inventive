@@ -4,8 +4,8 @@ import { API } from '../../core/utils/constants.utils';
 import { IPurchase, IUser } from './purchases.model';
 
 
-const ENDPOINT = `${API}purchase-orders/`;
-const ENDPOINTUSER = `${API}users/`;
+const ENDPOINT = `${API}purchase-orders`;
+const ENDPOINTUSER = `${API}users`;
 
 
 @Injectable({
@@ -30,10 +30,10 @@ export class PurchasesService {
   }
 
   updatePurchase(body: IPurchase, purchaseId: number) {
-    return this.http.patch<IPurchase>(`${ENDPOINT}${purchaseId}`, body)
+    return this.http.patch<IPurchase>(`${ENDPOINT}/${purchaseId}`, body)
   }
 
   deletePurchase(purchaseId: number) {
-    return this.http.delete(`${ENDPOINT}${purchaseId}`)
+    return this.http.delete(`${ENDPOINT}/${purchaseId}`)
   }
 }

@@ -2,7 +2,7 @@ import { IProduct } from "../products/products.model"
 import { ISupplier } from "../suppliers/suppliers.model"
 
 export interface IPurchase {
-  id: number
+  id?: number
   user_id: number
   supplier_id: number
   total_amount: number

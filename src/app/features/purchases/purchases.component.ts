@@ -18,8 +18,8 @@ import { IPurchase, IUser } from './purchases.model';
 export class PurchasesComponent {
   amountPattern = "^[1-9][0-9]*$"
   updateAmountPattern = "^[1-9][0-9]*$"
-  errorBack = null
-  updateErrorBack = null
+  APIerrors = null
+  updateAPIerrors = null
   purchasesArray!: IPurchase[]
   suppliersArray!: ISupplier[];
   usersArray!: IUser[]
@@ -31,11 +31,11 @@ export class PurchasesComponent {
       next: data => {
         // console.log(data)
         console.log('Added Successfully')
-        this.errorBack = null
+        this.APIerrors = null
         this.purchasesArray.push(data)
       },
       error: errorRes => {
-        this.errorBack = errorRes.error.errors;
+        this.APIerrors = errorRes.error.errors;
         // console.log(errorRes)
       }
     })
@@ -46,7 +46,7 @@ export class PurchasesComponent {
       next: data => {
         // console.log(data)
         console.log('Updated Successfully')
-        this.updateErrorBack = null
+        this.updateAPIerrors = null
         this.purchasesArray = this.purchasesArray.map((element) => {
           if (element.id === purchId) {
             return {
@@ -61,7 +61,7 @@ export class PurchasesComponent {
         })
       },
       error: errorRes => {
-        this.updateErrorBack = errorRes.error.errors;
+        this.updateAPIerrors = errorRes.error.errors;
         // console.log(errorRes)
       }
     })
