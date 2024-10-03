@@ -123,3 +123,14 @@
     No Inventory movements were made for this product.
   </h4>
 }
+@if (
+  product.product_purchase_orders && product.product_purchase_orders.length > 0
+) {
+  <app-product-purchase-orders
+    [purchaseOrders]="product.product_purchase_orders"
+  />
+} @else {
+  <h4 class="mt-8 text-xl dark:text-stone-600">
+    No track for purchased orders for this product.
+  </h4>
+}

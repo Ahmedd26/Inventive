@@ -11,6 +11,7 @@ import { UpdateProductModalComponent } from '../update-product-modal/update-prod
 import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 import { ProductAdjustmentComponent } from './components/product-adjustment/product-adjustment.component';
 import { ProductInventoryMovementsComponent } from './components/product-inventory-movements/product-inventory-movements.component';
+import { ProductPurchaseOrdersComponent } from "./components/product-purchase-orders/product-purchase-orders.component";
 
 @Component({
   selector: 'app-show-product',
@@ -24,7 +25,8 @@ import { ProductInventoryMovementsComponent } from './components/product-invento
     CustomModalComponent,
     ProductAdjustmentComponent,
     ProductInventoryMovementsComponent,
-  ],
+    ProductPurchaseOrdersComponent
+],
   templateUrl: './show-product.component.html',
 })
 export class ShowProductComponent implements OnInit, AfterViewInit {

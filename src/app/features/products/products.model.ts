@@ -40,7 +40,7 @@ export interface IProduct {
   supplier?: ISupplier;
   inventory_movements?: IInventoryMovement[];
   product_sales_orders?: IProductSalesOrder[];
-  product_purchase_orders?: any[];
+  product_purchase_orders?: IProductPurchaseOrders[];
   adjustments?: IAdjustment[];
 }
 
@@ -80,6 +80,16 @@ export interface IAdjustment {
   quantity_adjusted: number;
   reason: string;
   user_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IProductPurchaseOrders {
+  id: number;
+  product_id: number;
+  purchase_order_id: number;
+  quantity: number;
+  price: number;
   created_at: string;
   updated_at: string;
 }
