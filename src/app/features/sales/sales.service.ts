@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { API } from '../../core/utils/constants.utils';
 import { ISalesOrder, IUser } from './sales.model';
 
-const ENDPOINT = `${API}salesorders/`;
-const ENDPOINTUSER = `${API}users/`;
+const ENDPOINT = `${API}salesorders`;
+const ENDPOINTUSER = `${API}users`;
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class SalesService {
   }
 
   updateSales(form: ISalesOrder, salesId: number) {
-    return this.http.patch<ISalesOrder>(`${ENDPOINT}${salesId}`, form)
+    return this.http.patch<ISalesOrder>(`${ENDPOINT}/${salesId}`, form)
   }
 
   createSales(body: ISalesOrder) {
@@ -32,6 +32,6 @@ export class SalesService {
   }
 
   deleteSales(salesId: number) {
-    return this.http.delete(`${ENDPOINT}${salesId}`)
+    return this.http.delete(`${ENDPOINT}/${salesId}`)
   }
 }

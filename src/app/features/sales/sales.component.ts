@@ -15,8 +15,8 @@ export class SalesComponent {
   updateAmountPattern = "^[1-9][0-9]*$"
   salesArray!: ISalesOrder[]
   usersArray!: IUser[]
-  errorBack = null;
-  updateErrorBack = null
+  APIerrors = null;
+  updateAPIerrors = null
 
   constructor(private salesServ: SalesService) { }
 
@@ -25,11 +25,11 @@ export class SalesComponent {
       next: data => {
         // console.log(data)
         console.log('Added Successfully')
-        this.errorBack = null
+        this.APIerrors = null
         this.salesArray.push(data)
       },
       error: errorRes => {
-        this.errorBack = errorRes.error.errors;
+        this.APIerrors = errorRes.error.errors;
         console.log(errorRes)
       }
     })
@@ -55,7 +55,7 @@ export class SalesComponent {
       next: data => {
         // console.log(data)
         console.log("updated successfully")
-        this.updateErrorBack = null
+        this.updateAPIerrors = null
         this.salesArray = this.salesArray.map((element) => {
           if (element.id === salesId) {
             return {
@@ -69,7 +69,7 @@ export class SalesComponent {
       },
       error: errorRes => {
         console.log(errorRes)
-        this.updateErrorBack = errorRes.error.errors
+        this.updateAPIerrors = errorRes.error.errors
       }
     })
   }
