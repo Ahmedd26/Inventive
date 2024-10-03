@@ -1,6 +1,8 @@
 @if (isLoading) {
   <app-loading />
 }
+
+<!-- The Product Itself -->
 @if (product && product.id) {
   <div class="flex flex-col items-stretch gap-4 xl:flex-row xl:gap-6 2xl:gap-8">
     <div class="mx-auto max-w-lg">
@@ -104,4 +106,8 @@
       </div>
     </div>
   </div>
+}
+
+@if (product.adjustments && product.adjustments.length > 1) {
+  <app-product-adjustment [adjustments]="product.adjustments" />
 }

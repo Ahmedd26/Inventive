@@ -9,6 +9,7 @@ import { initFlowbite } from 'flowbite';
 import { ProductDeleteModalComponent } from '../product-delete-modal/product-delete-modal.component';
 import { UpdateProductModalComponent } from '../update-product-modal/update-product-modal.component';
 import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
+import { ProductAdjustmentComponent } from './components/product-adjustment/product-adjustment.component';
 
 @Component({
   selector: 'app-show-product',
@@ -20,6 +21,7 @@ import { CustomModalComponent } from '../../../../shared/components/custom-modal
     ProductDeleteModalComponent,
     UpdateProductModalComponent,
     CustomModalComponent,
+    ProductAdjustmentComponent,
   ],
   templateUrl: './show-product.component.html',
 })
