@@ -73,11 +73,13 @@
       </table>
     </div>
   </div>
-  <app-pagination
-    [totalItems]="totalItems"
-    [itemsPerPage]="5"
-    (pageChange)="onPageChange($event)"
-  ></app-pagination>
+  <div class="mt-4 md:mt-6 xl:mt-8">
+    <app-pagination
+      [totalItems]="totalItems"
+      [itemsPerPage]="5"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
+  </div>
 }
 
 @if (user) {
