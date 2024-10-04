@@ -8,6 +8,7 @@ import { RolesService } from '../../core/services/temp/roles/roles.service';
 import { type IUser } from './users.model';
 import { type IRole } from '../../core/services/temp/roles/roles.model';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { UsersCreateModalComponent } from './components/users-create-modal/users-create-modal.component';
 
 @Component({
   selector: 'app-users',
@@ -18,6 +19,7 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
     CommonModule,
     MenuComponent,
     PaginationComponent,
+    UsersCreateModalComponent,
   ],
   templateUrl: './users.component.html',
 })
@@ -108,21 +110,11 @@ export class UsersComponent implements OnInit {
       },
     });
   }
-  onCreateUser(user: IUser) {
-    this.fetchingState = true;
-    this.usersService.create(user).subscribe({
-      next: (user) => {
-        console.log('user created successfully', user);
-        this.users.push(user);
-        this.fetchingState = false;
-      },
-      error: (error) => {
-        this.error = error.error.message;
-        console.log('failed to create user', error);
-        this.fetchingState = false;
-      },
-    });
+
+  addNewlyCreatedUser(user: IUser) {
+    this.paginatedUsers.push(user);
   }
+
   onUpdateUser(user: IUser) {
     this.fetchingState = true;
     this.usersService.update(user, user.id).subscribe({

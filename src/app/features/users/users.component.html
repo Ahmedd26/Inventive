@@ -21,8 +21,14 @@
 
 @if (users) {
   <div class="mt-8">
-    <h2 class="text-4xl font-bold text-stone-800 dark:text-stone-200">Users</h2>
-
+    <div class="flex items-center justify-between">
+      <h2 class="text-4xl font-bold text-stone-800 dark:text-stone-200">
+        Users
+      </h2>
+      <app-users-create-modal
+        (newlyCreatedUser)="addNewlyCreatedUser($event)"
+      />
+    </div>
     <div
       class="relative mt-4 overflow-x-auto rounded-lg shadow-lg md:mt-6 xl:mt-8"
     >
