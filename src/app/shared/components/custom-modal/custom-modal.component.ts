@@ -5,11 +5,12 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { IconsModule } from '../../icons/icons.module';
 
 @Component({
   selector: 'custom-modal',
   standalone: true,
-  imports: [],
+  imports: [IconsModule],
   templateUrl: './custom-modal.component.html',
 })
 export class CustomModalComponent {
@@ -17,6 +18,7 @@ export class CustomModalComponent {
   @Input({ required: true }) buttonClasses!: string;
   @Input({ required: true }) modalHeader!: string;
   @Input({ required: true }) acceptButtonText!: string;
+  @Input() iconName!: string;
   @Input() declineButtonText!: string;
   @Input() disabled: boolean = false;
 

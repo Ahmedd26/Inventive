@@ -1,4 +1,9 @@
-<button [class]="buttonClasses" (click)="openModal()">{{ buttonText }}</button>
+<button [class]="buttonClasses" (click)="openModal()">
+  @if (iconName) {
+    <i-feather [name]="iconName"></i-feather>
+  }
+  {{ buttonText }}
+</button>
 
 @if (isOpened) {
   <div

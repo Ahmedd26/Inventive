@@ -1,12 +1,12 @@
 import {
   Component,
   EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import {
   FormControl,
@@ -22,14 +22,16 @@ import { SuppliersService } from '../../../suppliers/suppliers.service';
 import { CategoriesService } from '../../../categories/categories.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IconsModule } from '../../../../shared/icons/icons.module';
+import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 
 @Component({
   selector: 'app-update-product-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, IconsModule],
+  imports: [ReactiveFormsModule, IconsModule, CustomModalComponent],
   templateUrl: './update-product-modal.component.html',
 })
 export class UpdateProductModalComponent implements OnInit, OnChanges {
+  @ViewChild('modal') modal!: CustomModalComponent;
   @Output() product = new EventEmitter<IProduct>();
   @Input({ required: true }) inputProduct!: IProduct;
   productForm: FormGroup;
@@ -40,23 +42,6 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
   suppliersArray!: ISupplier[];
   categoriesArray!: ICategory[];
 
-  isOpened: boolean = false;
-
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      this.closeModal();
-    }
-  }
-
-  openModal() {
-    this.isOpened = true;
-  }
-
-  closeModal() {
-    this.isOpened = false;
-  }
-  // END MODAL
   constructor(
     private productService: ProductsService,
     private supplierService: SuppliersService,
@@ -122,7 +107,9 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
         this.productService.update(formData, id).subscribe({
           next: (data) => {
             this.product.emit(data);
-            this.closeModal();
+            this.apiErrors = null;
+            this.frontEndErrors = {};
+            this.modal.closeModal();
           },
           error: (error: HttpErrorResponse) => {
             this.apiErrors = error.error.errors;
