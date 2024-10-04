@@ -15,11 +15,12 @@
     <!-- BLURRY BG -->
   </div>
   <div
-    class="absolute left-1/2 top-1/2 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-stone-100 bg-stone-50 dark:border-stone-700 dark:bg-stone-800"
+    class="fixed left-1/2 top-1/2 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-stone-100 bg-stone-50 dark:border-stone-700 dark:bg-stone-800"
   >
     <div class="max-h-full w-full min-w-96 max-w-3xl">
       <button
         type="button"
+        (click)="closeModal()"
         class="absolute end-2.5 top-3 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-stone-400 hover:bg-stone-200 hover:text-stone-900 dark:hover:bg-stone-600 dark:hover:text-white"
       >
         <svg
