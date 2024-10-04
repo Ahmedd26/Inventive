@@ -1,0 +1,41 @@
+<custom-modal
+  buttonText="Register a new user"
+  buttonClasses="block text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
+  iconName="user-plus"
+  modalHeader="Register a new user"
+  acceptButtonText="Create"
+  #createModal
+>
+  <!-- (accept)="onSubmit()"
+[disabled]="productForm.invalid" -->
+
+  <form #createUserForm="ngForm">
+    <!-- (ngSubmit)="onCreateUser(createUserForm.value)" -->
+    <label>Create User</label>
+    <br />
+    <input type="text" ngModel name="name" placeholder="enter your name" />
+    <br />
+    <input type="email" ngModel name="email" placeholder="enter your email" />
+    <br />
+    <input
+      type="password"
+      ngModel
+      name="password"
+      placeholder="enter your password"
+    />
+    <br />
+    <input
+      type="password"
+      ngModel
+      name="password_confirmation"
+      placeholder="confirm your password"
+    />
+    <br />
+    <select name="role_id" ngModel>
+      @for (role of roles; track role.id) {
+        <option [value]="role.id">{{ role.name }}</option>
+      }
+    </select>
+    <br />
+  </form>
+</custom-modal>

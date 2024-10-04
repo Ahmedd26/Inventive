@@ -14,7 +14,7 @@ import { initFlowbite } from 'flowbite';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
 import { MenuComponent } from './components/menu/menu.component';
 
-interface ITable {
+export interface ITable {
   id: number | string;
   [key: string]: any;
 }

@@ -4,10 +4,10 @@
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative mt-1 inline-block shadow-md sm:rounded-lg">
       <div
-        class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none"
+        class="rtl:inset-r-0 pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
       >
         <svg
-          class="w-4 h-4 text-stone-500 dark:text-stone-400"
+          class="h-4 w-4 text-stone-500 dark:text-stone-400"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -25,68 +25,70 @@
       <input
         type="text"
         id="table-search"
-        class="block pt-2 ps-10 text-sm text-stone-900 border border-stone-300 rounded-lg w-80 bg-stone-50 focus:ring-amber-500 focus:border-amber-500 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+        class="block w-80 rounded-lg border border-stone-300 bg-stone-50 ps-10 pt-2 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
         placeholder="Search for items"
       />
     </div>
   </div>
   <table
-    class="w-full text-sm text-left rtl:text-right text-stone-500 dark:text-stone-400 rounded-lg overflow-hidden shadow-md sm:rounded-lg"
+    class="w-full overflow-hidden rounded-lg text-left text-sm text-stone-500 shadow-md dark:text-stone-400 sm:rounded-lg rtl:text-right"
   >
     <thead
-      class="text-xs text-stone-700 uppercase bg-stone-50 dark:bg-stone-700 dark:text-stone-400"
+      class="bg-stone-50 text-xs uppercase text-stone-700 dark:bg-stone-700 dark:text-stone-400"
     >
       <tr>
-        @for(tableHeader of tableHeaders; track tableHeader){
-        <th scope="col" class="px-6 py-3 capitalize">{{ tableHeader }}</th>
+        @for (tableHeader of tableHeaders; track tableHeader) {
+          <th scope="col" class="px-6 py-3 capitalize">{{ tableHeader }}</th>
         }
         <th scope="col" class="px-6 py-3"></th>
       </tr>
     </thead>
     <tbody>
-      @for(tableDataItem of displayList(); track trackById(+tableDataItem['id'],
-      tableDataItem)){
-      <tr
-        class="bg-white border-b dark:bg-stone-800 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-600"
-      >
-        @for(key of tableHeaders; track tableHeaders.indexOf(key)){
-        <td class="px-6 py-4">{{ tableDataItem[key] }}</td>
-        }
-        <td class="px-6 py-4">
-          <app-menu
-            [menuId]="+tableDataItem['id']"
-            (edit)="updateItem($event)"
-            [viewName]="resourceNameForRouting"
-          />
-        </td>
-      </tr>
-      <app-delete-pop-up
-        [id]="+tableDataItem['id']"
-        (deleteItem)="deleteItem($event)"
-      />
-      } @empty {
-      <tr>
-        <td
-          colspan="6"
-          class="bg-white dark:bg-stone-800 p-10 text-center text-xl font-semibold"
+      @for (
+        tableDataItem of displayList();
+        track trackById(+tableDataItem["id"], tableDataItem)
+      ) {
+        <tr
+          class="border-b bg-white hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-800 dark:hover:bg-stone-600"
         >
-          <div class="text-5xl mb-4">
-            <i-feather name="inbox" />
-          </div>
-          No tableDataItems added yet.
-        </td>
-      </tr>
+          @for (key of tableHeaders; track tableHeaders.indexOf(key)) {
+            <td class="px-6 py-4">{{ tableDataItem[key] }}</td>
+          }
+          <td class="px-6 py-4">
+            <app-menu
+              [menuId]="+tableDataItem['id']"
+              (edit)="updateItem($event)"
+              [viewName]="resourceNameForRouting"
+            />
+          </td>
+        </tr>
+        <app-delete-pop-up
+          [id]="+tableDataItem['id']"
+          (deleteItem)="deleteItem($event)"
+        />
+      } @empty {
+        <tr>
+          <td
+            colspan="6"
+            class="bg-white p-10 text-center text-xl font-semibold dark:bg-stone-800"
+          >
+            <div class="mb-4 text-5xl">
+              <i-feather name="inbox" />
+            </div>
+            No tableDataItems added yet.
+          </td>
+        </tr>
       }
     </tbody>
   </table>
 
   <!-- Pagination -->
   <nav
-    class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+    class="flex-column flex flex-wrap items-center justify-between pt-4 md:flex-row"
     aria-label="Table navigation"
   >
     <span
-      class="text-sm font-normal text-stone-500 dark:text-stone-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
+      class="mb-4 block w-full text-sm font-normal text-stone-500 dark:text-stone-400 md:mb-0 md:inline md:w-auto"
       >Showing
       <span class="font-semibold text-stone-900 dark:text-white"
         >{{ start + 1 }}-{{ end }}</span
@@ -96,7 +98,7 @@
         total
       }}</span></span
     >
-    <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+    <ul class="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
       <!-- Previous -->
       <li>
         <button
@@ -104,29 +106,28 @@
             currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'
           }}"
           [disabled]="currentPage === 1"
+          class="ms-0 flex h-8 select-none items-center justify-center rounded-s-lg border border-stone-300 bg-white px-3 leading-tight text-stone-500 hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
           (click)="decrementPage()"
-          class="select-none flex items-center justify-center px-3 h-8 ms-0 leading-tight text-stone-500 bg-white border border-stone-300 rounded-s-lg hover:bg-stone-100 hover:text-stone-700 dark:bg-stone-800 dark:border-stone-700 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
         >
           Previous
         </button>
       </li>
       <!-- Pages -->
-      @for(page of pages; track page){
-      <li>
-        <button
-          class="cursor-pointer select-none flex items-center justify-center px-3 h-8 leading-tight border border-stone-300 hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-700 dark:hover:bg-stone-700 dark:hover:text-white"
-          (click)="changePage(page)"
-          [ngClass]="{
-            'text-stone-500 bg-white dark:bg-stone-800 dark:text-stone-400':
-              currentPage !== page,
-            'text-amber-600 bg-amber-50 hover:bg-amber-100 hover:text-amber-700 dark:text-white':
-              currentPage === page
-          }"
-        >
-          {{ page }}
-        </button>
-      </li>
-
+      @for (page of pages; track page) {
+        <li>
+          <button
+            (click)="changePage(page)"
+            class="flex h-8 cursor-pointer select-none items-center justify-center border border-stone-300 px-3 leading-tight hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-700 dark:hover:bg-stone-700 dark:hover:text-white"
+            [ngClass]="{
+              'bg-white text-stone-500 dark:bg-stone-800 dark:text-stone-400':
+                currentPage !== page,
+              'bg-amber-50 text-amber-600 hover:bg-amber-100 hover:text-amber-700 dark:text-white':
+                currentPage === page,
+            }"
+          >
+            {{ page }}
+          </button>
+        </li>
       }
       <!-- Next -->
       <li>
@@ -136,9 +137,9 @@
               ? '!cursor-not-allowed'
               : 'cursor-pointer'
           }}"
+          class="flex h-8 cursor-pointer select-none items-center justify-center rounded-e-lg border border-stone-300 bg-white px-3 leading-tight text-stone-500 hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
           [disabled]="currentPage === pagesCount"
           (click)="incrementPage()"
-          class="cursor-pointer select-none flex items-center justify-center px-3 h-8 leading-tight text-stone-500 bg-white border border-stone-300 rounded-e-lg hover:bg-stone-100 hover:text-stone-700 dark:bg-stone-800 dark:border-stone-700 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
         >
           Next
         </button>

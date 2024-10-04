@@ -1,95 +1,89 @@
-@if(fetchingState){
-<app-loading />
+@if (fetchingState) {
+  <app-loading />
 }
-@if(error){
-<h1>{{error}}</h1>
+@if (error) {
+  <h1>{{ error }}</h1>
 }
-
-<form #createUserForm="ngForm" (ngSubmit)="onCreateUser(createUserForm.value)">
-    <label>Create User</label>
-    <br>
-    <input type="text" ngModel name="name" placeholder="enter your name">
-    <br>
-    <input type="email" ngModel name="email" placeholder="enter your email">
-    <br>
-    <input type="password" ngModel name="password"
-        placeholder="enter your password">
-    <br>
-    <input type="password" ngModel name="password_confirmation"
-        placeholder="confirm your password">
-    <br>
-    <select name="role_id" ngModel>
-        @for (role of roles; track role.id) {
-        <option [value]="role.id">{{role.name}}</option>
-        }
-    </select>
-    <br>
-    <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</button>
-</form>
+<!-- 
 <p>this is seperation as i cant make hr</p>
 <form #userForm="ngForm" (ngSubmit)="getUser(userForm)">
-    <label>Get User By ID</label>
-    <br>
-    <input type="text" ngModel name="id">
-    <br>
-    <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Find</button>
-</form>
-<p>this is seperation as i cant make hr</p>
+  <label>Get User By ID</label>
+  <br />
+  <input type="text" ngModel name="id" />
+  <br />
+  <button
+    type="submit"
+    class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  >
+    Find
+  </button>
+</form> -->
 
-@if (users){
-<ul>
-    @for(user of users;track user.id){
+@if (users) {
+  <div class="mt-8">
+    <h2 class="text-4xl font-bold text-stone-800 dark:text-stone-200">Users</h2>
 
-    <li>
-        <form #updateUserForm="ngForm"
-            (ngSubmit)="onUpdateUser(updateUserForm.value)">
-            <label>Update User</label>
-            <br>
-            <input [(ngModel)]="user.id" type="hidden" ngModel name="id">
-            <br>
-            <input [(ngModel)]="user.name" type="text" ngModel name="name"
-                placeholder="enter your name">
-            <br>
-            <input type="email" [(ngModel)]="user.email" ngModel name="email"
-                placeholder="enter your email">
-            <br>
-            <input type="password" ngModel name="password"
-                placeholder="enter your password">
-            <br>
-            <input type="password" ngModel name="password_confirmation"
-                placeholder="confirm your password">
-            <br>
-            <select name="role_id" ngModel [(ngModel)]="user.role_id">
-                @for (role of roles; track role.id) {
-                <option [value]="role.id">{{role.name}}</option>
-                }
-            </select>
-            <br>
-            <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update</button>
-        </form>
-    </li>
-    <li>
-        <button
-            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:red:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-            (click)="onDeleteUser(user.id)">Delete</button>
-    </li>
-    }
-</ul>
+    <div
+      class="relative mt-4 overflow-x-auto rounded-lg shadow-lg md:mt-6 xl:mt-8"
+    >
+      <table
+        class="w-full text-left text-sm text-stone-700 dark:text-stone-400"
+      >
+        <thead
+          class="bg-stone-50 text-xs uppercase text-stone-700 dark:bg-stone-700 dark:text-stone-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">id</th>
+            <th scope="col" class="px-6 py-3">name</th>
+            <th scope="col" class="px-6 py-3">email</th>
+            <th scope="col" class="px-6 py-3">role</th>
+            <th scope="col" class="px-6 py-3">joined</th>
+            <th scope="col" class="px-6 py-3">last update</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of paginatedItems; track user.id) {
+            <tr
+              class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
+            >
+              <td class="px-6 py-4">{{ user.id }}</td>
+
+              <td class="px-6 py-4">{{ user.name }}</td>
+
+              <td class="px-6 py-4">{{ user.email }}</td>
+
+              <td class="px-6 py-4">{{ user.role?.name }}</td>
+
+              <td class="px-6 py-4">
+                {{ user.created_at | date: "mediumDate" }}
+              </td>
+
+              <td class="px-6 py-4">
+                {{ user.updated_at | date: "mediumDate" }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <app-pagination
+    [totalItems]="totalItems"
+    [itemsPerPage]="3"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 }
-<hr />
-@if(user){
-<ul>
+
+@if (user) {
+  <ul>
     <li>
-        {{user.id}}
+      {{ user.id }}
     </li>
     <li>
-        {{user.name}}
+      {{ user.name }}
     </li>
     <li>
-        {{user.email}}
+      {{ user.email }}
     </li>
-</ul>
+  </ul>
 }

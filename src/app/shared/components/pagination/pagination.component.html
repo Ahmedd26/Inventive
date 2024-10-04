@@ -1,0 +1,47 @@
+<div class="flex items-center justify-between p-4">
+  <div>Showing {{ startItem }} to {{ endItem }} of {{ totalItems }} items</div>
+  <div class="flex items-center">
+    <button
+      ngClass="{{
+        currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+      }}"
+      class="ms-0 flex h-8 select-none items-center justify-center rounded-s-lg border border-stone-300 bg-white px-3 leading-tight text-stone-500 hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+    >
+      <i-feather name="arrow-left" />
+    </button>
+    <ng-container *ngFor="let page of pages">
+      <button
+        class="flex h-8 cursor-pointer select-none items-center justify-center border border-stone-300 px-3 leading-tight hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-700 dark:hover:bg-stone-700 dark:hover:text-white"
+        [ngClass]="{
+          'bg-white text-stone-500 dark:bg-stone-800 dark:text-stone-400':
+            currentPage !== page,
+          'bg-amber-50 text-amber-600 hover:bg-amber-100 hover:text-amber-700 dark:text-white':
+            currentPage === page,
+        }"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+      <!-- <button
+        class="rounded bg-stone-200 px-3 py-1"
+        [class.bg-blue-500]="page === currentPage"
+        [class.text-white]="page === currentPage"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button> -->
+    </ng-container>
+    <button
+      ngClass="{{
+        currentPage === totalPages ? '!cursor-not-allowed' : 'cursor-pointer'
+      }}"
+      class="flex h-8 cursor-pointer select-none items-center justify-center rounded-e-lg border border-stone-300 bg-white px-3 leading-tight text-stone-500 hover:bg-stone-100 hover:text-stone-700 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700 dark:hover:text-white"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      <i-feather name="arrow-right" />
+    </button>
+  </div>
+</div>
