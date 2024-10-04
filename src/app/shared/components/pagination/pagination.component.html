@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between p-4">
+<div class="flex items-center justify-between">
   <div>Showing {{ startItem }} to {{ endItem }} of {{ totalItems }} items</div>
   <div class="flex items-center">
     <button
@@ -24,14 +24,6 @@
       >
         {{ page }}
       </button>
-      <!-- <button
-        class="rounded bg-stone-200 px-3 py-1"
-        [class.bg-blue-500]="page === currentPage"
-        [class.text-white]="page === currentPage"
-        (click)="goToPage(page)"
-      >
-        {{ page }}
-      </button> -->
     </ng-container>
     <button
       ngClass="{{

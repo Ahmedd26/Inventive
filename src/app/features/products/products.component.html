@@ -85,10 +85,12 @@
         </div>
       }
     </div>
-    <app-pagination
-      [totalItems]="totalItems"
-      [itemsPerPage]="10"
-      (pageChange)="onPageChange($event)"
-    ></app-pagination>
+    <div class="mt-8">
+      <app-pagination
+        [totalItems]="totalItems"
+        [itemsPerPage]="10"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </div>
   </div>
 }
