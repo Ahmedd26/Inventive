@@ -6,6 +6,7 @@ import { IProduct } from './products.model';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-products',
@@ -15,6 +16,7 @@ import { RouterLink } from '@angular/router';
     LoadingComponent,
     CommonModule,
     RouterLink,
+    PaginationComponent,
   ],
   templateUrl: './products.component.html',
 })
@@ -22,13 +24,33 @@ export class ProductsComponent implements OnInit {
   isLoading = false;
   products: IProduct[] = [];
   error: HttpErrorResponse | null = null;
+
   constructor(private productSrv: ProductsService) {}
+
+  //** ---------------------- START PAGINATION -------------------------- **//
+  paginatedProducts: IProduct[] = [];
+  totalItems: number = 0;
+  itemsPerPage: number = 10;
+  updatePaginatedProducts(page: number) {
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedProducts = this.products.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number) {
+    this.updatePaginatedProducts(page);
+  }
+  //** ---------------------- END PAGINATION -------------------------- **//
+
   ngOnInit() {
     this.isLoading = true;
     this.productSrv.getAll().subscribe({
       next: (products: IProduct[]) => {
         this.isLoading = false;
         this.products = products;
+        // ** ---------- PAGINATION ---------- **//
+        this.totalItems = products.length;
+        this.updatePaginatedProducts(1);
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;
