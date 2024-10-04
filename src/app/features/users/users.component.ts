@@ -33,22 +33,20 @@ export class UsersComponent implements OnInit {
     private rolesService: RolesService,
   ) {}
 
-  // items: any[] = [];
-  paginatedItems: IUser[] = [];
+  //** ---------------------- START PAGINATION -------------------------- **//
+  paginatedUsers: IUser[] = [];
   totalItems: number = 0;
-  itemsPerPage: number = 3;
-
-  updatePaginatedItems(page: number) {
+  itemsPerPage: number = 5;
+  updatePaginatedUsers(page: number) {
     const startIndex = (page - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedItems = this.users.slice(startIndex, endIndex);
+    this.paginatedUsers = this.users.slice(startIndex, endIndex);
   }
 
   onPageChange(page: number) {
-    this.updatePaginatedItems(page);
+    this.updatePaginatedUsers(page);
   }
-
-  // ----------------------
+  //** ---------------------- END PAGINATION -------------------------- **//
 
   ngOnInit(): void {
     this.fetchingState = true;
@@ -56,13 +54,12 @@ export class UsersComponent implements OnInit {
       next: (users) => {
         this.users = users;
         this.fetchingState = false;
-        // pagination
+        // ** ---------- PAGINATION ---------- **//
         this.totalItems = users.length;
-        this.updatePaginatedItems(1);
+        this.updatePaginatedUsers(1);
       },
       error: (error) => {
         this.error = error.error.message;
-        console.log('could not get all users', error);
         this.fetchingState = false;
       },
     });
