@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -12,14 +18,16 @@ import { ProductsService } from '../../products.service';
 import { SuppliersService } from '../../../suppliers/suppliers.service';
 import { CategoriesService } from '../../../categories/categories.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 
 @Component({
   selector: 'app-create-product-modal',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CustomModalComponent],
   templateUrl: './create-product-modal.component.html',
 })
 export class CreateProductModalComponent implements OnInit {
+  @ViewChild('modal') customModalComponent!: CustomModalComponent;
   @Output() product = new EventEmitter<IProduct>();
   productForm: FormGroup;
   apiErrors: IProductError | null = null;
@@ -65,9 +73,6 @@ export class CreateProductModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // console.log(this.productForm);
-    // console.log(this.productForm.value);
-    // if (this.productForm.valid) {
     const formData = new FormData();
     Object.keys(this.productForm.controls).forEach((key) => {
       formData.append(key, this.productForm.get(key)?.value);
@@ -76,6 +81,7 @@ export class CreateProductModalComponent implements OnInit {
     this.productService.create(formData).subscribe({
       next: (data) => {
         this.product.emit(data);
+        this.customModalComponent.closeModal();
       },
       error: (error: HttpErrorResponse) => {
         this.apiErrors = error.error.errors;

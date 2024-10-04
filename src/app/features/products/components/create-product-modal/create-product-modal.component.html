@@ -1,274 +1,238 @@
-<button
-  data-modal-target="static-modal"
-  data-modal-toggle="static-modal"
-  class="block text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
-  type="button"
+<custom-modal
+  buttonText="Create"
+  buttonClasses="block text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
+  modalHeader="Create a new Product"
+  acceptButtonText="Create"
+  (accept)="onSubmit()"
+  [disabled]="productForm.invalid"
+  #modal
 >
-  Create
-</button>
-
-<!-- Main modal -->
-<div
-  id="static-modal"
-  data-modal-backdrop="static"
-  tabindex="-1"
-  aria-hidden="true"
-  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
->
-  <div class="relative p-4 w-full max-w-3xl max-h-full">
-    <!-- Modal content -->
-    <div
-      class="relative bg-white rounded-lg shadow dark:bg-stone-700 overflow-hidden"
-    >
-      <!-- Modal header -->
-      <div
-        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-stone-600"
+  <form
+    enctype="multipart/form-data"
+    class="mx-auto grid grid-cols-6 gap-x-6"
+    [formGroup]="productForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="col-span-6 mb-4">
+      <label
+        for=""
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Name</label
       >
-        <h3 class="text-xl font-semibold text-stone-900 dark:text-white">
-          Create a new product
-        </h3>
-        <button
-          type="button"
-          class="text-stone-400 bg-transparent hover:bg-stone-200 hover:text-stone-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-stone-600 dark:hover:text-white"
-          data-modal-hide="static-modal"
-        >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
-      </div>
-      <!-- Modal body -->
-      <div class="p-4 md:p-5 dark:bg-stone-800">
-        <form
-          enctype="multipart/form-data"
-          class="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-x-6"
-          [formGroup]="productForm"
-          (ngSubmit)="onSubmit()"
-        >
-          <div class="mb-4 col-span-6">
-            <label
-              for=""
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Name</label
-            >
-            <input
-              formControlName="name"
-              type="text"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-            />
-            @if(apiErrors?.name){
-            <p class="text-red-500 mt-2.5 text-sm">{{ apiErrors?.name }}</p>
-            }
-            <!-- Frontend errors -->
-            @if (getControl('name')?.hasError('required') &&
-            getControl('name')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">This field is required.</p>
-            } @if (getControl('name')?.hasError('minlength') &&
-            getControl('name')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">
-              Minimum length 3 characters.
-            </p>
-            }
-          </div>
-
-          <div class="mb-4 col-span-6">
-            <label
-              for=""
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Description</label
-            >
-            <textarea
-              rows="4"
-              formControlName="description"
-              class="block p-2.5 w-full text-sm text-stone-900 bg-stone-50 rounded-lg border border-stone-300 focus:ring-amber-500 focus:border-amber-500 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-              placeholder="Write your thoughts here..."
-            ></textarea>
-            @if(apiErrors?.description){
-            <p class="text-red-500 mt-2.5 text-sm">
-              {{ apiErrors?.description }}
-            </p>
-            }
-            <!-- Frontend errors -->
-            @if (getControl('name')?.hasError('required') &&
-            getControl('name')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">This field is required.</p>
-            } @if (getControl('name')?.hasError('minlength') &&
-            getControl('name')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">
-              Minimum length 15 characters.
-            </p>
-            }
-          </div>
-
-          <div class="mb-4 col-span-6">
-            <label
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Image</label
-            >
-            <input
-              type="file"
-              (change)="getFile($event)"
-              class="block w-full text-sm text-stone-900 border border-stone-300 rounded-lg cursor-pointer bg-stone-50 dark:text-stone-400 focus:outline-none dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400"
-            />
-            @if(apiErrors?.image){
-            <p class="text-red-500 mt-2.5 text-sm">{{ apiErrors?.image }}</p>
-            } @if (getControl('image')?.hasError("required") &&
-            getControl('image')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">
-              Please upload an image, it is required
-            </p>
-            }
-          </div>
-
-          <div class="mb-4 col-span-2">
-            <label
-              for=""
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >SKU</label
-            >
-            <input
-              formControlName="sku"
-              type="text"
-              (input)="validateNumberOnInput($event, 'sku')"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-            />
-            @if(apiErrors?.sku){
-            <p class="text-red-500 mt-2.5 text-sm">{{ apiErrors?.sku }}</p>
-            } @if(frontEndErrors.sku){
-            <p class="text-red-500 mt-2.5 text-sm">{{ frontEndErrors.sku }}</p>
-            } @if (getControl('sku')?.hasError("required") &&
-            getControl('sku')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">Required, numbers only.</p>
-            }
-          </div>
-
-          <div class="mb-4 col-span-2">
-            <label
-              for=""
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Price</label
-            >
-            <input
-              formControlName="price"
-              type="text"
-              (input)="validateNumberOnInput($event, 'price')"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-            />
-
-            @if(apiErrors?.price){
-            <p class="text-red-500 mt-2.5 text-sm">{{ apiErrors?.price }}</p>
-            } @if(frontEndErrors.price){
-            <p class="text-red-500 mt-2.5 text-sm">
-              {{ frontEndErrors.price }}
-            </p>
-            } @if (getControl('price')?.hasError("required") &&
-            getControl('price')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">Required, numbers only.</p>
-            }
-          </div>
-
-          <div class="mb-4 col-span-2">
-            <label
-              for=""
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Quantity</label
-            >
-            <input
-              formControlName="quantity"
-              type="text"
-              (input)="validateNumberOnInput($event, 'quantity')"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-            />
-            @if(apiErrors?.quantity){
-            <p class="text-red-500 mt-2.5 text-sm">{{ apiErrors?.quantity }}</p>
-            } @if(frontEndErrors.quantity){
-            <p class="text-red-500 mt-2.5 text-sm">
-              {{ frontEndErrors.quantity }}
-            </p>
-            } @if (getControl('quantity')?.hasError("required") &&
-            getControl('quantity')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">Required, numbers only.</p>
-            }
-          </div>
-
-          <div class="mb-4 col-span-3">
-            <label
-              for=""
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Category</label
-            >
-            <select
-              formControlName="category_id"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-            >
-              <option [value]="null">Select category</option>
-              @for (category of categoriesArray; track category.id) {
-              <option value="{{ category.id }}">{{ category.name }}</option>
-              } @empty {
-              <option [value]="null">No categories were found</option>
-              }
-            </select>
-            @if(apiErrors?.category_id){
-            <p class="text-red-500 mt-2.5 text-sm">
-              {{ apiErrors?.category_id }}
-            </p>
-            } @if (getControl('category_id')?.hasError("required") &&
-            getControl('category_id')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">Required.</p>
-            }
-          </div>
-
-          <div class="mb-4 col-span-3">
-            <label
-              for=""
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Supplier</label
-            >
-            <select
-              formControlName="supplier_id"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-            >
-              <option [value]="null">Select supplier</option>
-              @for (supplier of suppliersArray; track supplier.id) {
-              <option value="{{ supplier.id }}">{{ supplier.name }}</option>
-              } @empty {
-              <option [value]="null">No suppliers were found</option>
-              }
-            </select>
-            @if(apiErrors?.supplier_id){
-            <p class="text-red-500 mt-2.5 text-sm">
-              {{ apiErrors?.supplier_id }}
-            </p>
-            } @if (getControl('supplier_id')?.hasError("required") &&
-            getControl('supplier_id')?.touched) {
-            <p class="text-red-500 mt-2.5 text-sm">Required.</p>
-            }
-          </div>
-
-          <div class="mt-2 col-span-6">
-            <button
-              type="submit"
-              [disabled]="productForm.invalid"
-              class="duration-150 text-white dark:disabled:bg-amber-800/35 disabled:bg-amber-600/65 disabled:cursor-not-allowed bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800"
-            >
-              Create
-            </button>
-          </div>
-        </form>
-      </div>
+      <input
+        formControlName="name"
+        type="text"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+      @if (apiErrors?.name) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.name }}</p>
+      }
+      <!-- Frontend errors -->
+      @if (
+        getControl("name")?.hasError("required") && getControl("name")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">This field is required.</p>
+      }
+      @if (
+        getControl("name")?.hasError("minlength") && getControl("name")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">Minimum length 3 characters.</p>
+      }
     </div>
-  </div>
-</div>
+
+    <div class="col-span-6 mb-4">
+      <label
+        for=""
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Description</label
+      >
+      <textarea
+        rows="4"
+        formControlName="description"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+        placeholder="Write your thoughts here..."
+      ></textarea>
+      @if (apiErrors?.description) {
+        <p class="mt-2.5 text-sm text-red-500">
+          {{ apiErrors?.description }}
+        </p>
+      }
+      <!-- Frontend errors -->
+      @if (
+        getControl("name")?.hasError("required") && getControl("name")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">This field is required.</p>
+      }
+      @if (
+        getControl("name")?.hasError("minlength") && getControl("name")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">Minimum length 15 characters.</p>
+      }
+    </div>
+
+    <div class="col-span-6 mb-4">
+      <label
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Image</label
+      >
+      <input
+        type="file"
+        (change)="getFile($event)"
+        class="block w-full cursor-pointer rounded-lg border border-stone-300 bg-stone-50 text-sm text-stone-900 focus:outline-none dark:border-stone-600 dark:bg-stone-700 dark:text-stone-400 dark:placeholder-stone-400"
+      />
+      @if (apiErrors?.image) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.image }}</p>
+      }
+      @if (
+        getControl("image")?.hasError("required") &&
+        getControl("image")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">
+          Please upload an image, it is required
+        </p>
+      }
+    </div>
+
+    <div class="col-span-6 mb-4 lg:col-span-2">
+      <label
+        for=""
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >SKU</label
+      >
+      <input
+        formControlName="sku"
+        type="text"
+        (input)="validateNumberOnInput($event, 'sku')"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+      @if (apiErrors?.sku) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.sku }}</p>
+      }
+      @if (frontEndErrors.sku) {
+        <p class="mt-2.5 text-sm text-red-500">{{ frontEndErrors.sku }}</p>
+      }
+      @if (
+        getControl("sku")?.hasError("required") && getControl("sku")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">Required, numbers only.</p>
+      }
+    </div>
+
+    <div class="col-span-3 mb-4 lg:col-span-2">
+      <label
+        for=""
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Price</label
+      >
+      <input
+        formControlName="price"
+        type="text"
+        (input)="validateNumberOnInput($event, 'price')"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+
+      @if (apiErrors?.price) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.price }}</p>
+      }
+      @if (frontEndErrors.price) {
+        <p class="mt-2.5 text-sm text-red-500">
+          {{ frontEndErrors.price }}
+        </p>
+      }
+      @if (
+        getControl("price")?.hasError("required") &&
+        getControl("price")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">Required, numbers only.</p>
+      }
+    </div>
+
+    <div class="col-span-3 mb-4 lg:col-span-2">
+      <label
+        for=""
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Quantity</label
+      >
+      <input
+        formControlName="quantity"
+        type="text"
+        (input)="validateNumberOnInput($event, 'quantity')"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+      @if (apiErrors?.quantity) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.quantity }}</p>
+      }
+      @if (frontEndErrors.quantity) {
+        <p class="mt-2.5 text-sm text-red-500">
+          {{ frontEndErrors.quantity }}
+        </p>
+      }
+      @if (
+        getControl("quantity")?.hasError("required") &&
+        getControl("quantity")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">Required, numbers only.</p>
+      }
+    </div>
+
+    <div class="col-span-3 mb-4">
+      <label
+        for=""
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Category</label
+      >
+      <select
+        formControlName="category_id"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      >
+        <option [value]="null">Select category</option>
+        @for (category of categoriesArray; track category.id) {
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        } @empty {
+          <option [value]="null">No categories were found</option>
+        }
+      </select>
+      @if (apiErrors?.category_id) {
+        <p class="mt-2.5 text-sm text-red-500">
+          {{ apiErrors?.category_id }}
+        </p>
+      }
+      @if (
+        getControl("category_id")?.hasError("required") &&
+        getControl("category_id")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">Required.</p>
+      }
+    </div>
+
+    <div class="col-span-3 mb-4">
+      <label
+        for=""
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Supplier</label
+      >
+      <select
+        formControlName="supplier_id"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      >
+        <option [value]="null">Select supplier</option>
+        @for (supplier of suppliersArray; track supplier.id) {
+          <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+        } @empty {
+          <option [value]="null">No suppliers were found</option>
+        }
+      </select>
+      @if (apiErrors?.supplier_id) {
+        <p class="mt-2.5 text-sm text-red-500">
+          {{ apiErrors?.supplier_id }}
+        </p>
+      }
+      @if (
+        getControl("supplier_id")?.hasError("required") &&
+        getControl("supplier_id")?.touched
+      ) {
+        <p class="mt-2.5 text-sm text-red-500">Required.</p>
+      }
+    </div>
+  </form>
+</custom-modal>

@@ -8,7 +8,7 @@
     <!-- BLURRY BG -->
   </div>
   <div
-    class="absolute left-1/2 top-1/2 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-stone-100 bg-stone-50 dark:border-stone-700 dark:bg-stone-800"
+    class="fixed left-1/2 top-1/2 z-[100] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-stone-100 bg-stone-50 dark:border-stone-700 dark:bg-stone-800"
   >
     <div class="max-h-full w-full min-w-96 max-w-3xl">
       <!-- Modal header -->
@@ -61,8 +61,9 @@
         @if (acceptButtonText) {
           <button
             (click)="acceptClicked()"
+            [disabled]="disabled"
             type="button"
-            class="rounded-lg bg-amber-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-4 focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
+            class="rounded-lg bg-amber-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-4 focus:ring-amber-300 disabled:cursor-not-allowed disabled:bg-amber-600/65 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800 dark:disabled:bg-amber-800/35"
           >
             {{ acceptButtonText }}
           </button>
