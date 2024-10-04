@@ -46,6 +46,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   displayList(): ITable[] {
+    if (!this.tableData) return [];
     return this.tableData.slice(this.start, this.end);
   }
 

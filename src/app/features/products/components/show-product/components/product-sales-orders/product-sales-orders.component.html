@@ -1,0 +1,45 @@
+<div class="mt-8">
+  <h2 class="text-4xl font-bold text-stone-800 dark:text-stone-200">
+    Sold orders
+  </h2>
+
+  <div
+    class="relative mt-4 overflow-x-auto rounded-lg shadow-lg md:mt-6 xl:mt-8"
+  >
+    <table class="w-full text-left text-sm text-stone-700 dark:text-stone-400">
+      <thead
+        class="bg-stone-50 text-xs uppercase text-stone-700 dark:bg-stone-700 dark:text-stone-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">id</th>
+          <th scope="col" class="px-6 py-3">Sold on order no.</th>
+          <th scope="col" class="px-6 py-3">Cashier</th>
+          <th scope="col" class="px-6 py-3">quantity</th>
+          <th scope="col" class="px-6 py-3">price</th>
+          <th scope="col" class="px-6 py-3">Total</th>
+          <th scope="col" class="px-6 py-3">Sale date</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (soldOrder of salesOrders; track soldOrder.id) {
+          <tr class="border-b bg-white dark:border-stone-700 dark:bg-stone-800">
+            <td class="px-6 py-4">{{ soldOrder.id }}</td>
+            <td class="px-6 py-4">{{ soldOrder.sales_order_id }}</td>
+            <td class="px-6 py-4">
+              {{ getUserName(soldOrder.sales_order.user_id) }}
+            </td>
+            <td class="px-6 py-4">{{ soldOrder.quantity }} Unit</td>
+            <td class="px-6 py-4">{{ soldOrder.price | currency }}</td>
+            <td class="px-6 py-4">
+              {{ soldOrder.quantity * soldOrder.price | currency }}
+            </td>
+            <td class="px-6 py-4">
+              {{ soldOrder.created_at | date: "mediumDate" }}
+              {{ soldOrder.created_at | date: "shortTime" }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

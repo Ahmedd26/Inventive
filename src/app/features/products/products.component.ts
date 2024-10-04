@@ -1,81 +1,42 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { type IProduct } from './products.model';
+import { Component, OnInit } from '@angular/core';
+import { CreateProductModalComponent } from './components/create-product-modal/create-product-modal.component';
 import { ProductsService } from './products.service';
-import { NgFor, NgIf } from '@angular/common';
-import { ISupplier } from '../suppliers/suppliers.model';
-import { SuppliersService } from '../suppliers/suppliers.service';
-import { CategoriesService } from '../categories/categories.service';
-import { ICategory } from './../categories/categories.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { IProduct } from './products.model';
+import { LoadingComponent } from '../../shared/components/loading/loading.component';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor],
+  imports: [
+    CreateProductModalComponent,
+    LoadingComponent,
+    CommonModule,
+    RouterLink,
+  ],
   templateUrl: './products.component.html',
 })
-export class ProductsComponent {
-  productsArray!: IProduct[];
-  suppliersArray!: ISupplier[];
-  categoriesArray!: ICategory[];
-  errorTypes = null;
+export class ProductsComponent implements OnInit {
   isLoading = false;
-
-  constructor(
-    private productServ: ProductsService,
-    private supplierServ: SuppliersService,
-    private categoryServ: CategoriesService
-  ) {}
-
-  onCreateProduct(productData: IProduct) {
-    console.log(productData);
-    this.isLoading = true;
-    this.productServ.createNewProduct(productData).subscribe({
-      next: (data) => {
-        this.isLoading = false;
-        this.productsArray.push(data);
-        console.log(data);
-      },
-      error: (error) => {
-        console.log('alert1');
-        console.log(error);
-        this.errorTypes = error.error.errors;
-        console.log('alert2');
-        console.log(this.errorTypes);
-      },
-    });
-  }
-
-  onDeleteProduct(proId: any) {
-    console.log(proId);
-    this.productServ.delete(proId).subscribe({
-      next: () => {
-        console.log(proId, 'deleted');
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-    console.log(this.productsArray.length);
-    this.productsArray = this.productsArray.filter(
-      (element) => element.id !== proId
-    );
-    console.log(this.productsArray.length);
-  }
-
+  products: IProduct[] = [];
+  error: HttpErrorResponse | null = null;
+  constructor(private productSrv: ProductsService) {}
   ngOnInit() {
-    this.productServ.getAllProducts().subscribe((data) => {
-      this.productsArray = data;
-      console.log('Products array length is', this.productsArray.length);
+    this.isLoading = true;
+    this.productSrv.getAll().subscribe({
+      next: (products: IProduct[]) => {
+        this.isLoading = false;
+        this.products = products;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.error = error;
+      },
     });
-    this.supplierServ.getAll().subscribe((supData) => {
-      this.suppliersArray = supData;
-      // console.log(this.suppliersArray)
-    });
-    this.categoryServ.getAllCategories().subscribe((catData) => {
-      this.categoriesArray = catData;
-      // console.log(catData)
-      // console.log(this.categoriesArray)
-    });
+  }
+  addNewProduct(product: IProduct) {
+    this.products.push(product);
   }
 }

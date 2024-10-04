@@ -78,7 +78,6 @@ export class SuppliersComponent {
   ngOnInit() {
     this.suppliersService.getAll().subscribe((data) => {
       this.suppliers = data;
-      console.log(data)
     });
   }
 }
