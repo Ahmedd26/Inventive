@@ -134,3 +134,10 @@
     No track for purchased orders for this product.
   </h4>
 }
+@if (product.product_sales_orders && product.product_sales_orders.length > 0) {
+  <app-product-sales-orders [salesOrders]="product.product_sales_orders" />
+} @else {
+  <h4 class="mt-8 text-xl dark:text-stone-600">
+    No track for Saled orders for this product.
+  </h4>
+}

@@ -12,6 +12,7 @@ import { CustomModalComponent } from '../../../../shared/components/custom-modal
 import { ProductAdjustmentComponent } from './components/product-adjustment/product-adjustment.component';
 import { ProductInventoryMovementsComponent } from './components/product-inventory-movements/product-inventory-movements.component';
 import { ProductPurchaseOrdersComponent } from "./components/product-purchase-orders/product-purchase-orders.component";
+import { ProductSalesOrdersComponent } from "./components/product-sales-orders/product-sales-orders.component";
 
 @Component({
   selector: 'app-show-product',
@@ -25,7 +26,8 @@ import { ProductPurchaseOrdersComponent } from "./components/product-purchase-or
     CustomModalComponent,
     ProductAdjustmentComponent,
     ProductInventoryMovementsComponent,
-    ProductPurchaseOrdersComponent
+    ProductPurchaseOrdersComponent,
+    ProductSalesOrdersComponent
 ],
   templateUrl: './show-product.component.html',
 })

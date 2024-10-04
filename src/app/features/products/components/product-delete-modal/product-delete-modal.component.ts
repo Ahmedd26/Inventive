@@ -52,21 +52,18 @@ export class ProductDeleteModalComponent {
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;
-        switch (error.status) {
-          case 404:
-            this.error =
-              'Product was not found, probably was deleted by another user earlier.';
-            break;
-          case 401:
-            this.error = 'You are not authorized to perform this action';
-            break;
-          case 500:
-            this.error = 'Internal Server Error, please try again later';
-            break;
-          default:
-            this.error = 'An error occurred while deleting the product';
-            break;
-        }
+        const errorMessages = new Map<number, string>([
+          [
+            404,
+            'Product was not found, probably was deleted by another user earlier.',
+          ],
+          [401, 'You are not authorized to perform this action'],
+          [500, 'Internal Server Error, please try again later'],
+        ]);
+
+        this.error =
+          errorMessages.get(error.status) ||
+          'An error occurred while deleting the product';
       },
     });
   }
