@@ -99,7 +99,9 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
     if (this.productForm.valid) {
       const formData = new FormData();
       Object.keys(this.productForm.controls).forEach((key) => {
-        formData.append(key, this.productForm.get(key)?.value);
+        if (key !== 'image' || (key === 'image' && this.file)) {
+          formData.append(key, this.productForm.get(key)?.value);
+        }
       });
 
       if (this.inputProduct.id) {
