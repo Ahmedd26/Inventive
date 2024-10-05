@@ -45,7 +45,7 @@
             <th scope="col" class="px-6 py-3">role</th>
             <th scope="col" class="px-6 py-3">joined</th>
             <th scope="col" class="px-6 py-3">last update</th>
-            <th scope="col" class="px-6 py-3"></th>
+            <th scope="col" class="px-6 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -68,11 +68,18 @@
               <td class="px-6 py-4">
                 {{ user.updated_at | date: "mediumDate" }}
               </td>
-              <td class="px-6 py-4">
+              <td class="flex flex-wrap items-center gap-2 px-6 py-4 xl:gap-6">
                 <app-users-update-modal
                   [currentUserData]="user"
                   (updatedUser)="setUpdatedUser($event)"
                 />
+                @if (user.id) {
+                  <app-users-delete-modal
+                    [id]="+user.id"
+                    [user]="user"
+                    (deletedUserId)="removeDeletedUser($event)"
+                  />
+                }
               </td>
             </tr>
           }

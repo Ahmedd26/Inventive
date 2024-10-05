@@ -10,6 +10,7 @@ import { type IRole } from '../../core/services/temp/roles/roles.model';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { UsersCreateModalComponent } from './components/users-create-modal/users-create-modal.component';
 import { UsersUpdateModalComponent } from './components/users-update-modal/users-update-modal.component';
+import { UsersDeleteModalComponent } from './components/users-delete-modal/users-delete-modal.component';
 
 @Component({
   selector: 'app-users',
@@ -22,6 +23,7 @@ import { UsersUpdateModalComponent } from './components/users-update-modal/users
     PaginationComponent,
     UsersCreateModalComponent,
     UsersUpdateModalComponent,
+    UsersDeleteModalComponent,
   ],
   templateUrl: './users.component.html',
 })
@@ -97,27 +99,14 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  onDeleteUser(id: any) {
-    this.fetchingState = true;
-    this.usersService.delete(+id).subscribe({
-      next: () => {
-        console.log('deleted');
-        this.users = this.users.filter((user) => user.id !== id);
-        this.fetchingState = false;
-      },
-      error: (error) => {
-        this.error = error.error.message;
-        console.log('not deleted', error);
-        this.fetchingState = false;
-      },
-    });
-  }
-
   addNewlyCreatedUser(user: IUser) {
     this.paginatedUsers.push(user);
   }
   setUpdatedUser(user: IUser) {
     this.paginatedUsers = this.paginatedUsers.filter((u) => u.id !== user.id);
     this.paginatedUsers.push(user);
+  }
+  removeDeletedUser(id: number) {
+    this.paginatedUsers = this.paginatedUsers.filter((u) => u.id !== id);
   }
 }
