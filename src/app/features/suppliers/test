@@ -1,0 +1,61 @@
+@if (isLoading) {
+<app-loading />
+}
+@if (error) {
+<div
+  class="flex min-h-[calc(100dvh-120px)] flex-col items-center justify-center gap-6">
+  <span
+    class="block text-7xl font-extrabold text-stone-700 dark:text-stone-600">{{
+    error.status }}</span>
+  <h2 class="text-4xl font-extrabold text-stone-800 dark:text-stone-200">
+    An error occurred
+  </h2>
+  <p>{{ error.status === 404 ? "Resource was not found" : error.message }}</p>
+</div>
+} @else {
+<div class="text-stone-800 dark:text-white">
+  <div class="mb-5 flex items-center justify-between">
+    <h1 class="text-4xl font-semibold">Suppliers</h1>
+    <!-- <app-create-supplier-modal (supplierCreated)="onSupplierCreated($event)" /> -->
+    <app-create-supplier-modal (supplier)="addNewSupplier($event)" />
+  </div>
+
+  <div class="mt-8 grid grid-cols-1 gap-4 xl:grid-cols-2">
+    @for (supplier of suppliers; track supplier.id) {
+    <div
+      class="relative grid h-full min-h-36 grid-cols-1 gap-y-4 p-4 md:grid-cols-3 md:gap-4">
+      <div
+        class="absolute bottom-0 right-0 z-0 h-4/5 w-full rounded-lg bg-stone-50 shadow-lg dark:bg-stone-800 md:h-full md:w-4/5">
+        <!-- Cropped Background -->
+      </div>
+      <img
+        [src]="supplier.image"
+        alt="Supplier Image"
+        class="image-skeleton mx-auto block aspect-square h-full w-full overflow-hidden rounded-lg border border-stone-600 object-cover shadow-lg dark:border-stone-500" />
+      <div class="z-10 col-span-2 flex h-full flex-col gap-4">
+        <h3
+          class="max-w-[80%] text-lg font-bold text-stone-800 dark:text-stone-200">
+          {{ supplier.name }}
+        </h3>
+        <div class="grid grid-cols-1 gap-2 dark:text-stone-300/80">
+          <div class="flex flex-1 items-center gap-2">
+            <h4 class="font-semibold">Email:</h4>
+            <h4>{{ supplier.email }}</h4>
+          </div>
+          <div class="flex flex-1 items-center gap-2">
+            <h4 class="font-semibold">Phone:</h4>
+            <h4>{{ supplier.phone }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="mt-auto flex items-center gap-2">
+        <a
+          [routerLink]="['/suppliers', supplier.id]"
+          class="absolute right-4 top-4 rounded-bl-lg rounded-tr-lg bg-stone-50/65 px-4 py-2 text-stone-600 shadow duration-150 hover:text-stone-800 dark:bg-stone-700/95 dark:text-stone-300 dark:hover:bg-stone-700 dark:hover:text-stone-50 md:right-0 md:top-0">View</a>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+}
+
