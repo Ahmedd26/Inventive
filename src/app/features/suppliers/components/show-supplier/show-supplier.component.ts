@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { IconsModule } from '../../../../shared/icons/icons.module';
 import { initFlowbite } from 'flowbite';
 import { SupplierDeleteModalComponent } from '../supplier-delete-modal/supplier-delete-modal.component';
-// import { UpdateSupplierModalComponent } from '../update-supplier-modal/update-supplier-modal.component';
+import { UpdateSupplierModalComponent } from '../update-supplier-modal/update-supplier-modal.component';
 import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 import { SupplierProductsComponent } from './supplier-products/supplier-products.component';
 import {SupplierPurchaseOrdersComponent} from './supplier-purchase-orders/supplier-purchase-orders.component';
@@ -22,6 +22,7 @@ import {SupplierPurchaseOrdersComponent} from './supplier-purchase-orders/suppli
     SupplierDeleteModalComponent,
     SupplierPurchaseOrdersComponent,
     SupplierProductsComponent,
+    UpdateSupplierModalComponent,
     CustomModalComponent,
   ],
   templateUrl: './show-supplier.component.html',

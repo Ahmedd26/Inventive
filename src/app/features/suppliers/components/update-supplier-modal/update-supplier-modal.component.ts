@@ -1,80 +1,122 @@
-import { SuppliersService } from './../../suppliers.service';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule , NgForm } from '@angular/forms';
-import { ISupplier } from '../../suppliers.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ISupplier, ISupplierError } from '../../suppliers.model';
+import { SuppliersService } from '../../suppliers.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 
-interface Errors {
-  name?: string[];
-  email?: string[];
-  phone?: string[];
-  address?: string[];
-  image?: string[];
-}
 @Component({
   selector: 'app-update-supplier-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, CustomModalComponent],
   templateUrl: './update-supplier-modal.component.html',
 })
-export class UpdateSupplierModalComponent {
-  @Input({ required: true }) supplier!: ISupplier;
-  @Output() closeModal = new EventEmitter();
-  @Output() updatedSupplier: EventEmitter<ISupplier> = new EventEmitter();
+export class UpdateSupplierModalComponent implements OnInit, OnChanges {
+  @ViewChild('modal') customModalComponent!: CustomModalComponent;
+  @Output() supplier = new EventEmitter<ISupplier>();
+  @Input({ required: true }) inputSupplier!: ISupplier;
+  supplierForm: FormGroup;
+  apiErrors: ISupplierError | null = null;
+  frontEndErrors: ISupplierError = {};
+  isLoading = false;
 
-  errors: Errors = {};
-  selectedFile: File | null = null;
+  constructor(private suppliersService: SuppliersService) {
+    this.supplierForm = new FormGroup({});
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['inputSupplier'] && this.inputSupplier) {
+      this.supplierForm = new FormGroup({
+        name: new FormControl(this.inputSupplier.name, [
+          Validators.required,
+          Validators.minLength(3),
+        ]),
+        email: new FormControl(this.inputSupplier.email, [
+          Validators.required,
+          Validators.email,
+        ]),
+        phone: new FormControl(this.inputSupplier.phone, [
+          Validators.required,
+          Validators.pattern(/^\+?\d{10,15}$/),
+        ]),
+        address: new FormControl(this.inputSupplier.address, [
+          Validators.required,
+          Validators.minLength(10),
+        ]),
+        image: new FormControl(null),
+      });
+    }
+  }
 
-  constructor(private suppliersService: SuppliersService) {}
+  getControl(controlName: string) {
+    return this.supplierForm.get(controlName);
+  }
 
-  onFileSelected(event: Event) {
+  file: File | null = null;
+
+  getFile(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-        this.selectedFile = input.files[0];
-        console.log('File selected:', this.selectedFile); 
-    } else {
-        console.error('No file selected');
-    }
-}
- onSubmit(supplierForm: NgForm) {
-      if (supplierForm.valid) {
-          const updatedSupplier: ISupplier = { ...this.supplier, ...supplierForm.value };
-          const formData = new FormData();
-          formData.append('name', updatedSupplier.name);
-          formData.append('email', updatedSupplier.email);
-          formData.append('phone', updatedSupplier.phone);
-          formData.append('address', updatedSupplier.address);
-          if (this.selectedFile) {
-              formData.append('image', this.selectedFile);
-              console.log('File appended:', this.selectedFile); // Debugging log
-
-          } else {
-              console.error('No file selected');
-          }
-        formData.forEach((value, key) => {
-          console.log(`${key}: ${value}`);
+      this.file = input.files[0];
+      this.supplierForm.patchValue({
+        image: this.file,
       });
-          this.suppliersService.update(updatedSupplier.id, formData).subscribe({
-              next: (supplier) => {
-                  this.updatedSupplier.emit(supplier);
-                  console.log('supplier updated:', supplier);
-                  this.closeModal.emit();
-              },
-              error: (error) => {
-                  console.error('Error updating supplier:', error.error.errors);
-                  this.errors.name = error.error.errors.name;
-                  this.errors.email = error.error.errors.email;
-                  this.errors.phone = error.error.errors.phone;
-                  this.errors.address = error.error.errors.address;
-                  this.errors.image = error.error.errors.image;
-              }
-          }
-             
-          );
-      }
+      this.supplierForm.get('image')?.updateValueAndValidity();
+    }
   }
-  
-  onCloseModal() {
-    this.closeModal.emit();
+
+  onSubmit(): void {
+    const formData = new FormData();
+    Object.keys(this.supplierForm.controls).forEach((key) => {
+      if (key !== 'image' || (key === 'image' && this.file)) {
+        formData.append(key, this.supplierForm.get(key)?.value);
+      }
+    });
+
+    if (this.inputSupplier.id) {
+      const id = this.inputSupplier.id;
+      this.suppliersService.update(formData, id).subscribe({
+        next: (data) => {
+          this.supplier.emit(data);
+          this.apiErrors = null;
+          this.frontEndErrors = {};
+          this.customModalComponent.closeModal();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.apiErrors = error.error.errors;
+        },
+      });
+    }
+  }
+
+  validateNumberOnInput(event: Event, field: keyof ISupplierError): void {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.value;
+    const regex = /^\d*$/;
+
+    if (!regex.test(value)) {
+      inputElement.value = value.slice(0, -1);
+      this.frontEndErrors[field] = ['This input accepts numbers only'];
+    } else {
+      this.frontEndErrors[field] = [];
+    }
+  }
+
+  ngOnInit() {
+    // Initialization logic if needed
   }
 }

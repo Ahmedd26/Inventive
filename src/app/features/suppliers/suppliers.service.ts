@@ -22,7 +22,7 @@ export class SuppliersService {
     return this.http.post<ISupplier>(ENDPOINT, supplierData);
 }
 
-  update(id: number, supplierData: FormData) {
+  update( supplierData: FormData ,id: number) {
   return this.http.post<ISupplier>(`${ENDPOINT}/${id}?_method=put`, supplierData);
 }
 

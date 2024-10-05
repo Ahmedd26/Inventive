@@ -22,7 +22,7 @@ import { CustomModalComponent } from '../../../../shared/components/custom-modal
   imports: [ReactiveFormsModule, CustomModalComponent],
   templateUrl: './create-supplier-modal.component.html',
 })
-export class CreateSupplierModalComponent implements OnInit {
+export class CreateSupplierModalComponent  {
   @ViewChild('modal') customModalComponent!: CustomModalComponent;
   @Output() supplier = new EventEmitter<ISupplier>();
   supplierForm: FormGroup;
@@ -97,9 +97,5 @@ export class CreateSupplierModalComponent implements OnInit {
     } else {
       this.frontEndErrors[field] = [];
     }
-  }
-
-  ngOnInit() {
-    // Initialization logic if needed
   }
 }
