@@ -1,90 +1,49 @@
-<custom-modal
-  buttonText=""
+<custom-modal buttonText=""
   buttonClasses="inline-flex items-center gap-2.5 text-base font-medium text-stone-700 duration-150 hover:text-amber-700 dark:text-stone-400 dark:hover:text-amber-600"
-  iconName="edit-2"
-  [modalHeader]="'Edit ' + currentUserData.name"
-  acceptButtonText="update"
-  #updateModal
-  (accept)="onUpdateUser(updateUserForm.value)"
->
+  iconName="edit-2" [modalHeader]="'Edit ' + currentUserData.name" acceptButtonText="update" #updateModal
+  (accept)="onUpdateUser(updateUserForm.value)">
   <form #updateUserForm="ngForm">
     <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Name</label
-      >
-      <input
-        type="text"
-        ngModel
-        name="name"
-        [(ngModel)]="newUser.name"
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Name</label>
+      <input type="text" ngModel name="name" [(ngModel)]="newUser.name"
         class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-        placeholder="John Doe"
-      />
-    </div>
-    <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Email</label
-      >
-      <input
-        type="email"
-        ngModel
-        name="email"
-        [(ngModel)]="newUser.email"
-        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-        placeholder="john_doe@example.com"
-      />
+        placeholder="John Doe" />
     </div>
 
-    <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Password</label
-      >
-      <input
-        type="password"
-        ngModel
-        name="password"
-        placeholder="••••••••"
-        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      />
-    </div>
 
     <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Confirm Password</label
-      >
-      <input
-        type="password"
-        ngModel
-        name="password_confirmation"
-        placeholder="••••••••"
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Email</label>
+      <input type="email" ngModel name="email" [(ngModel)]="newUser.email"
         class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      />
+        placeholder="john_doe@example.com" />
     </div>
 
+
     <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Role</label
-      >
-      <select
-        name="role_id"
-        ngModel
-        [(ngModel)]="newUser.role_id"
-        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      >
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Password</label>
+      <input type="password" ngModel name="password" placeholder="••••••••"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500" />
+    </div>
+
+
+    <div class="mb-4">
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Confirm Password</label>
+      <input type="password" ngModel name="password_confirmation" placeholder="••••••••"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500" />
+    </div>
+
+
+    <div class="mb-4">
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Role</label>
+      <select name="role_id" ngModel [(ngModel)]="newUser.role_id"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500">
+        <option value=""> Role </option>
         @for (role of roles; track role.id) {
-          <option [value]="role.id">{{ role.name }}</option>
+        <option value="{{role.id}}">{{ role.name }}</option>
         }
       </select>
     </div>
+
+
   </form>
 </custom-modal>

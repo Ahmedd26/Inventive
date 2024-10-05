@@ -15,11 +15,12 @@ import { IUser } from '../../users.model';
 import { RolesService } from '../../../../core/services/temp/roles/roles.service';
 import { IRole } from '../../../../core/services/temp/roles/roles.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-users-update-modal',
   standalone: true,
-  imports: [FormsModule, CustomModalComponent],
+  imports: [FormsModule, CustomModalComponent, NgIf],
   templateUrl: './users-update-modal.component.html',
 })
 export class UsersUpdateModalComponent implements OnInit, OnChanges {
@@ -27,12 +28,13 @@ export class UsersUpdateModalComponent implements OnInit, OnChanges {
   @Input({ required: true }) currentUserData!: IUser;
   roles!: IRole[];
   newUser!: IUser;
+  ApiUpdateErrors: any;
   @Output() updatedUser = new EventEmitter<IUser>();
 
   constructor(
     private usersService: UsersService,
     private rolesService: RolesService,
-  ) {}
+  ) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['currentUserData'] && changes['currentUserData'].currentValue) {
@@ -64,9 +66,12 @@ export class UsersUpdateModalComponent implements OnInit, OnChanges {
           };
           this.updatedUser.emit(userWithRole);
           this.updateModal.closeModal();
+          this.ApiUpdateErrors = null
+
         },
-        error: (error) => {
-          console.log('failed to update user', error);
+        error: (errorRes) => {
+          console.log('failed to update user', errorRes);
+          this.ApiUpdateErrors = errorRes.error.errors;
         },
       });
     } else {

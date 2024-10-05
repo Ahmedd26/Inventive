@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../users.service';
 import { type IUser } from '../../users.model';
 import { type IRole } from '../../../../core/services/temp/roles/roles.model';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-users-create-modal',
   standalone: true,
-  imports: [CustomModalComponent, FormsModule],
+  imports: [CustomModalComponent, FormsModule, NgIf],
   templateUrl: './users-create-modal.component.html',
 })
 export class UsersCreateModalComponent {
@@ -22,7 +23,7 @@ export class UsersCreateModalComponent {
   constructor(
     private usersService: UsersService,
     private rolesService: RolesService,
-  ) {}
+  ) { }
 
   getRole(role_id: number): string {
     if (this.roles) {
@@ -44,10 +45,11 @@ export class UsersCreateModalComponent {
           },
         };
         this.newlyCreatedUser.emit(userWithRole);
+        this.ApiErrors = null
       },
-      error: (error) => {
-        this.ApiErrors = error.error.message;
-        console.log('failed to create user', error);
+      error: (errorRes) => {
+        this.ApiErrors = errorRes.error.errors;
+        console.log('failed to create user', errorRes);
       },
     });
   }

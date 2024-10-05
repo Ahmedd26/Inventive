@@ -1,88 +1,97 @@
-<custom-modal
-  buttonText="Register new user"
+<custom-modal buttonText="Register new user"
   buttonClasses="inline-flex items-center gap-2.5 text-base font-medium text-stone-700 duration-150 hover:text-amber-700 dark:text-stone-400 dark:hover:text-amber-600"
-  iconName="user-plus"
-  modalHeader="Register a new user"
-  acceptButtonText="Create"
-  #createModal
-  (accept)="onCreateUser(createUserForm.value)"
->
+  iconName="user-plus" modalHeader="Register a new user" acceptButtonText="Create" #createModal
+  (accept)="onCreateUser(createUserForm.value)">
   <form #createUserForm="ngForm">
     <!-- (ngSubmit)="onCreateUser(createUserForm.value)" -->
     <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Name</label
-      >
-      <input
-        type="text"
-        ngModel
-        name="name"
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Name</label>
+      <input type="text" ngModel name="name"
         class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-        placeholder="John Doe"
-      />
-    </div>
-    <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Email</label
-      >
-      <input
-        type="email"
-        ngModel
-        name="email"
-        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-        placeholder="john_doe@example.com"
-      />
+        placeholder="John Doe" #name="ngModel" required minlength="3" />
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="name.invalid && name.touched" class="text-red-500">
+        <p *ngIf="name.hasError('required')">required</p>
+        <p *ngIf="name.hasError('minlength')">minimum length is 3 letters</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="ApiErrors && ApiErrors['name']" class="text-red-500">
+        {{ ApiErrors["name"] }}
+      </p>
     </div>
 
-    <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Password</label
-      >
-      <input
-        type="password"
-        ngModel
-        name="password"
-        placeholder="••••••••"
-        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      />
-    </div>
 
     <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Confirm Password</label
-      >
-      <input
-        type="password"
-        ngModel
-        name="password_confirmation"
-        placeholder="••••••••"
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Email</label>
+      <input type="email" ngModel name="email"
         class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      />
+        placeholder="john_doe@example.com" #email="ngModel" required />
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="email.invalid && email.touched" class="text-red-500">
+        <p *ngIf="email.hasError('required')">required</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="ApiErrors && ApiErrors['email']" class="text-red-500">
+        {{ ApiErrors["email"] }}
+      </p>
     </div>
 
+
     <div class="mb-4">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Role</label
-      >
-      <select
-        name="role_id"
-        ngModel
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Password</label>
+      <input type="password" ngModel name="password" placeholder="••••••••"
         class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      >
+        #password="ngModel" required minlength="8" />
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="password.invalid && password.touched" class="text-red-500">
+        <p *ngIf="password.hasError('required')">required</p>
+        <p *ngIf="password.hasError('minlength')">minimum length is 8</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="ApiErrors && ApiErrors['password']" class="text-red-500">
+        {{ ApiErrors["password"][0] }}
+      </p>
+    </div>
+
+
+    <div class="mb-4">
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Confirm Password</label>
+      <input type="password" ngModel name="password_confirmation" placeholder="••••••••"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+        #password_confirmation="ngModel" required minlength="8" />
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="password_confirmation.invalid && password_confirmation.touched" class="text-red-500">
+        <p *ngIf="password_confirmation.hasError('required')">required</p>
+        <p *ngIf="password_confirmation.hasError('minlength')">minimum length is 8</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="ApiErrors && ApiErrors['password']" class="text-red-500">
+        <!-- here it might be an array of [required] and [confirmation] -->
+        @for (error of ApiErrors['password']; track $index) {
+      <p> {{ error }} </p>
+      }
+      </p>
+    </div>
+
+
+    <div class="mb-4">
+      <label for="" class="mb-2 block text-sm font-medium text-stone-900 dark:text-white">Role</label>
+      <select name="role_id" ngModel
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+        required #role_id="ngModel">
+        <option value=""> Role </option>
         @for (role of roles; track role.id) {
-          <option [value]="role.id">{{ role.name }}</option>
+        <option value="{{role.id}}">{{ role.name }}</option>
         }
       </select>
+      <!-- ERROR HANDLING Frontend -->
+      <div *ngIf="role_id.invalid && role_id.touched" class="text-red-500">
+        <p *ngIf="role_id.hasError('required')">required</p>
+      </div>
+      <!-- ERROR HANDLING Backend -->
+      <p *ngIf="ApiErrors && ApiErrors['role_id']" class="text-red-500">
+        {{ ApiErrors["role_id"] }}
+      </p>
     </div>
   </form>
 </custom-modal>
