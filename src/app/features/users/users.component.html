@@ -45,6 +45,7 @@
             <th scope="col" class="px-6 py-3">role</th>
             <th scope="col" class="px-6 py-3">joined</th>
             <th scope="col" class="px-6 py-3">last update</th>
+            <th scope="col" class="px-6 py-3"></th>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +67,12 @@
 
               <td class="px-6 py-4">
                 {{ user.updated_at | date: "mediumDate" }}
+              </td>
+              <td class="px-6 py-4">
+                <app-users-update-modal
+                  [currentUserData]="user"
+                  (updatedUser)="setUpdatedUser($event)"
+                />
               </td>
             </tr>
           }

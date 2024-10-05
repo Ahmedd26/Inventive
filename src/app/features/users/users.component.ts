@@ -9,6 +9,7 @@ import { type IUser } from './users.model';
 import { type IRole } from '../../core/services/temp/roles/roles.model';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { UsersCreateModalComponent } from './components/users-create-modal/users-create-modal.component';
+import { UsersUpdateModalComponent } from './components/users-update-modal/users-update-modal.component';
 
 @Component({
   selector: 'app-users',
@@ -20,6 +21,7 @@ import { UsersCreateModalComponent } from './components/users-create-modal/users
     MenuComponent,
     PaginationComponent,
     UsersCreateModalComponent,
+    UsersUpdateModalComponent,
   ],
   templateUrl: './users.component.html',
 })
@@ -114,19 +116,8 @@ export class UsersComponent implements OnInit {
   addNewlyCreatedUser(user: IUser) {
     this.paginatedUsers.push(user);
   }
-
-  onUpdateUser(user: IUser) {
-    this.fetchingState = true;
-    this.usersService.update(user, user.id).subscribe({
-      next: (user) => {
-        console.log('user updated successfully', user);
-        this.fetchingState = false;
-      },
-      error: (error) => {
-        this.error = error.error.message;
-        console.log('failed to update user', error);
-        this.fetchingState = false;
-      },
-    });
+  setUpdatedUser(user: IUser) {
+    this.paginatedUsers = this.paginatedUsers.filter((u) => u.id !== user.id);
+    this.paginatedUsers.push(user);
   }
 }
