@@ -15,7 +15,7 @@ export class SuppliersService {
     return this.http.get<ISupplier[]>(ENDPOINT);
   }
   get(id: number) {
-    return this.http.get(`${ENDPOINT}/${id}`);
+    return this.http.get<ISupplier>(`${ENDPOINT}/${id}`);
   }
  
   create(supplierData: FormData) {
