@@ -15,6 +15,10 @@ export class PurchasesService {
     return this.http.get<IPurchase[]>(ENDPOINT);
   }
 
+  get(id: number) {
+    return this.http.get<IPurchase>(`${ENDPOINT}/${id}`);
+  }
+
   create(body: IPurchase) {
     return this.http.post<IPurchase>(ENDPOINT, body);
   }
