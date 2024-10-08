@@ -2,7 +2,7 @@ import { ILink } from './sidebar.model';
 
 export const links: ILink[] = [
   {
-    path: '/',
+    path: '/dashboard',
     iconName: 'pie-chart',
     title: 'Dashboard',
   },
@@ -18,7 +18,7 @@ export const links: ILink[] = [
   },
   {
     path: '/categories',
-    iconName: 'hash',
+    iconName: 'bookmark',
     title: 'Categories',
   },
   {

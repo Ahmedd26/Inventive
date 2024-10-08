@@ -1,0 +1,111 @@
+@if (fetchingState) {
+  <app-loading />
+}
+@if (error) {
+  <h1>{{ error }}</h1>
+}
+<!-- 
+<p>this is seperation as i cant make hr</p>
+<form #userForm="ngForm" (ngSubmit)="getUser(userForm)">
+  <label>Get User By ID</label>
+  <br />
+  <input type="text" ngModel name="id" />
+  <br />
+  <button
+    type="submit"
+    class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  >
+    Find
+  </button>
+</form> -->
+
+@if (users) {
+  <div class="mt-8">
+    <div class="flex items-center justify-between">
+      <h2 class="text-4xl font-bold text-stone-800 dark:text-stone-200">
+        Users
+      </h2>
+      <app-users-create-modal
+        (newlyCreatedUser)="addNewlyCreatedUser($event)"
+      />
+    </div>
+    <div
+      class="relative mt-4 overflow-x-auto rounded-lg shadow-lg md:mt-6 xl:mt-8"
+    >
+      <table
+        class="w-full text-left text-sm text-stone-700 dark:text-stone-400"
+      >
+        <thead
+          class="bg-stone-50 text-xs uppercase text-stone-700 dark:bg-stone-700 dark:text-stone-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">id</th>
+            <th scope="col" class="px-6 py-3">name</th>
+            <th scope="col" class="px-6 py-3">email</th>
+            <th scope="col" class="px-6 py-3">role</th>
+            <th scope="col" class="px-6 py-3">joined</th>
+            <th scope="col" class="px-6 py-3">last update</th>
+            <th scope="col" class="px-6 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of paginatedUsers; track user.id) {
+            <tr
+              class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
+            >
+              <td class="px-6 py-4">{{ user.id }}</td>
+
+              <td class="px-6 py-4">{{ user.name }}</td>
+
+              <td class="px-6 py-4">{{ user.email }}</td>
+
+              <td class="px-6 py-4">{{ user.role?.name }}</td>
+
+              <td class="px-6 py-4">
+                {{ user.created_at | date: "mediumDate" }}
+              </td>
+
+              <td class="px-6 py-4">
+                {{ user.updated_at | date: "mediumDate" }}
+              </td>
+              <td class="flex flex-wrap items-center gap-2 px-6 py-4 xl:gap-6">
+                <app-users-update-modal
+                  [currentUserData]="user"
+                  (updatedUser)="setUpdatedUser($event)"
+                />
+                @if (user.id) {
+                  <app-users-delete-modal
+                    [id]="+user.id"
+                    [user]="user"
+                    (deletedUserId)="removeDeletedUser($event)"
+                  />
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mt-4 md:mt-6 xl:mt-8">
+    <app-pagination
+      [totalItems]="totalItems"
+      [itemsPerPage]="5"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
+  </div>
+}
+
+@if (user) {
+  <ul>
+    <li>
+      {{ user.id }}
+    </li>
+    <li>
+      {{ user.name }}
+    </li>
+    <li>
+      {{ user.email }}
+    </li>
+  </ul>
+}

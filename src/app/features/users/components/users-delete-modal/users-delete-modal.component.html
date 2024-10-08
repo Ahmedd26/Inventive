@@ -1,0 +1,18 @@
+@if (user && id) {
+  <custom-modal
+    buttonText=""
+    buttonClasses="inline-flex items-center gap-2.5 text-base font-medium text-stone-700 duration-150 hover:text-red-700 dark:text-stone-400 dark:hover:text-red-600"
+    iconName="trash"
+    [modalHeader]="'Delete ' + user.name"
+    declineButtonText="Cancel"
+    acceptButtonText="yes I'm sure, delete"
+    (accept)="onDelete(id)"
+    #deleteModal
+  >
+    <h2 class="text-xl">
+      Are you sure you want to delete
+      <span class="font-semibold text-amber-600">{{ user.name }}</span
+      >?
+    </h2>
+  </custom-modal>
+}

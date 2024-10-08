@@ -14,7 +14,7 @@ import { initFlowbite } from 'flowbite';
 import { DeletePopUpComponent } from './components/delete-pop-up/delete-pop-up.component';
 import { MenuComponent } from './components/menu/menu.component';
 
-interface ITable {
+export interface ITable {
   id: number | string;
   [key: string]: any;
 }
@@ -46,6 +46,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   displayList(): ITable[] {
+    if (!this.tableData) return [];
     return this.tableData.slice(this.start, this.end);
   }
 

@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private darkModeService: DarkModeService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   @HostBinding('class.dark') get mode() {
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
     initFlowbite();
     this.authService.autoLogin();
     this.userSub = this.authService.user.subscribe(
-      (user) => (this.isAuth = !!user)
+      (user) => (this.isAuth = !!user),
     );
   }
   ngOnDestroy(): void {

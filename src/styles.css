@@ -23,3 +23,12 @@ i-feather {
 .invalid-message {
   @apply text-red-600 dark:text-red-600 font-semibold;
 }
+
+/**! IMP !**/
+.image-skeleton {
+  @apply relative z-10;
+}
+.image-skeleton::after {
+  content: "";
+  @apply absolute -z-10 bg-stone-200 dark:bg-stone-700 inset-0 w-full h-full animate-pulse;
+}

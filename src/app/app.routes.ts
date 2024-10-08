@@ -10,6 +10,8 @@ import { ShowSupplierComponent } from './features/suppliers/show-supplier/show-s
 import { ProductsComponent } from './features/products/products.component';
 import { CategoriesComponent } from './features/categories/categories.component';
 import { LandingPageComponent } from './shared/landing-page/landing-page.component';
+import { ShowProductComponent } from './features/products/components/show-product/show-product.component';
+import { UsersComponent } from './features/users/users.component';
 import { SalesComponent } from './features/sales/sales.component';
 import { PurchasesComponent } from './features/purchases/purchases.component';
 
@@ -66,6 +68,13 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'products/:id',
+    title: 'Product',
+    component: ShowProductComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'categories',
     title: 'Categories',
     component: CategoriesComponent,
@@ -90,6 +99,13 @@ export const routes: Routes = [
     path: 'profile',
     title: 'Profile',
     component: ProfileComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'users',
+    title: 'Users',
+    component: UsersComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
