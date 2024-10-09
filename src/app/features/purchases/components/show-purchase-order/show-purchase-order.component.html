@@ -1,1 +1,159 @@
-<p>show-purchase-order works!</p>
+@if (isLoading) {
+  <app-loading />
+}
+@if (purchase) {
+  <h1 class="mb-5 text-3xl font-semibold md:text-4xl">
+    Purchase Order {{ purchase.id }} Details
+  </h1>
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <!-- Supplier Info -->
+    <div class="rounded-lg bg-white p-4 shadow dark:bg-stone-800">
+      <h2 class="mb-4 text-center text-xl font-semibold md:text-2xl">
+        Supplier Information
+      </h2>
+      <a
+        [routerLink]="['/suppliers', purchase.supplier_id]"
+        target="_blank"
+        class="my-6 flex justify-center"
+      >
+        <div class="relative">
+          <img
+            class="h-20 w-20 rounded-full shadow"
+            [src]="purchase.supplier?.image"
+            alt=""
+          />
+          <span class="text-md absolute bottom-0 left-16 text-amber-600">
+            <i-feather name="external-link" />
+          </span>
+        </div>
+      </a>
+      <div class="space-y-4">
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="user" />
+          </span>
+          {{ purchase.supplier?.name }}
+        </h4>
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="at-sign" />
+          </span>
+          {{ purchase.supplier?.email }}
+        </h4>
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="map-pin" />
+          </span>
+          {{ purchase.supplier?.address }}
+        </h4>
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="phone" />
+          </span>
+          {{ purchase.supplier?.phone }}
+        </h4>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4">
+      <!-- Buyer Info -->
+      <div class="flex-1 rounded-lg bg-white p-4 shadow dark:bg-stone-800">
+        <h2 class="mb-4 text-center text-xl font-semibold md:text-2xl">
+          Buyer Information
+        </h2>
+        <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="user" />
+            </span>
+            {{ purchase.user?.name }}
+          </h4>
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="at-sign" />
+            </span>
+            {{ purchase.user?.email }}
+          </h4>
+        </div>
+      </div>
+      <div class="flex-1 rounded-lg bg-white p-4 shadow dark:bg-stone-800">
+        <h2 class="mb-4 text-center text-xl font-semibold md:text-2xl">
+          Order Information
+        </h2>
+        <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="dollar-sign" />
+            </span>
+            <span class="font-bold capitalize"> total amount: </span>
+            {{ purchase.total_amount | currency }}
+          </h4>
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="activity" />
+            </span>
+            <span class="font-bold capitalize"> Status: </span>
+            {{ purchase.status }}
+          </h4>
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="layers" />
+            </span>
+            <span class="font-bold capitalize"> Items count: </span>
+            {{ purchase.product_purchase_orders?.length }}
+          </h4>
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="calendar" />
+            </span>
+            <span class="font-bold capitalize"> Initiated: </span>
+            {{ purchase.created_at | date: "mediumDate" }}
+          </h4>
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="refresh-cw" />
+            </span>
+            <span class="font-bold capitalize"> Updated: </span>
+            {{ purchase.updated_at | date: "mediumDate" }}
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6 grid grid-cols-1 gap-4 2xl:grid-cols-2">
+    @for (orderItem of purchase.product_purchase_orders; track orderItem.id) {
+      <div
+        class="flex h-full flex-col items-stretch rounded-lg border border-stone-200 bg-white shadow dark:border-stone-700 dark:bg-stone-800 md:flex-row"
+      >
+        <div class="flex-1">
+          <img
+            class="image-skeleton h-full w-full rounded-t-lg object-cover md:h-full md:w-full md:rounded-none md:rounded-s-lg"
+            [src]="orderItem.product.image"
+            [alt]="orderItem.product.name + ' image'"
+          />
+        </div>
+        <div class="flex flex-[4] flex-col justify-between p-4 leading-normal">
+          <a
+            [routerLink]="['/products', orderItem.product.id]"
+            target="_blank"
+            class="mb-2 flex items-center gap-2 text-lg font-bold tracking-tight text-stone-900 dark:text-white xl:text-2xl"
+          >
+            <i-feather name="external-link" />
+            {{ orderItem.product.name }}
+          </a>
+          <div class="flex items-center gap-4 md:gap-6">
+            <div class="flex items-center gap-2">
+              <i-feather name="layers" />
+              <span class="font-semibold">Ordered quantity:</span>
+              <span>{{ orderItem.quantity }}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i-feather name="dollar-sign" />
+              <span class="font-semibold">Total Price:</span>
+              <span>{{ orderItem.price | currency }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}
