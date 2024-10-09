@@ -1,0 +1,51 @@
+@if (isLoading) {
+  <app-loading />
+} @else {
+  @if (suppliers) {
+    <h4 class="mb-2.5 text-lg">
+      Please select a supplier to view their available products.
+    </h4>
+    <select
+      id="supplier"
+      class="block min-w-24 rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      (change)="onSupplierSelect($event)"
+    >
+      <option selected>Choose a supplier</option>
+      @for (supplier of suppliers; track supplier.id) {
+        <option [value]="supplier.id">{{ supplier.name }}</option>
+      }
+    </select>
+  } @else {
+    <p>
+      No suppliers were found, please try again later or report to site admin
+    </p>
+  }
+}
+
+@if (selectedSupplier) {
+  @if (selectedSupplier.products) {
+    <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
+      <h2 class="text-3xl font-semibold">
+        <span class="font-extrabold text-amber-600 dark:text-amber-500">
+          {{ selectedSupplier.name }} </span
+        >'s available products
+      </h2>
+      <button
+        (click)="submitPurchase()"
+        [disabled]="!validRequest"
+        class="rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-300 disabled:cursor-not-allowed disabled:bg-amber-800/70 dark:focus:ring-amber-900 dark:disabled:bg-amber-800/70"
+      >
+        Place Order
+      </button>
+    </div>
+    <div class="mt-6 grid grid-cols-1 gap-4 2xl:grid-cols-2">
+      @for (product of selectedSupplier.products; track product.id) {
+        <app-purchase-product-card
+          [product]="product"
+          (selectedProduct)="onAddSelectedProduct($event)"
+          (dismissProduct)="dismissSelectedProduct($event)"
+        />
+      }
+    </div>
+  }
+}

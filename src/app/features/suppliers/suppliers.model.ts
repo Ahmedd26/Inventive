@@ -1,3 +1,5 @@
+import { IProduct } from '../products/products.model';
+
 export interface ISupplier {
   id: number;
   name: string;
@@ -6,4 +8,5 @@ export interface ISupplier {
   address: string;
   created_at?: string;
   updated_at?: string;
+  products?: IProduct[];
 }

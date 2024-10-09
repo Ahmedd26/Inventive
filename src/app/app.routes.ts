@@ -14,6 +14,9 @@ import { ShowProductComponent } from './features/products/components/show-produc
 import { UsersComponent } from './features/users/users.component';
 import { SalesComponent } from './features/sales/sales.component';
 import { PurchasesComponent } from './features/purchases/purchases.component';
+import { CreatePurchaseComponent } from './features/orders/components/create-purchase/create-purchase.component';
+import { OrdersComponent } from './features/orders/orders.component';
+import { SelectOrderTypeComponent } from './features/orders/components/select-order-type/select-order-type.component';
 
 export const routes: Routes = [
   {
@@ -61,6 +64,28 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'orders',
+    title: 'Orders',
+    component: OrdersComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        title: 'select order type',
+        component: SelectOrderTypeComponent,
+
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'create-purchase',
+        title: 'Create purchase Order',
+        component: CreatePurchaseComponent,
+
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+  {
     path: 'products',
     title: 'Products',
     component: ProductsComponent,
@@ -95,6 +120,7 @@ export const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
+
   {
     path: 'profile',
     title: 'Profile',
