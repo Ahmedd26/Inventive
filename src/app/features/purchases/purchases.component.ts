@@ -51,31 +51,31 @@ export class PurchasesComponent {
   }
   //** ---------------------- END PAGINATION -------------------------- **//
 
-  onUpdatePurchase(updatedForm: IPurchase, purchaseId: number) {
-    this.purchasesService.update(updatedForm, purchaseId).subscribe({
-      next: (data) => {
-        // console.log(data)
-        console.log('Updated Successfully');
-        this.updateAPIerrors = null;
-        this.purchasesArray = this.purchasesArray.map((element) => {
-          if (element.id === purchaseId) {
-            return {
-              ...element,
-              total_amount: updatedForm.total_amount,
-              status: updatedForm.status,
-              user_id: updatedForm.user_id,
-              supplier_id: updatedForm.supplier_id,
-            };
-          }
-          return element;
-        });
-      },
-      error: (errorRes) => {
-        this.updateAPIerrors = errorRes.error.errors;
-        // console.log(errorRes)
-      },
-    });
-  }
+  // onUpdatePurchase(updatedForm: IPurchase, purchaseId: number) {
+  //   this.purchasesService.update(updatedForm, purchaseId).subscribe({
+  //     next: (data) => {
+  //       // console.log(data)
+  //       console.log('Updated Successfully');
+  //       this.updateAPIerrors = null;
+  //       this.purchasesArray = this.purchasesArray.map((element) => {
+  //         if (element.id === purchaseId) {
+  //           return {
+  //             ...element,
+  //             total_amount: updatedForm.total_amount,
+  //             status: updatedForm.status,
+  //             user_id: updatedForm.user_id,
+  //             supplier_id: updatedForm.supplier_id,
+  //           };
+  //         }
+  //         return element;
+  //       });
+  //     },
+  //     error: (errorRes) => {
+  //       this.updateAPIerrors = errorRes.error.errors;
+  //       // console.log(errorRes)
+  //     },
+  //   });
+  // }
 
   onDeletePurchase(purchaseId: number) {
     this.purchasesService.delete(purchaseId).subscribe({

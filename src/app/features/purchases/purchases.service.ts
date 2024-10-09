@@ -23,8 +23,8 @@ export class PurchasesService {
     return this.http.post<IPurchase>(ENDPOINT, body);
   }
 
-  update(body: IPurchase, id: number) {
-    return this.http.post<IPurchase>(`${ENDPOINT}/${id}?_method=put`, body);
+  update(body: { status: string }, id: number) {
+    return this.http.post<any>(`${ENDPOINT}/${id}?_method=put`, body);
   }
 
   delete(id: number) {

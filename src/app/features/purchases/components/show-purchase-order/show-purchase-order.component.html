@@ -6,9 +6,13 @@
     <h1 class="mb-5 text-3xl font-semibold md:text-4xl">
       Purchase Order {{ purchase.id }} Details
     </h1>
-    <div class="text-xl">
-      <i-feather name="settings" />
-    </div>
+    @if (purchase.id && purchase.status) {
+      <app-purchase-order-actions
+        [currentStatus]="purchase.status"
+        [orderId]="purchase.id"
+        (newStatus)="updateStatus($event)"
+      />
+    }
   </div>
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <!-- Supplier Info -->
