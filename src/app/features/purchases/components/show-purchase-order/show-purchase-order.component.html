@@ -119,28 +119,28 @@
       </div>
     </div>
   </div>
-  <div class="mt-6 grid grid-cols-1 gap-4 2xl:grid-cols-2">
+
+  <h2 class="mt-6 text-3xl font-semibold">Products from this order</h2>
+
+  <div
+    class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  >
     @for (orderItem of purchase.product_purchase_orders; track orderItem.id) {
       <div
-        class="flex h-full flex-col items-stretch rounded-lg border border-stone-200 bg-white shadow dark:border-stone-700 dark:bg-stone-800 md:flex-row"
+        class="max-w-sm rounded-lg border border-stone-200 bg-white shadow dark:border-stone-700 dark:bg-stone-800"
       >
-        <div class="flex-1">
-          <img
-            class="image-skeleton h-full w-full rounded-t-lg object-cover md:h-full md:w-full md:rounded-none md:rounded-s-lg"
-            [src]="orderItem.product.image"
-            [alt]="orderItem.product.name + ' image'"
-          />
-        </div>
-        <div class="flex flex-[4] flex-col justify-between p-4 leading-normal">
-          <a
-            [routerLink]="['/products', orderItem.product.id]"
-            target="_blank"
-            class="mb-2 flex items-center gap-2 text-lg font-bold tracking-tight text-stone-900 dark:text-white xl:text-2xl"
-          >
-            <i-feather name="external-link" />
-            {{ orderItem.product.name }}
+        <a [routerLink]="['products/', orderItem.product_id]">
+          <img class="rounded-t-lg" [src]="orderItem.product.image" alt="" />
+        </a>
+        <div class="p-5">
+          <a [routerLink]="['products/', orderItem.product_id]">
+            <h5
+              class="mb-2 text-xl font-bold tracking-tight text-stone-900 dark:text-white xl:text-2xl"
+            >
+              {{ orderItem.product.name }}
+            </h5>
           </a>
-          <div class="flex items-center gap-4 md:gap-6">
+          <div class="mt-4 space-y-4 md:mt-6">
             <div class="flex items-center gap-2">
               <i-feather name="layers" />
               <span class="font-semibold">Ordered quantity:</span>
