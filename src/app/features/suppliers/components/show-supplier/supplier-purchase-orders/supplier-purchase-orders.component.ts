@@ -20,11 +20,10 @@ export class SupplierPurchaseOrdersComponent implements OnInit {
   usersError: string | null = null;
   suppliersError: string | null = null;
 
-  constructor(private usersService: UsersService, private suppliersService: SuppliersService) {}
-
-  getUserName(userId: number): string {
-    return this.userMap.get(userId) || 'Unknown user';
-  }
+  constructor(
+    private usersService: UsersService,
+    private suppliersService: SuppliersService,
+  ) {}
 
   getSupplierName(supplierId: number): string {
     return this.supplierMap.get(supplierId) || 'Unknown supplier';
@@ -33,7 +32,7 @@ export class SupplierPurchaseOrdersComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getAll().subscribe({
       next: (users: IUser[]) => {
-        users.forEach(user => this.userMap.set(user.id!, user.name));
+        users.forEach((user) => this.userMap.set(user.id!, user.name));
       },
       error: (error: HttpErrorResponse) => {
         this.usersError = error.message;
@@ -42,7 +41,9 @@ export class SupplierPurchaseOrdersComponent implements OnInit {
 
     this.suppliersService.getAll().subscribe({
       next: (suppliers: ISupplier[]) => {
-        suppliers.forEach(supplier => this.supplierMap.set(supplier.id!, supplier.name));
+        suppliers.forEach((supplier) =>
+          this.supplierMap.set(supplier.id!, supplier.name),
+        );
       },
       error: (error: HttpErrorResponse) => {
         this.suppliersError = error.message;

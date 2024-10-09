@@ -26,9 +26,9 @@
               class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
             >
               <td class="px-6 py-4">{{ order.id }}</td>
-              <td class="px-6 py-4">{{ getUserName(order.user_id) }}</td>
+              <td class="px-6 py-4 capitalize">{{ order.user.name }}</td>
               <!-- <td class="px-6 py-4">{{ getSupplierName(order.supplier_id) }}</td> -->
-              <td class="px-6 py-4">{{ order.status }}</td>
+              <td class="px-6 py-4 capitalize">{{ order.status }}</td>
               <td class="px-6 py-4">{{ order.total_amount | currency }}</td>
               <td class="px-6 py-4">
                 {{ order.created_at | date: "mediumDate" }}

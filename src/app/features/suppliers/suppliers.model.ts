@@ -1,5 +1,6 @@
 import { IProduct } from '../products/products.model';
 import { IProductPurchaseOrders } from '../products/products.model';
+import { IUser } from '../users/users.model';
 
 export interface ISupplier {
   id: number;
@@ -30,4 +31,5 @@ export interface ISupplierPurchaseOrders {
   status: string;
   created_at: string;
   updated_at: string;
+  user: IUser;
 }
