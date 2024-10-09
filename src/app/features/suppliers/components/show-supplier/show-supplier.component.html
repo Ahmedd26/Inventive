@@ -26,7 +26,10 @@
           <app-supplier-delete-modal [supplierId]="supplier.id" />
         </div>
       </div>
-      <p class="text-lg text-stone-600 dark:text-stone-500">
+      <p
+        class="flex items-center gap-2 text-lg text-stone-600 dark:text-stone-500"
+      >
+        <i-feather name="map-pin" />
         {{ supplier.address }}
       </p>
       <div
@@ -74,24 +77,24 @@
           </span>
         </div>
       </div>
-
-      <!-- Related Products -->
-      @if (supplier.products && supplier.products.length > 0) {
-        <app-supplier-products [products]="supplier.products" />
-      } @else {
-        <h4 class="mt-8 text-xl dark:text-stone-600">
-          No products associated with this supplier.
-        </h4>
-      }
-
-      <!-- Related Purchase Orders -->
-      @if (supplier.purchase_orders && supplier.purchase_orders.length > 0) {
-        <app-supplier-purchase-orders [purchaseOrders]="supplier.purchase_orders" />
-      } @else {
-        <h4 class="mt-8 text-xl dark:text-stone-600">
-          No purchase orders associated with this supplier.
-        </h4>
-      }
     </div>
   </div>
+
+  <!-- Related Products -->
+  @if (supplier.products && supplier.products.length > 0) {
+    <app-supplier-products [products]="supplier.products" />
+  } @else {
+    <h4 class="mt-8 text-xl dark:text-stone-600">
+      No products associated with this supplier.
+    </h4>
+  }
+
+  <!-- Related Purchase Orders -->
+  @if (supplier.purchase_orders && supplier.purchase_orders.length > 0) {
+    <app-supplier-purchase-orders [purchaseOrders]="supplier.purchase_orders" />
+  } @else {
+    <h4 class="mt-8 text-xl dark:text-stone-600">
+      No purchase orders associated with this supplier.
+    </h4>
+  }
 }

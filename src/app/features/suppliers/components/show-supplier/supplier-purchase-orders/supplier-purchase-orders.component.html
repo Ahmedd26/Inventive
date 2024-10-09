@@ -3,9 +3,13 @@
     Purchase Orders
   </h2>
 
-  <div class="relative mt-4 overflow-x-auto rounded-lg shadow-lg md:mt-6 xl:mt-8">
+  <div
+    class="relative mt-4 overflow-x-auto rounded-lg shadow-lg md:mt-6 xl:mt-8"
+  >
     <table class="w-full text-left text-sm text-stone-700 dark:text-stone-400">
-      <thead class="bg-stone-50 text-xs uppercase text-stone-700 dark:bg-stone-700 dark:text-stone-400">
+      <thead
+        class="bg-stone-50 text-xs uppercase text-stone-700 dark:bg-stone-700 dark:text-stone-400"
+      >
         <tr>
           <th scope="col" class="px-6 py-3">Order ID</th>
           <th scope="col" class="px-6 py-3">User Name</th>
@@ -18,18 +22,25 @@
       <tbody>
         @if (purchaseOrders && purchaseOrders.length > 0) {
           @for (order of purchaseOrders; track order.id) {
-            <tr class="border-b bg-white dark:border-stone-700 dark:bg-stone-800">
+            <tr
+              class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
+            >
               <td class="px-6 py-4">{{ order.id }}</td>
               <td class="px-6 py-4">{{ getUserName(order.user_id) }}</td>
               <!-- <td class="px-6 py-4">{{ getSupplierName(order.supplier_id) }}</td> -->
               <td class="px-6 py-4">{{ order.status }}</td>
               <td class="px-6 py-4">{{ order.total_amount | currency }}</td>
-              <td class="px-6 py-4">{{ order.created_at | date: 'mediumDate' }} {{ order.created_at | date: 'shortTime' }}</td>
+              <td class="px-6 py-4">
+                {{ order.created_at | date: "mediumDate" }}
+                {{ order.created_at | date: "shortTime" }}
+              </td>
             </tr>
           }
         } @else {
           <tr>
-            <td colspan="6" class="px-6 py-4 text-center">No purchase orders associated with this supplier.</td>
+            <td colspan="6" class="px-6 py-4 text-center">
+              No purchase orders associated with this supplier.
+            </td>
           </tr>
         }
       </tbody>
