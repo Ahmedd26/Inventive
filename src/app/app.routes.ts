@@ -14,6 +14,7 @@ import { ShowProductComponent } from './features/products/components/show-produc
 import { UsersComponent } from './features/users/users.component';
 import { SalesComponent } from './features/sales/sales.component';
 import { PurchasesComponent } from './features/purchases/purchases.component';
+import { WarehouseComponent } from './features/warehouses/warehouse/warehouse.component';
 
 export const routes: Routes = [
   {
@@ -92,6 +93,13 @@ export const routes: Routes = [
     path: 'purchases',
     title: 'Purchases',
     component: PurchasesComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'inventory',
+    title: 'Inventory',
+    component: WarehouseComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
