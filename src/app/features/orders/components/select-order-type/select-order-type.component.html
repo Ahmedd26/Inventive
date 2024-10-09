@@ -1,15 +1,19 @@
-<div class="mx-auto flex max-w-2xl flex-wrap items-center gap-5">
+<div
+  class="mx-auto mt-36 flex max-w-2xl flex-col flex-wrap items-center gap-10 md:flex-row"
+>
   <a
     [routerLink]="['/orders/create-purchase']"
-    class="flex min-h-32 flex-1 items-center justify-center rounded-xl border border-amber-600 bg-white text-2xl font-extrabold shadow duration-150 hover:-translate-y-2 hover:shadow-lg hover:shadow-amber-700 dark:bg-stone-800"
+    class="flex min-h-32 w-full flex-1 flex-col items-center justify-center gap-6 rounded-xl border border-amber-600 bg-white text-2xl font-extrabold shadow duration-150 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-700/10 dark:bg-stone-800 dark:hover:bg-stone-900"
   >
+    <i-feather name="corner-left-down" />
     Purchase Order
   </a>
 
   <a
     [routerLink]="['/orders/create-sale']"
-    class="flex min-h-32 flex-1 items-center justify-center rounded-xl border border-amber-600 bg-white text-2xl font-extrabold shadow duration-150 hover:-translate-y-2 hover:shadow-lg hover:shadow-amber-700 dark:bg-stone-800"
+    class="flex min-h-32 w-full flex-1 flex-col items-center justify-center gap-6 rounded-xl border border-amber-600 bg-white text-2xl font-extrabold shadow duration-150 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-700/10 dark:bg-stone-800 dark:hover:bg-stone-900"
   >
+    <i-feather name="corner-left-up" />
     Sale Order
   </a>
 </div>

@@ -22,7 +22,16 @@
       @for (purchase of paginatedPurchases; track purchase.id) {
         <tr class="border-b bg-white dark:border-stone-700 dark:bg-stone-800">
           <td class="px-6 py-4">{{ purchase.id }}</td>
-          <td class="px-6 py-4">{{ purchase.supplier?.name }}</td>
+          <td class="px-6 py-4">
+            <a
+              [routerLink]="['/suppliers', purchase.supplier_id]"
+              target="_blank"
+              class="flex items-center gap-2 hover:text-amber-700 dark:hover:text-stone-50"
+            >
+              <i-feather name="external-link" />
+              {{ purchase.supplier?.name }}
+            </a>
+          </td>
           <td class="px-6 py-4">{{ purchase.user?.name }}</td>
           <td class="px-6 py-4">{{ purchase.total_amount | currency }}</td>
           <td class="px-6 py-4">{{ purchase.status }}</td>

@@ -1,3 +1,4 @@
+import { RouterLink } from '@angular/router';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProduct } from '../../../../products/products.model';
 import { IconsModule } from '../../../../../shared/icons/icons.module';
@@ -12,7 +13,7 @@ export interface ISelectedProduct {
 @Component({
   selector: 'app-purchase-product-card',
   standalone: true,
-  imports: [IconsModule, CommonModule],
+  imports: [IconsModule, CommonModule, RouterLink],
   templateUrl: './purchase-product-card.component.html',
 })
 export class PurchaseProductCardComponent {

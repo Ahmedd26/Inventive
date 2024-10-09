@@ -9,11 +9,14 @@
     />
   </div>
   <div class="flex flex-[3] flex-col justify-between p-4 leading-normal">
-    <h5
-      class="mb-2 text-2xl font-bold tracking-tight text-stone-900 dark:text-white"
+    <a
+      [routerLink]="['/products', product.id]"
+      target="_blank"
+      class="mb-2 flex items-center gap-2 text-2xl font-bold tracking-tight text-stone-900 dark:text-white"
     >
+      <i-feather name="external-link" />
       {{ product.name }}
-    </h5>
+    </a>
     <p class="mb-3 font-normal text-stone-700 dark:text-stone-400">
       {{ product.description }}
     </p>

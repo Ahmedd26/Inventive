@@ -7,6 +7,8 @@ import { IPurchase } from './purchases.model';
 import { IUser } from '../users/users.model';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { RouterLink } from '@angular/router';
+import { IconsModule } from '../../shared/icons/icons.module';
 
 @Component({
   selector: 'app-purchases',
@@ -17,6 +19,8 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
     LoadingComponent,
     CommonModule,
     PaginationComponent,
+    RouterLink,
+    IconsModule,
   ],
   templateUrl: './purchases.component.html',
 })

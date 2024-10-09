@@ -11,6 +11,7 @@ import {
   PurchaseProductCardComponent,
 } from './purchase-product-card/purchase-product-card.component';
 import { API } from '../../../../core/utils/constants.utils';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-create-purchase',
@@ -21,6 +22,7 @@ import { API } from '../../../../core/utils/constants.utils';
     CommonModule,
     IconsModule,
     PurchaseProductCardComponent,
+    RouterLink,
   ],
   templateUrl: './create-purchase.component.html',
 })
@@ -45,6 +47,7 @@ export class CreatePurchaseComponent implements OnInit {
       this.selectedSupplierId = supplier.id;
       this.selectedSupplier = supplier;
       this.selectedProducts = [];
+      this.validRequest = false;
     }
   }
 
@@ -56,6 +59,9 @@ export class CreatePurchaseComponent implements OnInit {
     this.selectedProducts = this.selectedProducts.filter(
       (product) => product.product_id !== id,
     );
+    if (this.selectedProducts.length === 0) {
+      this.validRequest = false;
+    }
   }
 
   submitPurchase() {
