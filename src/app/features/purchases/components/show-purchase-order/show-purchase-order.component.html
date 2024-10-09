@@ -6,13 +6,18 @@
     <h1 class="mb-5 text-3xl font-semibold md:text-4xl">
       Purchase Order {{ purchase.id }} Details
     </h1>
-    @if (purchase.id && purchase.status) {
-      <app-purchase-order-actions
-        [currentStatus]="purchase.status"
-        [orderId]="purchase.id"
-        (newStatus)="updateStatus($event)"
-      />
-    }
+    <div class="flex items-center gap-2">
+      <button class="text-2xl" (click)="openInvoice()" title="open invoice">
+        <i-feather name="file-text" />
+      </button>
+      @if (purchase.id && purchase.status) {
+        <app-purchase-order-actions
+          [currentStatus]="purchase.status"
+          [orderId]="purchase.id"
+          (newStatus)="updateStatus($event)"
+        />
+      }
+    </div>
   </div>
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <!-- Supplier Info -->
@@ -139,11 +144,11 @@
       <div
         class="max-w-sm rounded-lg border border-stone-200 bg-white shadow dark:border-stone-700 dark:bg-stone-800"
       >
-        <a [routerLink]="['products/', orderItem.product_id]">
+        <a [routerLink]="['/products/', orderItem.product_id]">
           <img class="rounded-t-lg" [src]="orderItem.product.image" alt="" />
         </a>
         <div class="p-5">
-          <a [routerLink]="['products/', orderItem.product_id]">
+          <a [routerLink]="['/products/', orderItem.product_id]">
             <h5
               class="mb-2 text-xl font-bold tracking-tight text-stone-900 dark:text-white xl:text-2xl"
             >

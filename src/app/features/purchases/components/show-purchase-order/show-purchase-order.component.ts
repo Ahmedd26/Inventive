@@ -31,6 +31,18 @@ export class ShowPurchaseOrderComponent implements OnInit {
     this.purchase.status = status;
   }
 
+  openInvoice() {
+    if (this.purchase.id) {
+      this.purchasesService.getInvoice(this.purchase.id).subscribe({
+        next: (response: Blob) => {
+          const url = window.URL.createObjectURL(response);
+          window.open(url);
+        },
+        error: (err) => console.error(err),
+      });
+    }
+  }
+
   ngOnInit() {
     this.isLoading = true;
     const routeId = this.activatedRoute.snapshot.params['id'];
@@ -38,7 +50,6 @@ export class ShowPurchaseOrderComponent implements OnInit {
       next: (purchase: IPurchase) => {
         this.purchase = purchase;
         this.isLoading = false;
-        console.log(purchase);
       },
       error: (error: any) => {
         console.log(error);

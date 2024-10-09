@@ -30,4 +30,10 @@ export class PurchasesService {
   delete(id: number) {
     return this.http.post(`${ENDPOINT}/${id}?_method=delete`, null);
   }
+
+  getInvoice(id: number) {
+    return this.http.get(`${API}purchaseInvoice/${id}`, {
+      responseType: 'blob',
+    });
+  }
 }
