@@ -18,6 +18,7 @@ import { CreatePurchaseComponent } from './features/orders/components/create-pur
 import { OrdersComponent } from './features/orders/orders.component';
 import { SelectOrderTypeComponent } from './features/orders/components/select-order-type/select-order-type.component';
 import { ShowPurchaseOrderComponent } from './features/purchases/components/show-purchase-order/show-purchase-order.component';
+import { WarehouseComponent } from './features/warehouses/warehouse/warehouse.component';
 
 export const routes: Routes = [
   {
@@ -127,8 +128,14 @@ export const routes: Routes = [
     component: ShowPurchaseOrderComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
-  },
+  },{
 
+    path: 'inventory',
+    title: 'Inventory',
+    component: WarehouseComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
   {
     path: 'profile',
     title: 'Profile',
