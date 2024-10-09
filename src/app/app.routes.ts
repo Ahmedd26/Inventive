@@ -6,7 +6,7 @@ import { RegisterComponent } from './core/auth/components/register/register.comp
 import { AuthGuard } from './core/auth/guard/auth.guard';
 import { LoginRegisterGuard } from './core/auth/guard/login-register.guard';
 import { SuppliersComponent } from './features/suppliers/suppliers.component';
-import { ShowSupplierComponent } from './features/suppliers/show-supplier/show-supplier.component';
+import { ShowSupplierComponent } from './features/suppliers/components/show-supplier/show-supplier.component';
 import { ProductsComponent } from './features/products/products.component';
 import { CategoriesComponent } from './features/categories/categories.component';
 import { LandingPageComponent } from './shared/landing-page/landing-page.component';

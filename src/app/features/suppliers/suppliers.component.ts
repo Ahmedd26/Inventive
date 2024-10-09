@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SuppliersService } from './suppliers.service';
-import { type ISupplier } from './suppliers.model';
+import { ISupplier } from './suppliers.model';
 import { FormsModule } from '@angular/forms';
 import { CreateSupplierModalComponent } from './components/create-supplier-modal/create-supplier-modal.component';
 import { IconsModule } from '../../shared/icons/icons.module';
 import { TableComponent } from '../../shared/components/table/table.component';
 import { UpdateSupplierModalComponent } from './components/update-supplier-modal/update-supplier-modal.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { LoadingComponent } from '../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-suppliers',
@@ -16,47 +20,93 @@ import { UpdateSupplierModalComponent } from './components/update-supplier-modal
     IconsModule,
     TableComponent,
     UpdateSupplierModalComponent,
+    CommonModule,
+    RouterLink,
+    LoadingComponent
   ],
   templateUrl: './suppliers.component.html',
 })
-export class SuppliersComponent {
+export class SuppliersComponent implements OnInit {
   isLoading = false;
-  suppliers!: ISupplier[];
-  supplier!: ISupplier | null;
+  suppliers: ISupplier[] = [];
+  supplier: ISupplier | null = null;
+  error: HttpErrorResponse | null = null;
   tableHeaders = ['id', 'name', 'email', 'phone', 'address'];
+
   constructor(private suppliersService: SuppliersService) {}
 
+  ngOnInit() {
+    this.isLoading = true;
+    this.suppliersService.getAll().subscribe({
+      next: (data: ISupplier[]) => {
+        this.isLoading = false;
+        this.suppliers = data;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.error = error;
+      },
+    });
+    
+  }
+  
   updateUpdatedSupplierInView(newSupplier: ISupplier) {
     const index = this.suppliers.findIndex(
       (supplier) => supplier.id === newSupplier.id
     );
     this.suppliers[index] = newSupplier;
   }
-  onCreateSupplier(supplier: ISupplier) {
+
+  onSupplierCreated(event: { supplier: ISupplier; file: File | null }) {
     this.isLoading = true;
-    this.suppliersService.create(supplier).subscribe((supplier) => {
-      this.isLoading = false;
-      this.suppliers.push(supplier);
+    const formData = new FormData();
+    formData.append('name', event.supplier.name);
+    formData.append('email', event.supplier.email);
+    formData.append('phone', event.supplier.phone);
+    formData.append('address', event.supplier.address);
+    if (event.file) {
+      formData.append('image', event.file);
+      console.log('File appended:', event.file);
+    } else {
+      console.error('No file selected');
+    }
+
+    this.suppliersService.create(formData).subscribe({
+      next: (supplier) => {
+        this.isLoading = false;
+        this.suppliers.push(supplier);
+        console.log('Supplier created:', supplier);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Error creating supplier:', error);
+      },
     });
   }
 
   onDeleteSupplier(id: number) {
-    this.suppliersService.delete(id);
+    this.suppliersService.delete(id).subscribe({
+      next: () => {
+        this.suppliers = this.suppliers.filter((supplier) => supplier.id !== id);
+        console.log('Supplier deleted:', id);
+      },
+      error: (error) => {
+        console.error('Error deleting supplier:', error);
+      },
+    });
   }
+
   onUpdateSupplier(supplierId: number) {
     this.suppliersService.get(supplierId).subscribe((data) => {
       this.supplier = data as ISupplier;
     });
   }
-  onCloseModal() {
-    if (this.supplier) {
-      this.supplier = null;
-    }
+
+  addNewSupplier(supplier: ISupplier) {
+    this.suppliers.push(supplier);
   }
 
-  ngOnInit() {
-    this.suppliersService.getAll().subscribe((data) => {
-      this.suppliers = data;
-    });
+  onCloseModal() {
+    this.supplier = null;
   }
 }

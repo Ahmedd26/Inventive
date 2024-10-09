@@ -1,131 +1,121 @@
-<button
-  data-modal-target="static-modal"
-  data-modal-toggle="static-modal"
-  class="block text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
-  type="button"
+<custom-modal
+  buttonText="Create"
+  buttonClasses="block text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
+  modalHeader="Create a new Supplier"
+  acceptButtonText="Create"
+  (accept)="onSubmit()"
+  [disabled]="supplierForm.invalid"
+  #modal
 >
-  Add Supplier
-</button>
-
-<!-- Main modal -->
-<div
-  id="static-modal"
-  data-modal-backdrop="static"
-  tabindex="-1"
-  aria-hidden="true"
-  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
->
-  <div class="relative p-4 w-full max-w-2xl max-h-full">
-    <!-- Modal content -->
-    <div
-      class="relative bg-white rounded-lg shadow dark:bg-stone-700 overflow-hidden"
-    >
-      <!-- Modal header -->
-      <div
-        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-stone-600"
+  <form
+    enctype="multipart/form-data"
+    class="mx-auto grid grid-cols-6 gap-x-6"
+    [formGroup]="supplierForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="col-span-6 mb-4">
+      <label
+        for="name"
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Name</label
       >
-        <h3 class="text-xl font-semibold text-stone-900 dark:text-white">
-          Create a new Supplier
-        </h3>
-        <button
-          type="button"
-          class="text-stone-400 bg-transparent hover:bg-stone-200 hover:text-stone-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-stone-600 dark:hover:text-white"
-          data-modal-hide="static-modal"
-        >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
-      </div>
-      <!-- Modal body -->
-      <div class="p-4 md:p-5 dark:bg-stone-800">
-        <form #supplierForm="ngForm" (ngSubmit)="onSubmit(supplierForm)">
-          <div class="mb-6">
-            <label
-              for="supplierName"
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Supplier Name</label
-            >
-            <input
-              type="text"
-              id="supplierName"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-              ngModel
-              name="name"
-            />
-          </div>
-          <div class="mb-6">
-            <label
-              for="supplierEmail"
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Email</label
-            >
-            <input
-              type="email"
-              id="supplierEmail"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-              ngModel
-              name="email"
-            />
-          </div>
-          <div class="mb-6">
-            <label
-              for="supplierPhone"
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Phone</label
-            >
-            <input
-              type="text"
-              id="supplierPhone"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-              ngModel
-              name="phone"
-            />
-          </div>
-          <div class="mb-6">
-            <label
-              for="supplierAddress"
-              class="block mb-2 text-sm font-medium text-stone-900 dark:text-white"
-              >Address</label
-            >
-            <input
-              type="text"
-              id="supplierAddress"
-              class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
-              ngModel
-              name="address"
-            />
-          </div>
-          <div class="flex flex-row-reverse items-center gap-2">
-            <button
-              type="submit"
-              class="duration-150 text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800"
-            >
-              Create
-            </button>
-            <button
-              type="button"
-              class="duration-150 text-amber-400 hover:text-white border border-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-amber-600 dark:text-amber-600 dark:hover:text-white dark:hover:bg-amber-700 dark:focus:ring-amber-800"
-              data-modal-hide="static-modal"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
+      <input
+        formControlName="name"
+        type="text"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+      @if (apiErrors?.name) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.name }}</p>
+      }
+      @if (getControl('name')?.hasError('required') && getControl('name')?.touched) {
+        <p class="mt-2.5 text-sm text-red-500">This field is required.</p>
+      }
+      @if (getControl('name')?.hasError('minlength') && getControl('name')?.touched) {
+        <p class="mt-2.5 text-sm text-red-500">Minimum length 3 characters.</p>
+      }
     </div>
-  </div>
-</div>
+
+    <div class="col-span-6 mb-4">
+      <label
+        for="email"
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Email</label
+      >
+      <input
+        formControlName="email"
+        type="email"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+      @if (apiErrors?.email) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.email }}</p>
+      }
+      @if (getControl('email')?.hasError('required') && getControl('email')?.touched) {
+        <p class="mt-2.5 text-sm text-red-500">Valid email is required.</p>
+      }
+    </div>
+
+    <div class="col-span-6 mb-4">
+      <label
+        for="phone"
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Phone</label
+      >
+      <input
+        formControlName="phone"
+        type="text"
+        (input)="validateNumberOnInput($event, 'phone')"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+      @if (apiErrors?.phone) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.phone }}</p>
+      }
+      @if (frontEndErrors.phone) {
+        <p class="mt-2.5 text-sm text-red-500">{{ frontEndErrors.phone }}</p>
+      }
+      @if (getControl('phone')?.hasError('required') && getControl('phone')?.touched) {
+        <p class="mt-2.5 text-sm text-red-500">Valid phone number is required.</p>
+      }
+    </div>
+
+    <div class="col-span-6 mb-4">
+      <label
+        for="address"
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Address</label
+      >
+      <input
+        formControlName="address"
+        type="text"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+      @if (apiErrors?.address) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.address }}</p>
+      }
+      @if (getControl('address')?.hasError('required') && getControl('address')?.touched) {
+        <p class="mt-2.5 text-sm text-red-500">Address is required.</p>
+      }
+      @if (getControl('address')?.hasError('minlength') && getControl('address')?.touched) {
+        <p class="mt-2.5 text-sm text-red-500">Minimum length 10 characters.</p>
+      }
+    </div>
+
+    <div class="col-span-6 mb-4">
+      <label
+        for="image"
+        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
+        >Image</label
+      >
+      <input
+        type="file"
+        (change)="getFile($event)"
+        class="block w-full cursor-pointer rounded-lg border border-stone-300 bg-stone-50 text-sm text-stone-900 focus:outline-none dark:border-stone-600 dark:bg-stone-700 dark:text-stone-400 dark:placeholder-stone-400"
+      />
+      @if (apiErrors?.image) {
+        <p class="mt-2.5 text-sm text-red-500">{{ apiErrors?.image }}</p>
+      }
+      @if (getControl('image')?.hasError('required') && getControl('image')?.touched) {
+        <p class="mt-2.5 text-sm text-red-500">Please upload an image, it is required.</p>
+      }
+    </div>
+  </form>
+</custom-modal>
