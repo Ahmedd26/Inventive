@@ -11,7 +11,8 @@ import {
   PurchaseProductCardComponent,
 } from './purchase-product-card/purchase-product-card.component';
 import { API } from '../../../../core/utils/constants.utils';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { IPurchase } from '../../../purchases/purchases.model';
 
 @Component({
   selector: 'app-create-purchase',
@@ -37,6 +38,7 @@ export class CreatePurchaseComponent implements OnInit {
   constructor(
     private suppliersService: SuppliersService,
     private http: HttpClient,
+    private router: Router,
   ) {}
 
   onSupplierSelect(event: Event) {
@@ -70,11 +72,12 @@ export class CreatePurchaseComponent implements OnInit {
         supplier_id: this.selectedSupplierId,
         products: this.selectedProducts,
       };
-      this.http.post(`${API}purchase`, requestBody).subscribe({
-        next: (res) => console.log(res),
+      this.http.post<IPurchase>(`${API}purchase`, requestBody).subscribe({
+        next: (res) => {
+          this.router.navigate(['/purchases', res.id]);
+        },
         error: (error) => console.log(error),
       });
-      console.log(JSON.stringify(requestBody));
     }
   }
 
