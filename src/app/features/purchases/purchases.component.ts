@@ -1,20 +1,27 @@
-import { UsersService } from './../users/users.service';
 import { Component } from '@angular/core';
 import { PurchasesService } from './purchases.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
-import { SuppliersService } from '../suppliers/suppliers.service';
+import { CommonModule, NgIf } from '@angular/common';
 import { ISupplier } from '../suppliers/suppliers.model';
 import { IPurchase } from './purchases.model';
 import { IUser } from '../users/users.model';
+import { LoadingComponent } from '../../shared/components/loading/loading.component';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-purchases',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [
+    FormsModule,
+    NgIf,
+    LoadingComponent,
+    CommonModule,
+    PaginationComponent,
+  ],
   templateUrl: './purchases.component.html',
 })
 export class PurchasesComponent {
+  isLoading = false;
   amountPattern = '^[1-9][0-9]*$';
   updateAmountPattern = '^[1-9][0-9]*$';
   APIerrors = null;
@@ -23,26 +30,22 @@ export class PurchasesComponent {
   suppliersArray!: ISupplier[];
   usersArray!: IUser[];
 
-  constructor(
-    private purchasesService: PurchasesService,
-    private supplierService: SuppliersService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private purchasesService: PurchasesService) {}
 
-  onCreatePurchase(formData: IPurchase) {
-    this.purchasesService.create(formData).subscribe({
-      next: (data) => {
-        // console.log(data)
-        console.log('Added Successfully');
-        this.APIerrors = null;
-        this.purchasesArray.push(data);
-      },
-      error: (errorRes) => {
-        this.APIerrors = errorRes.error.errors;
-        // console.log(errorRes)
-      },
-    });
+  //** ---------------------- START PAGINATION -------------------------- **//
+  paginatedPurchases: IPurchase[] = [];
+  totalItems: number = 0;
+  itemsPerPage: number = 6;
+  updatePaginatedPurchases(page: number) {
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedPurchases = this.purchasesArray.slice(startIndex, endIndex);
   }
+
+  onPageChange(page: number) {
+    this.updatePaginatedPurchases(page);
+  }
+  //** ---------------------- END PAGINATION -------------------------- **//
 
   onUpdatePurchase(updatedForm: IPurchase, purchaseId: number) {
     this.purchasesService.update(updatedForm, purchaseId).subscribe({
@@ -86,33 +89,18 @@ export class PurchasesComponent {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.purchasesService.getAll().subscribe({
       next: (data) => {
-        // console.log(data)
+        this.isLoading = false;
         this.purchasesArray = data;
+        // ** ---------- PAGINATION ---------- **//
+        this.totalItems = this.purchasesArray.length;
+        this.updatePaginatedPurchases(1);
       },
       error: (error) => {
-        // console.log(error)
-      },
-    });
-
-    this.supplierService.getAll().subscribe({
-      next: (suppData) => {
-        this.suppliersArray = suppData;
-        // console.log(suppData)
-      },
-      error: (errRes) => {
-        // console.log(errRes)
-      },
-    });
-
-    this.usersService.getAll().subscribe({
-      next: (usersData) => {
-        this.usersArray = usersData;
-        // console.log(usersData)
-      },
-      error: (errRes) => {
-        // console.log(errRes)
+        this.isLoading = false;
+        console.log(error);
       },
     });
   }
