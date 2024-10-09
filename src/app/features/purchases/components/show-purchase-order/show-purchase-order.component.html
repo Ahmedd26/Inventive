@@ -6,11 +6,9 @@
     <h1 class="mb-5 text-3xl font-semibold md:text-4xl">
       Purchase Order {{ purchase.id }} Details
     </h1>
-    <div class="flex items-center gap-2">
-      <button class="text-2xl" (click)="openInvoice()" title="open invoice">
-        <i-feather name="file-text" />
-      </button>
+    <div class="flex items-center gap-2 text-2xl">
       @if (purchase.id && purchase.status) {
+        <app-open-purchase-invoice [id]="purchase.id" />
         <app-purchase-order-actions
           [currentStatus]="purchase.status"
           [orderId]="purchase.id"

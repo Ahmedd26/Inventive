@@ -6,6 +6,7 @@ import { PurchasesService } from './../../purchases.service';
 import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 import { type IPurchase } from '../../purchases.model';
 import { PurchaseOrderActionsComponent } from './purchase-order-actions/purchase-order-actions.component';
+import { OpenPurchaseInvoiceComponent } from '../open-purchase-invoice/open-purchase-invoice.component';
 
 @Component({
   selector: 'app-show-purchase-order',
@@ -16,6 +17,7 @@ import { PurchaseOrderActionsComponent } from './purchase-order-actions/purchase
     RouterLink,
     CommonModule,
     PurchaseOrderActionsComponent,
+    OpenPurchaseInvoiceComponent,
   ],
   templateUrl: './show-purchase-order.component.html',
 })
@@ -29,18 +31,6 @@ export class ShowPurchaseOrderComponent implements OnInit {
 
   updateStatus(status: string) {
     this.purchase.status = status;
-  }
-
-  openInvoice() {
-    if (this.purchase.id) {
-      this.purchasesService.getInvoice(this.purchase.id).subscribe({
-        next: (response: Blob) => {
-          const url = window.URL.createObjectURL(response);
-          window.open(url);
-        },
-        error: (err) => console.error(err),
-      });
-    }
   }
 
   ngOnInit() {

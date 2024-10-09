@@ -16,12 +16,21 @@
         <th scope="col" class="px-6 py-3">total amount</th>
         <th scope="col" class="px-6 py-3">status</th>
         <th scope="col" class="px-6 py-3">Placed on</th>
+        <th scope="col" class="px-6 py-3">Invoice</th>
       </tr>
     </thead>
     <tbody>
       @for (purchase of paginatedPurchases; track purchase.id) {
         <tr class="border-b bg-white dark:border-stone-700 dark:bg-stone-800">
-          <td class="px-6 py-4">{{ purchase.id }}</td>
+          <td class="px-6 py-4">
+            <a
+              [routerLink]="['/purchases/', purchase.id]"
+              class="flex items-center gap-2"
+            >
+              <i-feather name="external-link" />
+              {{ purchase.id }}
+            </a>
+          </td>
           <td class="px-6 py-4">
             <a
               [routerLink]="['/suppliers', purchase.supplier_id]"
@@ -39,6 +48,11 @@
             {{ purchase.created_at | date: "mediumDate" }}
             {{ purchase.created_at | date: "shortTime" }}
           </td>
+          @if (purchase.id) {
+            <td class="px-6 py-4 text-xl">
+              <app-open-purchase-invoice [id]="purchase.id" />
+            </td>
+          }
         </tr>
       }
     </tbody>

@@ -9,6 +9,7 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { RouterLink } from '@angular/router';
 import { IconsModule } from '../../shared/icons/icons.module';
+import { OpenPurchaseInvoiceComponent } from './components/open-purchase-invoice/open-purchase-invoice.component';
 
 @Component({
   selector: 'app-purchases',
@@ -21,6 +22,7 @@ import { IconsModule } from '../../shared/icons/icons.module';
     PaginationComponent,
     RouterLink,
     IconsModule,
+    OpenPurchaseInvoiceComponent,
   ],
   templateUrl: './purchases.component.html',
 })
