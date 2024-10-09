@@ -2,9 +2,14 @@
   <app-loading />
 }
 @if (purchase) {
-  <h1 class="mb-5 text-3xl font-semibold md:text-4xl">
-    Purchase Order {{ purchase.id }} Details
-  </h1>
+  <div class="flex items-center justify-between">
+    <h1 class="mb-5 text-3xl font-semibold md:text-4xl">
+      Purchase Order {{ purchase.id }} Details
+    </h1>
+    <div class="text-xl">
+      <i-feather name="settings" />
+    </div>
+  </div>
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <!-- Supplier Info -->
     <div class="rounded-lg bg-white p-4 shadow dark:bg-stone-800">
@@ -57,7 +62,7 @@
     <div class="flex flex-col gap-4">
       <!-- Buyer Info -->
       <div class="flex-1 rounded-lg bg-white p-4 shadow dark:bg-stone-800">
-        <h2 class="mb-4 text-center text-xl font-semibold md:text-2xl">
+        <h2 class="mb-4 text-xl font-semibold md:text-2xl">
           Buyer Information
         </h2>
         <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
@@ -75,8 +80,9 @@
           </h4>
         </div>
       </div>
+      <!-- Order Info -->
       <div class="flex-1 rounded-lg bg-white p-4 shadow dark:bg-stone-800">
-        <h2 class="mb-4 text-center text-xl font-semibold md:text-2xl">
+        <h2 class="mb-4 text-xl font-semibold md:text-2xl">
           Order Information
         </h2>
         <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
