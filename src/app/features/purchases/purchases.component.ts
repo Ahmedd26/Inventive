@@ -28,13 +28,7 @@ import { OpenPurchaseInvoiceComponent } from './components/open-purchase-invoice
 })
 export class PurchasesComponent {
   isLoading = false;
-  amountPattern = '^[1-9][0-9]*$';
-  updateAmountPattern = '^[1-9][0-9]*$';
-  APIerrors = null;
-  updateAPIerrors = null;
   purchasesArray!: IPurchase[];
-  suppliersArray!: ISupplier[];
-  usersArray!: IUser[];
 
   constructor(private purchasesService: PurchasesService) {}
 
@@ -52,47 +46,6 @@ export class PurchasesComponent {
     this.updatePaginatedPurchases(page);
   }
   //** ---------------------- END PAGINATION -------------------------- **//
-
-  // onUpdatePurchase(updatedForm: IPurchase, purchaseId: number) {
-  //   this.purchasesService.update(updatedForm, purchaseId).subscribe({
-  //     next: (data) => {
-  //       // console.log(data)
-  //       console.log('Updated Successfully');
-  //       this.updateAPIerrors = null;
-  //       this.purchasesArray = this.purchasesArray.map((element) => {
-  //         if (element.id === purchaseId) {
-  //           return {
-  //             ...element,
-  //             total_amount: updatedForm.total_amount,
-  //             status: updatedForm.status,
-  //             user_id: updatedForm.user_id,
-  //             supplier_id: updatedForm.supplier_id,
-  //           };
-  //         }
-  //         return element;
-  //       });
-  //     },
-  //     error: (errorRes) => {
-  //       this.updateAPIerrors = errorRes.error.errors;
-  //       // console.log(errorRes)
-  //     },
-  //   });
-  // }
-
-  onDeletePurchase(purchaseId: number) {
-    this.purchasesService.delete(purchaseId).subscribe({
-      next: (data) => {
-        // console.log(data)
-        console.log('DELETED Successfully');
-        this.purchasesArray = this.purchasesArray.filter(
-          (element) => element.id !== purchaseId,
-        );
-      },
-      error: (error) => {
-        // console.log(error)
-      },
-    });
-  }
 
   ngOnInit() {
     this.isLoading = true;
