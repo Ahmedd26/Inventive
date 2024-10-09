@@ -17,6 +17,7 @@ import { PurchasesComponent } from './features/purchases/purchases.component';
 import { CreatePurchaseComponent } from './features/orders/components/create-purchase/create-purchase.component';
 import { OrdersComponent } from './features/orders/orders.component';
 import { SelectOrderTypeComponent } from './features/orders/components/select-order-type/select-order-type.component';
+import { ShowPurchaseOrderComponent } from './features/purchases/components/show-purchase-order/show-purchase-order.component';
 
 export const routes: Routes = [
   {
@@ -117,6 +118,13 @@ export const routes: Routes = [
     path: 'purchases',
     title: 'Purchases',
     component: PurchasesComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'purchases/:id',
+    title: 'Purchase',
+    component: ShowPurchaseOrderComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
