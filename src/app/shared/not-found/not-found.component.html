@@ -1,0 +1,32 @@
+<div class="flex h-[80dvh] items-center justify-center">
+  <div class="text-center">
+    <img
+      src="/assets/images/not-found.svg"
+      alt="not found illustration"
+      class="mb-8 block"
+    />
+
+    <h1 class="mb-4 text-5xl font-bold text-stone-800 dark:text-stone-200">
+      Oops!
+    </h1>
+    <p class="mb-8 text-xl text-stone-600 dark:text-stone-400">
+      The page you're looking for can't be found.
+    </p>
+
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <button
+        [routerLink]="['/']"
+        class="rounded-lg border border-amber-700 px-5 py-2.5 text-center text-sm font-medium text-amber-700 hover:bg-amber-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-amber-300 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-600 dark:hover:text-white dark:focus:ring-amber-800"
+      >
+        Dashboard page
+      </button>
+      <button
+        role="link"
+        (click)="goBack()"
+        class="rounded-lg border border-amber-700 px-5 py-2.5 text-center text-sm font-medium text-amber-700 hover:bg-amber-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-amber-300 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-600 dark:hover:text-white dark:focus:ring-amber-800"
+      >
+        Previous page
+      </button>
+    </div>
+  </div>
+</div>

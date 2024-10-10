@@ -21,6 +21,7 @@ import { ShowPurchaseOrderComponent } from './features/purchases/components/show
 import { WarehouseComponent } from './features/warehouses/warehouse/warehouse.component';
 import { CreateSaleComponent } from './features/orders/components/create-sale/create-sale.component';
 import { ShowSaleOrderComponent } from './features/sales/components/show-sale-order/show-sale-order.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -168,7 +169,7 @@ export const routes: Routes = [
   {
     path: '**',
     title: 'Not found',
-    component: DashboardComponent,
+    component: NotFoundComponent,
     pathMatch: 'full',
   },
 ];
