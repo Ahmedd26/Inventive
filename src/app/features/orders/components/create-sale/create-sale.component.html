@@ -3,6 +3,7 @@
 }
 @if (products) {
   <h2 class="mb-5 text-2xl font-semibold">Place an order</h2>
+
   <div class="flex items-center justify-between">
     <div class="flex items-center gap-4">
       <div class="relative">
@@ -15,7 +16,7 @@
         />
         <label
           for="customer_name"
-          class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-900 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+          class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-stone-200 px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-900 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
           >Customer name</label
         >
       </div>
@@ -30,7 +31,7 @@
           />
           <label
             for="customer_phone"
-            class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-900 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-stone-200 px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-900 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
             >Customer phone</label
           >
         </div>
@@ -50,13 +51,65 @@
     </button>
   </div>
 
+  <!-- Search -->
+  <div class="mt-5">
+    <div class="relative">
+      <div
+        class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
+      >
+        <svg
+          class="h-4 w-4 text-stone-500 dark:text-stone-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+
+      <input
+        [(ngModel)]="searchInput"
+        (input)="filterProducts()"
+        placeholder="Search products"
+        type="search"
+        id="default-search"
+        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-4 ps-10 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-900 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      />
+    </div>
+    <label
+      for="default-search"
+      class="sr-only mb-2 text-sm font-medium text-stone-900 dark:text-white"
+      >Search</label
+    >
+  </div>
+
   <div class="mt-10 grid grid-cols-1 gap-4 2xl:grid-cols-2">
-    @for (product of products; track product.id) {
+    @for (product of filteredProducts; track product.id) {
       <app-sale-product-card
         [product]="product"
         (selectedProduct)="onAddSelectedProduct($event)"
         (dismissProduct)="dismissSelectedProduct($event)"
       />
+    } @empty {
+      <div
+        class="justify-centre col-span-2 mt-10 flex flex-col items-center gap-8 text-stone-600"
+      >
+        <span class="text-9xl">
+          <i-feather name="inbox" />
+        </span>
+        <h2 class="text-2xl">
+          No available product with the name
+          <span class="font-semibold text-amber-600">"{{ searchInput }}"</span>
+          you have entered
+        </h2>
+      </div>
     }
   </div>
 }

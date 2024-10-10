@@ -9,11 +9,13 @@ import { HttpClient } from '@angular/common/http';
 import { InvoicesService } from '../../../../core/services/invoices-service/invoices.service';
 import { ISalesOrder } from '../../../sales/sales.model';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { IconsModule } from '../../../../shared/icons/icons.module';
 
 @Component({
   selector: 'app-create-sale',
   standalone: true,
-  imports: [LoadingComponent, SaleProductCardComponent],
+  imports: [LoadingComponent, SaleProductCardComponent, FormsModule, IconsModule],
   templateUrl: './create-sale.component.html',
 })
 export class CreateSaleComponent implements OnInit {
@@ -26,7 +28,8 @@ export class CreateSaleComponent implements OnInit {
   };
   selectedProducts: ISelectedProduct[] = [];
   validRequest = false;
-
+  filteredProducts: IProduct[] = [];
+  searchInput: string = '';
   constructor(
     private productsService: ProductsService,
     private invoicesService: InvoicesService,
@@ -87,12 +90,23 @@ export class CreateSaleComponent implements OnInit {
     this.invoicesService.getSale(id);
   }
 
+  filterProducts() {
+    if (this.searchInput) {
+      this.filteredProducts = this.products.filter((product) =>
+        product.name.toLowerCase().includes(this.searchInput.toLowerCase()),
+      );
+    } else {
+      this.filteredProducts = this.products;
+    }
+  }
+
   ngOnInit(): void {
     this.isLoading = true;
     this.productsService.getAll().subscribe({
       next: (products) => {
         this.isLoading = false;
         this.products = products;
+        this.filteredProducts = products;
       },
       error: (error) => {
         console.log(error);
