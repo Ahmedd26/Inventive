@@ -111,9 +111,17 @@
       <div
         class="max-w-sm rounded-lg border border-stone-200 bg-white shadow dark:border-stone-700 dark:bg-stone-800"
       >
-        <a [routerLink]="['/products/', orderItem.product_id]">
-          <img class="rounded-t-lg" [src]="orderItem.product.image" alt="" />
+        <a
+          [routerLink]="['/products/', orderItem.product_id]"
+          class="block h-96"
+        >
+          <img
+            class="h-full w-full rounded-t-lg object-cover"
+            [src]="orderItem.product.image"
+            alt=""
+          />
         </a>
+
         <div class="p-5">
           <a [routerLink]="['/products/', orderItem.product_id]">
             <h5
