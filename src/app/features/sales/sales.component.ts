@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { SalesService } from './sales.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
-import { ISalesOrder, IUser } from './sales.model';
+import { ISalesOrder } from './sales.model';
+import { IUser } from '../users/users.model';
 
 @Component({
   selector: 'app-sales',
@@ -62,7 +63,6 @@ export class SalesComponent {
               ...element,
               total_amount: form.total_amount,
               user_id: form.user_id,
-              status: form.status,
             };
           }
           return element;

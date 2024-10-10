@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '../../core/utils/constants.utils';
-import { ISalesOrder, IUser } from './sales.model';
+import { ISalesOrder } from './sales.model';
 
 const ENDPOINT = `${API}salesorders`;
 @Injectable({

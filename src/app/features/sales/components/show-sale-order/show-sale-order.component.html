@@ -2,5 +2,140 @@
   <app-loading />
 }
 @if (sale) {
-  {{ sale.total_amount }}
+  <div class="flex items-center justify-between">
+    <h1 class="mb-5 text-3xl font-semibold md:text-4xl">
+      Sale Order {{ sale.id }} Details
+    </h1>
+    <app-delete-sale-order [saleId]="sale.id" />
+  </div>
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+    <!-- Order Info -->
+    <div class="rounded-lg bg-white p-4 shadow dark:bg-stone-800">
+      <h2 class="mb-4 text-xl font-semibold md:text-2xl">Order Information</h2>
+      <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="dollar-sign" />
+          </span>
+          <span class="font-bold capitalize"> total amount: </span>
+          {{ sale.total_amount | currency }}
+        </h4>
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="layers" />
+          </span>
+          <span class="font-bold capitalize"> Items count: </span>
+          {{ sale.product_sales_orders.length }}
+        </h4>
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="calendar" />
+          </span>
+          <span class="font-bold capitalize"> placed on: </span>
+          {{ sale.created_at | date: "mediumDate" }}
+        </h4>
+        <button class="flex items-center gap-2" (click)="openInvoice()">
+          <span class="text-amber-600">
+            <i-feather name="file-text" />
+          </span>
+          <span class="font-bold capitalize"> Invoice </span>
+        </button>
+      </div>
+    </div>
+    <!-- Customer Info -->
+    @if (sale.customer) {
+      <div class="rounded-lg bg-white p-4 shadow dark:bg-stone-800">
+        <h2 class="mb-4 text-xl font-semibold md:text-2xl">
+          Customer Information
+        </h2>
+        <div class="flex flex-wrap items-center gap-4">
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="user" />
+            </span>
+            @if (sale.customer.name) {
+              <span class="font-bold capitalize"> Name: </span>
+              {{ sale.customer.name }}
+            } @else {
+              <span
+                class="font-bold capitalize text-stone-400 dark:text-stone-500"
+              >
+                Sorry, wasn't provided
+              </span>
+            }
+          </h4>
+          <h4 class="flex items-center gap-2">
+            <span class="text-amber-600">
+              <i-feather name="phone" />
+            </span>
+            @if (sale.customer.phone) {
+              <span class="font-bold capitalize"> Phone: </span>
+              {{ sale.customer.phone }}
+            } @else {
+              <span class="font-bold capitalize"> Sorry, wasn't provided </span>
+            }
+          </h4>
+        </div>
+      </div>
+    }
+    <!-- Cashier Info -->
+    <div class="rounded-lg bg-white p-4 shadow dark:bg-stone-800">
+      <h2 class="mb-4 text-xl font-semibold md:text-2xl">
+        Cashier Information
+      </h2>
+      <div class="flex flex-wrap items-center gap-4">
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="user" />
+          </span>
+          <span class="font-bold capitalize"> Name: </span>
+          {{ sale.user.name }}
+        </h4>
+        <h4 class="flex items-center gap-2">
+          <span class="text-amber-600">
+            <i-feather name="at-sign" />
+          </span>
+          <span class="font-bold capitalize"> email: </span>
+          {{ sale.user.email }}
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-6 text-3xl font-semibold">Products from this order</h2>
+
+  <div
+    class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  >
+    @for (orderItem of sale.product_sales_orders; track orderItem.id) {
+      <div
+        class="max-w-sm rounded-lg border border-stone-200 bg-white shadow dark:border-stone-700 dark:bg-stone-800"
+      >
+        <a [routerLink]="['/products/', orderItem.product_id]">
+          <img class="rounded-t-lg" [src]="orderItem.product.image" alt="" />
+        </a>
+        <div class="p-5">
+          <a [routerLink]="['/products/', orderItem.product_id]">
+            <h5
+              class="mb-2 text-xl font-bold tracking-tight text-stone-900 dark:text-white xl:text-2xl"
+            >
+              {{ orderItem.product.name }}
+            </h5>
+          </a>
+          <div class="mt-4 space-y-4 md:mt-6">
+            <div class="flex items-center gap-2">
+              <i-feather name="layers" />
+              <span class="font-semibold">Ordered quantity:</span>
+              <span>{{ orderItem.quantity }}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i-feather name="dollar-sign" />
+              <span class="font-semibold">Total Price:</span>
+              <span>{{ orderItem.price | currency }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
 }
