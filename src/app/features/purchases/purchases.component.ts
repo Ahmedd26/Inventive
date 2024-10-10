@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { PurchasesService } from './purchases.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgIf } from '@angular/common';
-import { ISupplier } from '../suppliers/suppliers.model';
 import { IPurchase } from './purchases.model';
-import { IUser } from '../users/users.model';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { RouterLink } from '@angular/router';
@@ -35,7 +33,7 @@ export class PurchasesComponent {
   //** ---------------------- START PAGINATION -------------------------- **//
   paginatedPurchases: IPurchase[] = [];
   totalItems: number = 0;
-  itemsPerPage: number = 6;
+  itemsPerPage: number = 10;
   updatePaginatedPurchases(page: number) {
     const startIndex = (page - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
