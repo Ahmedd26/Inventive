@@ -1,0 +1,121 @@
+<div
+  class="flex h-full flex-col items-stretch rounded-lg border border-stone-200 bg-white shadow dark:border-stone-700 dark:bg-stone-800 md:flex-row"
+>
+  <div class="flex-[2]">
+    <img
+      class="h-full w-full rounded-t-lg object-cover md:h-full md:w-full md:rounded-none md:rounded-s-lg"
+      [src]="product.image"
+      alt=""
+    />
+  </div>
+  <div class="flex flex-[3] flex-col justify-between p-4 leading-normal">
+    <a
+      [routerLink]="['/products', product.id]"
+      target="_blank"
+      class="mb-2 flex items-center gap-2 text-2xl font-bold tracking-tight text-stone-900 dark:text-white"
+    >
+      <i-feather name="external-link" />
+      {{ product.name }}
+    </a>
+    <p class="mb-3 font-normal text-stone-700 dark:text-stone-400">
+      {{ product.description }}
+    </p>
+    <div class="space-y-4 md:space-y-6">
+      <div class="flex items-center gap-2">
+        <i-feather name="bookmark" />
+        <span class="font-semibold">Category:</span>
+        <span>{{ product.category?.name }}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <i-feather name="layers" />
+        <span class="font-semibold">Current stock:</span>
+        <span>{{ product.quantity }}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <i-feather name="dollar-sign" />
+        <span class="font-semibold">Price:</span>
+        <span>{{ product.price | currency }}</span>
+      </div>
+    </div>
+
+    <div class="mt-4 flex flex-wrap items-center justify-between gap-4 md:mt-6">
+      <!-- Cart -->
+      <div class="inline-flex rounded-md shadow-sm" role="group">
+        <button
+          type="button"
+          (click)="decrement()"
+          class="rounded-s-lg border border-stone-200 bg-white px-4 py-2 text-sm font-medium text-stone-900 hover:bg-stone-100 hover:text-amber-700 focus:z-10 focus:text-amber-700 focus:ring-2 focus:ring-amber-700 dark:border-stone-700 dark:bg-stone-800 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-amber-500"
+        >
+          <svg
+            class="h-6 w-6"
+            style="color: currentColor"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 12h14"
+            />
+          </svg>
+        </button>
+        <input
+          type="text"
+          (input)="changeQuantity($event)"
+          class="w-20 border-b border-t border-stone-200 bg-white px-4 py-2 text-center text-sm font-medium text-stone-900 hover:bg-stone-100 hover:text-amber-700 focus:z-10 focus:text-amber-700 focus:ring-2 focus:ring-amber-700 dark:border-stone-700 dark:bg-stone-800 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-amber-500"
+          [value]="selectedQuantity"
+        />
+
+        <button
+          type="button"
+          (click)="increment()"
+          class="rounded-e-lg border border-stone-200 bg-white px-4 py-2 text-sm font-medium text-stone-900 hover:bg-stone-100 hover:text-amber-700 focus:z-10 focus:text-amber-700 focus:ring-2 focus:ring-amber-700 dark:border-stone-700 dark:bg-stone-800 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-amber-500"
+        >
+          <svg
+            class="h-6 w-6"
+            style="color: currentColor"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 12h14m-7 7V5"
+            />
+          </svg>
+        </button>
+      </div>
+      <!-- Confirm -->
+      @if (!confirmed) {
+        <button
+          (click)="confirm()"
+          [disabled]="selectedQuantity === 0"
+          class="rounded-lg bg-stone-700 px-5 py-2.5 text-center text-sm font-medium text-white duration-150 hover:bg-stone-800 focus:outline-none focus:ring-4 focus:ring-stone-300 disabled:cursor-not-allowed disabled:bg-stone-900/70 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-stone-800 dark:disabled:bg-stone-900/70"
+        >
+          Confirm
+        </button>
+      }
+      @if (confirmed) {
+        <button
+          (click)="dismiss()"
+          [disabled]="selectedQuantity === 0"
+          class="rounded-lg bg-stone-700 px-5 py-2.5 text-center text-sm font-medium text-white duration-150 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 disabled:cursor-not-allowed disabled:bg-red-900/70 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 dark:disabled:bg-red-900/70"
+        >
+          Dismiss
+        </button>
+      }
+    </div>
+  </div>
+</div>
