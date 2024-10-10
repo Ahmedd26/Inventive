@@ -6,6 +6,8 @@ import { SaleProductCardComponent } from './sale-product-card/sale-product-card.
 import { ISelectedProduct } from '../create-purchase/purchase-product-card/purchase-product-card.component';
 import { API } from '../../../../core/utils/constants.utils';
 import { HttpClient } from '@angular/common/http';
+import { InvoicesService } from '../../../../core/services/invoices-service/invoices.service';
+import { ISalesOrder } from '../../../sales/sales.model';
 
 @Component({
   selector: 'app-create-sale',
@@ -23,9 +25,10 @@ export class CreateSaleComponent implements OnInit {
   };
   selectedProducts: ISelectedProduct[] = [];
   validRequest = false;
-  
+
   constructor(
     private productsService: ProductsService,
+    private invoicesService: InvoicesService,
     private http: HttpClient,
   ) {}
 
@@ -68,14 +71,18 @@ export class CreateSaleComponent implements OnInit {
         customer: this.customerData,
       };
       console.log(JSON.stringify(requestBody));
-      this.http.post(`${API}sales`, requestBody).subscribe({
+      this.http.post<ISalesOrder>(`${API}sales`, requestBody).subscribe({
         next: (res) => {
-          console.log(res);
+          this.getInvoice(res.id);
           // this.router.navigate(['/sales', res.id]);
         },
         error: (error) => console.log(error),
       });
     }
+  }
+
+  getInvoice(id: number) {
+    this.invoicesService.getSale(id);
   }
 
   ngOnInit(): void {

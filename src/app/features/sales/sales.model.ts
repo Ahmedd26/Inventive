@@ -1,7 +1,7 @@
 import { IProduct } from "../products/products.model"
 
 export interface ISalesOrder {
-  id?: number
+  id: number
   user_id: number
   total_amount: number
   status: string
