@@ -2,7 +2,16 @@
   <app-loading />
 }
 @if (sales) {
-  <h1 class="mb-5 text-4xl font-semibold">Sales Orders</h1>
+  <div class="flex flex-wrap items-center justify-between">
+    <h1 class="mb-5 text-4xl font-semibold">Sales Orders</h1>
+    <a
+      routerLink="/orders/create-sale"
+      class="text-4xl duration-150 hover:text-amber-600"
+      title="create sale"
+    >
+      <i-feather name="plus-circle" />
+    </a>
+  </div>
 
   <div
     class="relative mt-4 overflow-x-auto rounded-lg shadow-lg md:mt-6 xl:mt-8"

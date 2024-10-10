@@ -8,6 +8,7 @@ import { API } from '../../../../core/utils/constants.utils';
 import { HttpClient } from '@angular/common/http';
 import { InvoicesService } from '../../../../core/services/invoices-service/invoices.service';
 import { ISalesOrder } from '../../../sales/sales.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-sale',
@@ -30,6 +31,7 @@ export class CreateSaleComponent implements OnInit {
     private productsService: ProductsService,
     private invoicesService: InvoicesService,
     private http: HttpClient,
+    private router: Router,
   ) {}
 
   // Customer info section
@@ -74,7 +76,7 @@ export class CreateSaleComponent implements OnInit {
       this.http.post<ISalesOrder>(`${API}sales`, requestBody).subscribe({
         next: (res) => {
           this.getInvoice(res.id);
-          // this.router.navigate(['/sales', res.id]);
+          this.router.navigate(['/sales', res.id]);
         },
         error: (error) => console.log(error),
       });
