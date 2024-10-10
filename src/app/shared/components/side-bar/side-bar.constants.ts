@@ -47,6 +47,11 @@ export const links: ILink[] = [
     iconName: 'users',
     title: 'Users',
   },
+  {
+    path: '/warehouse-details',
+    iconName: 'Hash',
+    title: 'warehouse-details',
+  },
 ];
 export const quickLinks: ILink[] = [
   {

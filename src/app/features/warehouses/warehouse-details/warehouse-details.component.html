@@ -1,0 +1,298 @@
+@if (isLoading) {
+<app-loading />
+}
+
+<div class="text-stone-800 dark:text-white">
+
+  <div class="my-4">
+
+    <form #sectionForm="ngForm" (ngSubmit)="onCreateSection(sectionForm.value)">
+      <div class="mb-2">
+        <label for="section_name" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section
+          Name</label>
+        <input id="section_name" type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="section_name" required minlength="3" #section_name="ngModel" ngModel />
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="section_name.invalid && section_name.touched" class="text-red-500">
+          <p *ngIf="section_name.hasError('required')">required</p>
+          <p *ngIf="section_name.hasError('minlength')">minimum length is 3 characters</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['section_name']" class="text-red-500">
+          {{ APIerrors["section_name"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="section_type" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section
+          Type</label>
+        <select id="section_type"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="section_type" required #section_type="ngModel" ngModel>
+          <option value="">Choose a Type</option>
+          <option value="refrigerator">Refrigerator</option>
+          <option value="shelves">Shelves</option>
+          <option value="other">Other</option>
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="section_type.invalid && section_type.touched" class="text-red-500">
+          <p *ngIf="section_type.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['section_type']" class="text-red-500">
+          {{ APIerrors["section_type"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="capacity" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section
+          Capacity</label>
+        <input id="capacity" type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="capacity" required [pattern]="numbersPattern" #capacity="ngModel" ngModel />
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="capacity.invalid && capacity.touched" class="text-red-500">
+          <p *ngIf="capacity.hasError('required')">required</p>
+          <p *ngIf="capacity.hasError('pattern')">capacity must be a valid number</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['capacity']" class="text-red-500">
+          {{ APIerrors["capacity"] }}
+        </p>
+        <p *ngIf="APICapacityError && !APIerrors" class="text-red-500">
+          {{ APICapacityError }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="empty_slots" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Empty
+          Slots</label>
+        <input id="empty_slots" type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="empty_slots" required [pattern]="numbersPattern" #empty_slots="ngModel" ngModel />
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="empty_slots.invalid && empty_slots.touched" class="text-red-500">
+          <p *ngIf="empty_slots.hasError('required')">required</p>
+          <p *ngIf="empty_slots.hasError('pattern')">empty slots must be a valid number</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['empty_slots']" class="text-red-500">
+          {{ APIerrors["empty_slots"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="reserved_slots" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Reserved
+          Slots</label>
+        <input id="reserved_slots" type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="reserved_slots" required [pattern]="numbersPattern" #reserved_slots="ngModel" ngModel />
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="reserved_slots.invalid && reserved_slots.touched" class="text-red-500">
+          <p *ngIf="reserved_slots.hasError('required')">required</p>
+          <p *ngIf="reserved_slots.hasError('pattern')">reserved slots must be a valid number</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['reserved_slots']" class="text-red-500">
+          {{ APIerrors["reserved_slots"] }}
+        </p>
+      </div>
+
+      <div class="mb-2">
+        <label for="warehouse_id"
+          class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Warehouse</label>
+        <select id="warehouse_id"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="warehouse_id" required #warehouse_id="ngModel" ngModel>
+          <option value="">Choose a Warehouse</option>
+          @for (warehouse of warehousesArray; track warehouse.id) {
+          <option value="{{ warehouse.id }}">{{ warehouse.name }}</option>
+          } @empty {
+          <p class="mx-auto">No warehouses were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="warehouse_id.invalid && warehouse_id.touched" class="text-red-500">
+          <p *ngIf="warehouse_id.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['warehouse_id']" class="text-red-500">
+          {{ APIerrors["warehouse_id"] }}
+        </p>
+      </div>
+
+
+      <div class="flex flex-row-reverse items-center gap-2 mt-2">
+        <button type="submit"
+          class="duration-150 text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <div>
+    @for (warehouseSection of warehouseSectionsArray; track warehouseSection.id) {
+    <p>Warehouse ID: {{warehouseSection.id}} </p>
+    <p>Section Name: {{warehouseSection.section_name }} </p>
+    <p>Section Type: {{warehouseSection.section_type}} </p>
+    <p>Section Capacity: {{warehouseSection.capacity}} </p>
+    <p>Section Empty Slots: {{warehouseSection.empty_slots}} </p>
+    <p>Section Reserved Slots: {{warehouseSection.reserved_slots}} </p>
+
+
+    <div class="my-4">
+      <form #updatedSectionForm="ngForm" (ngSubmit)="onUpdateSection(updatedSectionForm.value,warehouseSection.id)">
+        <div class="mb-2">
+          <label for="updatedName" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section
+            Name</label>
+          <input id="updatedName" type="text"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="section_name" required minlength="3" #updatedName="ngModel" [ngModel]="warehouseSection.section_name"
+            ngModel />
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedName.invalid && updatedName.touched" class="text-red-500">
+            <p *ngIf="updatedName.hasError('required')">required</p>
+            <p *ngIf="updatedName.hasError('minlength')">minimum length is 3 characters</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['section_name']" class="text-red-500">
+            {{ updateAPIerrors["section_name"] }}
+          </p>
+        </div>
+
+
+        <div class="mb-2">
+          <label for="updatedType" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section
+            Type</label>
+          <select id="updatedType"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="section_type" required #updatedType="ngModel" ngModel>
+            <option value="">Choose a Type</option>
+            <option value="refrigerator">Refrigerator</option>
+            <option value="shelves">Shelves</option>
+            <option value="other">Other</option>
+          </select>
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedType.invalid && updatedType.touched" class="text-red-500">
+            <p *ngIf="updatedType.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['section_type']" class="text-red-500">
+            {{ updateAPIerrors["section_type"] }}
+          </p>
+        </div>
+
+
+        <div class="mb-2">
+          <label for="updatedCapacity" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section
+            Capacity</label>
+          <input id="updatedCapacity" type="text"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="capacity" required [pattern]="numbersPattern" #updatedCapacity="ngModel"
+            [ngModel]="warehouseSection.capacity" ngModel />
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updatedCapacity.invalid && updatedCapacity.touched" class="text-red-500">
+            <p *ngIf="updatedCapacity.hasError('required')">required</p>
+            <p *ngIf="updatedCapacity.hasError('pattern')">capacity must be a valid number</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['capacity']" class="text-red-500">
+            {{ updateAPIerrors["capacity"] }}
+          </p>
+          <p *ngIf="APIUpdateCapErr && !updateAPIerrors" class="text-red-500">
+            {{ APIUpdateCapErr }}
+          </p>
+        </div>
+
+
+        <div class="mb-2">
+          <label for="updateEmptySlots" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Empty
+            Slots</label>
+          <input id="updateEmptySlots" type="text"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="empty_slots" required [pattern]="numbersPattern" #updateEmptySlots="ngModel"
+            [ngModel]="warehouseSection.empty_slots" ngModel />
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updateEmptySlots.invalid && updateEmptySlots.touched" class="text-red-500">
+            <p *ngIf="updateEmptySlots.hasError('required')">required</p>
+            <p *ngIf="updateEmptySlots.hasError('pattern')">empty slots must be a valid number</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['empty_slots']" class="text-red-500">
+            {{ updateAPIerrors["empty_slots"] }}
+          </p>
+        </div>
+
+
+        <div class="mb-2">
+          <label for="updateReservedSlots"
+            class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Reserved
+            Slots</label>
+          <input id="updateReservedSlots" type="text"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+            name="reserved_slots" required [pattern]="numbersPattern" [ngModel]="warehouseSection.reserved_slots"
+            #updateReservedSlots="ngModel" ngModel />
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updateReservedSlots.invalid && updateReservedSlots.touched" class="text-red-500">
+            <p *ngIf="updateReservedSlots.hasError('required')">required</p>
+            <p *ngIf="updateReservedSlots.hasError('pattern')">reserved slots must be a valid number</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['reserved_slots']" class="text-red-500">
+            {{ updateAPIerrors["reserved_slots"] }}
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="updateWarehouseId"
+            class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Warehouse</label>
+          <select id="updateWarehouseId"
+            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="warehouse_id" required #updateWarehouseId="ngModel" ngModel>
+            <option value="">Choose a Warehouse</option>
+            @for (warehouse of warehousesArray; track warehouse.id) {
+            <option value="{{ warehouse.id }}">{{ warehouse.name }}</option>
+            } @empty {
+            <p class="mx-auto">No warehouses were found</p>
+            }
+          </select>
+          <!-- ERROR HANDLING Frontend -->
+          <div *ngIf="updateWarehouseId.invalid && updateWarehouseId.touched" class="text-red-500">
+            <p *ngIf="updateWarehouseId.hasError('required')">required</p>
+          </div>
+          <!-- ERROR HANDLING Backend -->
+          <p *ngIf="updateAPIerrors && updateAPIerrors['warehouse_id']" class="text-red-500">
+            {{ updateAPIerrors["warehouse_id"] }}
+          </p>
+        </div>
+
+
+        <div class="flex flex-row-reverse items-center gap-2 mt-2">
+          <button type="submit" class="p-2 bg-green-700 hover:bg-green-800">
+            Edit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <button type="submit" (click)="onDeleteSection(warehouseSection.id)" class="p-2 bg-red-700 hover:bg-red-800 my-4">
+      Delete
+    </button>
+
+    <hr class="m-4">
+    }
+    @empty {
+    <p>No warehouse sections were found</p>
+    }
+  </div>
+
+
+</div>
