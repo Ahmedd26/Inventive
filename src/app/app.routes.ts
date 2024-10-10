@@ -20,6 +20,7 @@ import { SelectOrderTypeComponent } from './features/orders/components/select-or
 import { ShowPurchaseOrderComponent } from './features/purchases/components/show-purchase-order/show-purchase-order.component';
 import { WarehouseComponent } from './features/warehouses/warehouse/warehouse.component';
 import { CreateSaleComponent } from './features/orders/components/create-sale/create-sale.component';
+import { ShowSaleOrderComponent } from './features/sales/components/show-sale-order/show-sale-order.component';
 
 export const routes: Routes = [
   {
@@ -118,6 +119,13 @@ export const routes: Routes = [
     path: 'sales',
     title: 'Sales',
     component: SalesComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'sales/:id',
+    title: 'Sales',
+    component: ShowSaleOrderComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },

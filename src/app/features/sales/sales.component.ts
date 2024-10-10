@@ -11,88 +11,88 @@ import { ISalesOrder, IUser } from './sales.model';
   templateUrl: './sales.component.html',
 })
 export class SalesComponent {
-  amountPattern = "^[1-9][0-9]*$"
-  updateAmountPattern = "^[1-9][0-9]*$"
-  salesArray!: ISalesOrder[]
-  usersArray!: IUser[]
+  amountPattern = '^[1-9][0-9]*$';
+  updateAmountPattern = '^[1-9][0-9]*$';
+  salesArray!: ISalesOrder[];
+  usersArray!: IUser[];
   APIerrors = null;
-  updateAPIerrors = null
+  updateAPIerrors = null;
 
-  constructor(private salesServ: SalesService) { }
+  constructor(private salesServ: SalesService) {}
 
   onCreateSales(formData: ISalesOrder) {
-    this.salesServ.createSales(formData).subscribe({
-      next: data => {
+    this.salesServ.create(formData).subscribe({
+      next: (data) => {
         // console.log(data)
-        console.log('Added Successfully')
-        this.APIerrors = null
-        this.salesArray.push(data)
+        console.log('Added Successfully');
+        this.APIerrors = null;
+        this.salesArray.push(data);
       },
-      error: errorRes => {
+      error: (errorRes) => {
         this.APIerrors = errorRes.error.errors;
-        console.log(errorRes)
-      }
-    })
+        console.log(errorRes);
+      },
+    });
   }
 
   onDeleteSales(salesId: number) {
-    this.salesServ.deleteSales(salesId).subscribe({
-      next: data => {
+    this.salesServ.delete(salesId).subscribe({
+      next: (data) => {
         // console.log(data)
-        console.log('DELETED Successfully')
+        console.log('DELETED Successfully');
         this.salesArray = this.salesArray.filter(
-          (element) => element.id !== salesId
+          (element) => element.id !== salesId,
         );
       },
-      error: errorRes => {
+      error: (errorRes) => {
         // console.log(errorRes)
-      }
-    })
+      },
+    });
   }
 
   onUpdateSales(form: ISalesOrder, salesId: number) {
-    this.salesServ.updateSales(form, salesId).subscribe({
-      next: data => {
+    this.salesServ.update(form, salesId).subscribe({
+      next: (data) => {
         // console.log(data)
-        console.log("updated successfully")
-        this.updateAPIerrors = null
+        console.log('updated successfully');
+        this.updateAPIerrors = null;
         this.salesArray = this.salesArray.map((element) => {
           if (element.id === salesId) {
             return {
-              ...element, total_amount: form.total_amount,
+              ...element,
+              total_amount: form.total_amount,
               user_id: form.user_id,
-              status: form.status
+              status: form.status,
             };
           }
           return element;
-        })
+        });
       },
-      error: errorRes => {
-        console.log(errorRes)
-        this.updateAPIerrors = errorRes.error.errors
-      }
-    })
+      error: (errorRes) => {
+        console.log(errorRes);
+        this.updateAPIerrors = errorRes.error.errors;
+      },
+    });
   }
 
   ngOnInit() {
-    this.salesServ.getAllSales().subscribe({
-      next: data => {
+    this.salesServ.getAll().subscribe({
+      next: (data) => {
         // console.log(data)
-        this.salesArray = data
+        this.salesArray = data;
       },
-      error: errorRes => {
-        console.log(errorRes)
-      }
-    })
-    this.salesServ.getAllUsers().subscribe({
-      next: usersData => {
-        // console.log(usersData)
-        this.usersArray = usersData
+      error: (errorRes) => {
+        console.log(errorRes);
       },
-      error: errorRes => {
-        console.log(errorRes)
-      }
-    })
+    });
+    // this.salesServ.getAllUsers().subscribe({
+    //   next: usersData => {
+    //     // console.log(usersData)
+    //     this.usersArray = usersData
+    //   },
+    //   error: errorRes => {
+    //     console.log(errorRes)
+    //   }
+    // })
   }
-
 }

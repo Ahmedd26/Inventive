@@ -4,34 +4,29 @@ import { API } from '../../core/utils/constants.utils';
 import { ISalesOrder, IUser } from './sales.model';
 
 const ENDPOINT = `${API}salesorders`;
-const ENDPOINTUSER = `${API}users`;
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class SalesService {
+  constructor(private http: HttpClient) {}
 
-
-  constructor(private http: HttpClient) { }
-
-  getAllSales() {
-    return this.http.get<ISalesOrder[]>(ENDPOINT)
+  getAll() {
+    return this.http.get<ISalesOrder[]>(ENDPOINT);
   }
 
-  getAllUsers() {
-    return this.http.get<IUser[]>(ENDPOINTUSER)
+  get(id: number) {
+    return this.http.get<ISalesOrder>(`${ENDPOINT}/${id}`);
   }
 
-  updateSales(form: ISalesOrder, salesId: number) {
-    return this.http.patch<ISalesOrder>(`${ENDPOINT}/${salesId}`, form)
+  update(form: ISalesOrder, id: number) {
+    return this.http.post<ISalesOrder>(`${ENDPOINT}/${id}?_method=put`, form);
   }
 
-  createSales(body: ISalesOrder) {
-    return this.http.post<ISalesOrder>(ENDPOINT, body)
+  create(body: ISalesOrder) {
+    return this.http.post<ISalesOrder>(ENDPOINT, body);
   }
 
-  deleteSales(salesId: number) {
-    return this.http.delete(`${ENDPOINT}/${salesId}`)
+  delete(id: number) {
+    return this.http.delete(`${ENDPOINT}/${id}?_method=delete`);
   }
 }
