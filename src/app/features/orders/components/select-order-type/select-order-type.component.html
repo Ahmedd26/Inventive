@@ -1,19 +1,58 @@
-<div
-  class="mx-auto mt-36 flex max-w-2xl flex-col flex-wrap items-center gap-10 md:flex-row"
->
-  <a
-    [routerLink]="['/orders/create-purchase']"
-    class="flex min-h-32 w-full flex-1 flex-col items-center justify-center gap-6 rounded-xl border border-amber-600 bg-white text-2xl font-extrabold shadow duration-150 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-700/10 dark:bg-stone-800 dark:hover:bg-stone-900"
-  >
-    <i-feather name="corner-left-down" />
-    Purchase Order
-  </a>
+<div class="flex min-h-[80dvh] items-center justify-center">
+  <div class="mx-auto max-w-2xl space-y-8 text-center">
+    <h1 class="text-3xl font-bold text-stone-800 dark:text-stone-200">
+      What type of order would you like to place?
+    </h1>
 
-  <a
-    [routerLink]="['/orders/create-sale']"
-    class="flex min-h-32 w-full flex-1 flex-col items-center justify-center gap-6 rounded-xl border border-amber-600 bg-white text-2xl font-extrabold shadow duration-150 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-700/10 dark:bg-stone-800 dark:hover:bg-stone-900"
-  >
-    <i-feather name="corner-left-up" />
-    Sale Order
-  </a>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <!-- Create Purchase Card -->
+      <a
+        [routerLink]="['create-purchase']"
+        class="group block transform rounded-lg bg-white p-6 shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:shadow-2xl dark:bg-stone-800"
+      >
+        <div class="flex flex-col items-center">
+          <!-- Purchase SVG -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="mb-4 h-16 w-16 rotate-180 text-stone-500 group-hover:text-amber-500 dark:text-stone-300 dark:group-hover:text-amber-400"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2a10 10 0 110 20 10 10 0 010-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1.5-7h3v2h-3v-2zm1.5-7c-2.21 0-4 1.79-4 4h2a2 2 0 114 0h2c0-2.21-1.79-4-4-4z"
+            />
+          </svg>
+          <h2
+            class="text-xl font-semibold text-stone-700 group-hover:text-amber-500 dark:text-stone-200 dark:group-hover:text-amber-400"
+          >
+            Create Purchase
+          </h2>
+        </div>
+      </a>
+      <!-- Create Sale Card -->
+      <a
+        [routerLink]="['create-sale']"
+        class="group block transform rounded-lg bg-white p-6 shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:shadow-2xl dark:bg-stone-800"
+      >
+        <div class="flex flex-col items-center">
+          <!-- Sale SVG -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="mb-4 h-16 w-16 text-stone-500 group-hover:text-amber-500 dark:text-stone-300 dark:group-hover:text-amber-400"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2a10 10 0 110 20 10 10 0 010-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-2.5-7h5v2h-5v-2zm2.5-7c-2.21 0-4 1.79-4 4h2a2 2 0 014 0h2c0-2.21-1.79-4-4-4z"
+            />
+          </svg>
+          <h2
+            class="text-xl font-semibold text-stone-700 group-hover:text-amber-500 dark:text-stone-200 dark:group-hover:text-amber-400"
+          >
+            Create Sale
+          </h2>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
