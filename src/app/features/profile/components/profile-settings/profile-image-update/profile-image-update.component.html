@@ -1,54 +1,73 @@
 <div
-  class="flex flex-col gap-6 rounded-lg border border-stone-300 bg-white p-4 dark:border-stone-600 dark:bg-stone-800"
+  class="relative flex flex-col rounded-lg border border-stone-300 bg-white p-4 dark:border-stone-600 dark:bg-stone-800"
 >
-  <h2 class="text-2xl text-stone-900 dark:text-white">Profile picture</h2>
-  @if (newImage) {
-    <img
-      [src]="newImage"
-      alt="user avatar"
-      class="aspect-square h-auto w-full rounded-lg bg-stone-200 object-cover dark:bg-stone-600"
-    />
-  } @else if (user.image) {
-    <img
-      [src]="user.image"
-      alt="user avatar"
-      class="aspect-square h-auto w-full rounded-lg bg-stone-200 object-cover dark:bg-stone-600"
-    />
-  } @else {
-    <img
-      src="/assets/images/manager.png"
-      alt="user avatar"
-      class="aspect-square h-auto w-full rounded-lg bg-stone-200 object-cover dark:bg-stone-600"
-    />
-  }
+  <h2
+    class="absolute left-4 top-4 z-20 rounded-ee-xl bg-white pb-4 pr-4 text-2xl text-stone-900 dark:bg-stone-800 dark:text-white"
+  >
+    Profile picture
+  </h2>
+  <div class="relative overflow-hidden">
+    <label
+      for="image"
+      class="group absolute inset-0 h-full w-full cursor-pointer rounded-lg duration-200 hover:bg-stone-900/45 hover:backdrop-blur-sm"
+    >
+      <div
+        class="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-6xl group-hover:block group-hover:text-amber-600"
+      >
+        <i-feather name="upload" />
+      </div>
+    </label>
+    @if (newImage) {
+      <img
+        [src]="newImage"
+        alt="user avatar"
+        class="aspect-square h-auto w-full rounded-lg bg-stone-200 object-cover dark:bg-stone-600"
+      />
+    } @else if (user.image) {
+      <img
+        [src]="user.image"
+        alt="user avatar"
+        class="aspect-square h-auto w-full rounded-lg bg-stone-200 object-cover dark:bg-stone-600"
+      />
+    } @else {
+      <img
+        src="/assets/images/manager.png"
+        alt="user avatar"
+        class="aspect-square h-auto w-full rounded-lg bg-stone-200 object-cover dark:bg-stone-600"
+      />
+    }
+  </div>
   <form
     enctype="multipart/form-data"
     #profilePicForm="ngForm"
     (ngSubmit)="ProfilePic(profilePicForm.value)"
   >
-    <div class="">
-      <label
-        for="image"
-        class="flex flex-1 cursor-pointer items-center gap-2 text-xl font-semibold duration-150 hover:text-amber-600 dark:hover:text-amber-200"
-      >
-        <i-feather name="image" />
-        <span>Upload new image</span>
-      </label>
-      <input
-        type="file"
-        class="hidden"
-        id="image"
-        name="image"
-        (change)="onImageSelected($event)"
-      />
-    </div>
-    <div class="flex justify-end">
-      <button
-        type="submit"
-        class="mb-2 me-2 rounded-lg border border-amber-700 px-5 py-2.5 text-center text-sm font-medium text-amber-700 hover:bg-amber-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-amber-300 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-500 dark:hover:text-white dark:focus:ring-amber-800"
-      >
-        Update
-      </button>
+    <input
+      type="file"
+      class="hidden"
+      id="image"
+      name="image"
+      (change)="onImageSelected($event)"
+    />
+    <div class="flex justify-between">
+      @if (successMessage) {
+        <p class="mt-6 text-green-600">
+          {{ successMessage }}
+        </p>
+      }
+      @if (errorMessage) {
+        <p class="mt-6 text-red-500">
+          {{ errorMessage }}
+        </p>
+      }
+      @if (newImage) {
+        <button
+          type="submit"
+          class="ms-auto mt-6 rounded-lg border border-amber-700 px-5 py-2.5 text-center text-sm font-medium text-amber-700 hover:bg-amber-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-amber-300 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-500 dark:hover:text-white dark:focus:ring-amber-800"
+        >
+          Update
+        </button>
+      }
     </div>
   </form>
 </div>

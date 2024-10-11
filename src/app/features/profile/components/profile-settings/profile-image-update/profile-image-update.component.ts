@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconsModule } from '../../../../../shared/icons/icons.module';
 import { IUser } from '../../../../users/users.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile-image-update',
@@ -13,6 +14,8 @@ import { IUser } from '../../../../users/users.model';
 export class ProfileImageUpdateComponent implements OnInit {
   user!: IUser;
   newImage: any = null;
+  successMessage = '';
+  errorMessage = '';
   constructor(private usersService: UsersService) {}
 
   onImageSelected(event: any) {
@@ -39,12 +42,13 @@ export class ProfileImageUpdateComponent implements OnInit {
           const currentUserData = JSON.parse(localStorage.getItem('userData')!);
           currentUserData.user.image = res.image;
           localStorage.setItem('userData', JSON.stringify(currentUserData));
+          this.successMessage = 'Profile picture updated!';
         },
-        error: (error) => {
-          console.error(error);
+        error: (error: HttpErrorResponse) => {
+          this.errorMessage = error.error.message;
         },
       });
-      this.newImage = null; // Clear the new image after update
+      this.newImage = null;
     }
   }
 
