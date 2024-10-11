@@ -1,6 +1,6 @@
 <form
   class="space-y-6 rounded-lg border border-stone-300 bg-white px-4 py-6 dark:border-stone-600 dark:bg-stone-800"
-  #profileInfo
+  #profileInfo="ngForm"
   (ngSubmit)="profileInfoForm(profileInfo)"
 >
   <h2 class="text-2xl text-stone-900 dark:text-white">Basic info</h2>
@@ -9,6 +9,10 @@
     <input
       type="text"
       id="name"
+      name="name"
+      ngModel
+      [(ngModel)]="user.name"
+      minlength="5"
       class="border-1 peer block w-full appearance-none rounded-lg border-stone-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-stone-900 focus:border-amber-600 focus:outline-none focus:ring-0 dark:border-stone-600 dark:text-white dark:focus:border-amber-500"
       placeholder=" "
     />
@@ -18,11 +22,22 @@
       >Name</label
     >
   </div>
+  @if (
+    (profileInfo.submitted && profileInfo.controls["name"].invalid) ||
+    (profileInfo.controls["name"].touched &&
+      profileInfo.controls["name"].invalid)
+  ) {
+    <div class="text-red-500">Name must be at least 5 characters</div>
+  }
   <!-- Email -->
   <div class="relative">
     <input
       type="email"
       id="email"
+      name="email"
+      ngModel
+      [(ngModel)]="user.email"
+      email
       class="border-1 peer block w-full appearance-none rounded-lg border-stone-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-stone-900 focus:border-amber-600 focus:outline-none focus:ring-0 dark:border-stone-600 dark:text-white dark:focus:border-amber-500"
       placeholder=" "
     />
@@ -32,12 +47,22 @@
       >Email</label
     >
   </div>
+  @if (
+    (profileInfo.submitted && profileInfo.controls["email"].invalid) ||
+    (profileInfo.controls["email"].touched &&
+      profileInfo.controls["email"].invalid)
+  ) {
+    <div class="text-red-500">Valid email is required</div>
+  }
   <!-- Current_password -->
   <div class="">
     <div class="relative">
       <input
         type="password"
         id="current password"
+        name="current_password"
+        ngModel
+        required
         class="border-1 peer block w-full appearance-none rounded-lg border-stone-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-stone-900 focus:border-amber-600 focus:outline-none focus:ring-0 dark:border-stone-600 dark:text-white dark:focus:border-amber-500"
         placeholder=" "
       />
@@ -47,8 +72,15 @@
         >Password
       </label>
     </div>
-    <!-- handle errors -->
   </div>
+  @if (
+    (profileInfo.submitted &&
+      profileInfo.controls["current_password"].invalid) ||
+    (profileInfo.controls["current_password"].touched &&
+      profileInfo.controls["current_password"].invalid)
+  ) {
+    <div class="text-red-500">Password is required</div>
+  }
   <div class="flex justify-end">
     <button
       type="submit"
