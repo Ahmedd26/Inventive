@@ -37,7 +37,16 @@
             <td class="px-6 py-4">{{ product.name }}</td>
             <td class="px-6 py-4">{{ product.category?.name }}</td>
             <td class="px-6 py-4">{{ product.sku }}</td>
-            <td class="px-6 py-4">{{ product.quantity }} unit</td>
+            <td
+              class="px-6 py-4"
+              [ngClass]="
+                product.quantity < 12
+                  ? 'font-semibold text-red-600 dark:text-red-500'
+                  : ''
+              "
+            >
+              {{ product.quantity }} unit
+            </td>
             <td class="px-6 py-4">{{ product.price | currency }}</td>
           </tr>
         }

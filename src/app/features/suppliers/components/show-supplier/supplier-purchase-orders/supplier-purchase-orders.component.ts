@@ -6,11 +6,13 @@ import { SuppliersService } from '../../../../suppliers/suppliers.service';
 import { IUser } from '../../../../users/users.model';
 import { ISupplier } from '../../../../suppliers/suppliers.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
+import { IconsModule } from '../../../../../shared/icons/icons.module';
 
 @Component({
   selector: 'app-supplier-purchase-orders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink,IconsModule],
   templateUrl: './supplier-purchase-orders.component.html',
 })
 export class SupplierPurchaseOrdersComponent implements OnInit {

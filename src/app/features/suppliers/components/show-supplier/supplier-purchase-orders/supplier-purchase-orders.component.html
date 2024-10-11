@@ -25,9 +25,16 @@
             <tr
               class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
             >
-              <td class="px-6 py-4">{{ order.id }}</td>
+              <td class="px-6 py-4">
+                <a
+                  [routerLink]="['/purchases', order.id]"
+                  class="flex items-center gap-2 hover:text-amber-600 dark:hover:text-stone-50"
+                >
+                  <i-feather name="external-link" />
+                  {{ order.id }}
+                </a>
+              </td>
               <td class="px-6 py-4 capitalize">{{ order.user.name }}</td>
-              <!-- <td class="px-6 py-4">{{ getSupplierName(order.supplier_id) }}</td> -->
               <td class="px-6 py-4 capitalize">{{ order.status }}</td>
               <td class="px-6 py-4">{{ order.total_amount | currency }}</td>
               <td class="px-6 py-4">
