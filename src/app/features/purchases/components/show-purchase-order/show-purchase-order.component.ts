@@ -7,6 +7,7 @@ import { LoadingComponent } from '../../../../shared/components/loading/loading.
 import { type IPurchase } from '../../purchases.model';
 import { PurchaseOrderActionsComponent } from './purchase-order-actions/purchase-order-actions.component';
 import { OpenPurchaseInvoiceComponent } from '../open-purchase-invoice/open-purchase-invoice.component';
+import { InvoicesService } from '../../../../core/services/invoices-service/invoices.service';
 
 @Component({
   selector: 'app-show-purchase-order',
@@ -26,8 +27,15 @@ export class ShowPurchaseOrderComponent implements OnInit {
   purchase!: IPurchase;
   constructor(
     private purchasesService: PurchasesService,
+    private invoicesService: InvoicesService,
     private activatedRoute: ActivatedRoute,
   ) {}
+
+  getInvoice() {
+    if (this.purchase.id) {
+      this.invoicesService.getPurchase(this.purchase.id);
+    }
+  }
 
   updateStatus(status: string) {
     this.purchase.status = status;
