@@ -20,38 +20,35 @@
         </tr>
       </thead>
       <tbody>
-        @if (products && products.length > 0) {
-          @for (product of products; track product.id) {
-            <tr
-              class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
-            >
-              <td class="px-6 py-4">
-                <a
-                  [routerLink]="['/products', product.id]"
-                  class="flex items-center gap-2 hover:text-amber-600 dark:hover:text-stone-50"
-                  target="_blank"
-                >
-                  <i-feather name="external-link" />
-                  <span>
-                    {{ product.id }}
-                  </span>
-                </a>
-              </td>
-              <td class="px-6 py-4">{{ product.name }}</td>
-              <td class="px-6 py-4">{{ product.category?.name }}</td>
-              <td class="px-6 py-4">{{ product.sku }}</td>
-              <td class="px-6 py-4">{{ product.quantity }} unit</td>
-              <td class="px-6 py-4">{{ product.price | currency }}</td>
-            </tr>
-          }
-        } @else {
-          <tr>
-            <td colspan="5" class="px-6 py-4 text-center">
-              No products associated with this supplier.
+        @for (product of paginatedProduct; track product.id) {
+          <tr class="border-b bg-white dark:border-stone-700 dark:bg-stone-800">
+            <td class="px-6 py-4">
+              <a
+                [routerLink]="['/products', product.id]"
+                class="flex items-center gap-2 hover:text-amber-600 dark:hover:text-stone-50"
+                target="_blank"
+              >
+                <i-feather name="external-link" />
+                <span>
+                  {{ product.id }}
+                </span>
+              </a>
             </td>
+            <td class="px-6 py-4">{{ product.name }}</td>
+            <td class="px-6 py-4">{{ product.category?.name }}</td>
+            <td class="px-6 py-4">{{ product.sku }}</td>
+            <td class="px-6 py-4">{{ product.quantity }} unit</td>
+            <td class="px-6 py-4">{{ product.price | currency }}</td>
           </tr>
         }
       </tbody>
     </table>
   </div>
+</div>
+<div class="mt-8">
+  <app-pagination
+    [totalItems]="totalItems"
+    [itemsPerPage]="itemsPerPage"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 </div>
