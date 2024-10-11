@@ -13,9 +13,10 @@
         <tr>
           <th scope="col" class="px-6 py-3">Product ID</th>
           <th scope="col" class="px-6 py-3">Name</th>
-          <th scope="col" class="px-6 py-3">Description</th>
-          <th scope="col" class="px-6 py-3">Price</th>
           <th scope="col" class="px-6 py-3">Category</th>
+          <th scope="col" class="px-6 py-3">sku</th>
+          <th scope="col" class="px-6 py-3">current stock</th>
+          <th scope="col" class="px-6 py-3">Price</th>
         </tr>
       </thead>
       <tbody>
@@ -24,11 +25,23 @@
             <tr
               class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
             >
-              <td class="px-6 py-4">{{ product.id }}</td>
+              <td class="px-6 py-4">
+                <a
+                  [routerLink]="['/products', product.id]"
+                  class="flex items-center gap-2 hover:text-amber-600 dark:hover:text-stone-50"
+                  target="_blank"
+                >
+                  <i-feather name="external-link" />
+                  <span>
+                    {{ product.id }}
+                  </span>
+                </a>
+              </td>
               <td class="px-6 py-4">{{ product.name }}</td>
-              <td class="px-6 py-4">{{ product.description }}</td>
-              <td class="px-6 py-4">{{ product.price | currency }}</td>
               <td class="px-6 py-4">{{ product.category?.name }}</td>
+              <td class="px-6 py-4">{{ product.sku }}</td>
+              <td class="px-6 py-4">{{ product.quantity }} unit</td>
+              <td class="px-6 py-4">{{ product.price | currency }}</td>
             </tr>
           }
         } @else {
