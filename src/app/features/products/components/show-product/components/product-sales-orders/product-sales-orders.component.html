@@ -26,7 +26,7 @@
             <td class="px-6 py-4">{{ soldOrder.id }}</td>
             <td class="px-6 py-4">{{ soldOrder.sales_order_id }}</td>
             <td class="px-6 py-4">
-              {{ getUserName(soldOrder.sales_order.user_id) }}
+              {{ soldOrder.sales_order.user.name }}
             </td>
             <td class="px-6 py-4">{{ soldOrder.quantity }} Unit</td>
             <td class="px-6 py-4">{{ soldOrder.price | currency }}</td>

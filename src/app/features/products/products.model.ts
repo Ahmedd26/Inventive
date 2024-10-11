@@ -14,6 +14,7 @@
 
 import { ICategory } from '../categories/categories.model';
 import { ISupplier } from '../suppliers/suppliers.model';
+import { IUser } from '../users/users.model';
 export interface IProductError {
   name?: string[];
   description?: string[];
@@ -72,6 +73,7 @@ export interface ISalesOrder {
   status: string;
   created_at: string;
   updated_at: string;
+  user: IUser;
 }
 
 export interface IAdjustment {
