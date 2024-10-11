@@ -19,6 +19,7 @@ export interface UserData {
   updated_at: string;
   created_at: string;
   id: number;
+  image?: string;
   email_verified_at?: Date;
 }
 

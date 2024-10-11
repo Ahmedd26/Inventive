@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { provideHttpClient } from '@angular/common/http';
 import { API } from '../../utils/constants.utils';
 import type {
   AuthResponseData,
@@ -14,7 +13,10 @@ import { Router } from '@angular/router';
 export class AuthService {
   user = new BehaviorSubject<AuthResponseData | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   register(registrationData: RegistrationData) {
     return this.http
@@ -22,7 +24,7 @@ export class AuthService {
       .pipe(
         tap((resData: AuthResponseData) => {
           this.handleAuthentication(resData);
-        })
+        }),
       );
   }
 
@@ -30,7 +32,7 @@ export class AuthService {
     return this.http.post<AuthResponseData>(`${API}login`, loginData).pipe(
       tap((resData: AuthResponseData) => {
         this.handleAuthentication(resData);
-      })
+      }),
     );
   }
 
@@ -61,7 +63,7 @@ export class AuthService {
 
       this.http.get(`${API}logout`, { headers }).subscribe(
         (response) => {},
-        (error) => {}
+        (error) => {},
       );
     }
     localStorage.removeItem('userData');

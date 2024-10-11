@@ -15,27 +15,44 @@
    class="-mt-8 w-[94%] rounded-2xl border border-stone-200 bg-white p-4 dark:border-stone-950 dark:bg-stone-800 md:-mt-12 lg:-mt-16 xl:-mt-20" -->
     <!-- Header -->
 
-    <div
-      class="flex flex-wrap items-center justify-center gap-6 lg:justify-between"
-    >
+    <div class="flex flex-wrap items-center justify-between gap-6">
       <!-- ProPic & Name -->
       <div class="flex gap-4">
         <div
-          class="size-20 rounded-lg border border-amber-400 bg-stone-600 dark:border-amber-200"
+          class="rounded-lg border border-amber-400 bg-stone-600 dark:border-amber-200"
         >
-          <img src="assets/images/manager.png" alt="user avatar" />
+          @if (user.image) {
+            <img
+              [src]="user.image"
+              alt="user avatar"
+              class="h-auto w-full max-w-24 object-cover"
+            />
+          } @else {
+            <img
+              src="assets/images/manager.png"
+              alt="user avatar"
+              class="h-auto w-full max-w-24 object-cover"
+            />
+          }
         </div>
         <div class="space-y-2">
           <h2
-            class="m-0 text-2xl font-semibold text-stone-700 dark:text-stone-200"
+            class="m-0 text-2xl font-semibold capitalize text-stone-700 dark:text-stone-200"
           >
-            John Doe
+            {{ user.name }}
           </h2>
-          <h4 class="m-0 text-sm text-stone-400">CEO / Co-Founder</h4>
+          <h4 class="m-0 text-sm capitalize text-stone-400">
+            {{ user.role?.name }}
+          </h4>
+          <h4 class="text-sm capitalize text-stone-400">
+            {{ user.email }}
+          </h4>
         </div>
       </div>
       <!-- BTN GP -->
-      <div class="flex items-center gap-0.5">
+      <div
+        class="flex flex-1 items-center justify-center gap-0.5 lg:justify-end"
+      >
         <a
           [routerLink]="['/profile']"
           class="flex items-center gap-2 rounded-s-lg border border-stone-200 bg-white px-4 py-2 text-base font-medium text-stone-900 hover:bg-stone-100 hover:text-amber-700 focus:z-10 focus:text-amber-700 focus:ring-2 focus:ring-amber-700 dark:border-stone-700 dark:bg-stone-800 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-amber-500"
