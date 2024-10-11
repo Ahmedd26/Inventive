@@ -18,8 +18,8 @@ export class UsersService {
     return this.http.post<IUser>(ENDPOINT, user);
   }
 
-  update(user: IUser, id: any) {
-    return this.http.post<IUser>(`${ENDPOINT}/${id}?_method=put`, user);
+  update(user: any, id: any) {
+    return this.http.post<any>(`${ENDPOINT}/${id}?_method=put`, user);
   }
   delete(id: number) {
     return this.http.post(`${ENDPOINT}/${id}?_method=delete`, null);
