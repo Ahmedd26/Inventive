@@ -22,6 +22,7 @@ import { WarehouseComponent } from './features/warehouses/warehouse/warehouse.co
 import { CreateSaleComponent } from './features/orders/components/create-sale/create-sale.component';
 import { ShowSaleOrderComponent } from './features/sales/components/show-sale-order/show-sale-order.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { ProfileSettingsComponent } from './features/profile/components/profile-settings/profile-settings.component';
 
 export const routes: Routes = [
   {
@@ -155,8 +156,16 @@ export const routes: Routes = [
     path: 'profile',
     title: 'Profile',
     component: ProfileComponent,
-    pathMatch: 'full',
+    // pathMatch: 'full',
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'settings',
+        title: 'Profile settings',
+        component: ProfileSettingsComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
   },
   {
     path: 'users',
