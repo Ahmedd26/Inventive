@@ -22,7 +22,7 @@
     </div>
 
     <div class="mt-8 grid grid-cols-1 gap-4 xl:grid-cols-2">
-      @for (supplier of suppliers; track supplier.id) {
+      @for (supplier of paginatedSuppliers; track supplier.id) {
         <div
           class="relative grid h-full min-h-36 grid-cols-1 gap-y-4 p-4 md:grid-cols-3 md:gap-4"
         >
@@ -67,5 +67,12 @@
         </div>
       }
     </div>
+  </div>
+  <div class="mt-8">
+    <app-pagination
+      [totalItems]="totalItems"
+      [itemsPerPage]="itemsPerPage"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
   </div>
 }

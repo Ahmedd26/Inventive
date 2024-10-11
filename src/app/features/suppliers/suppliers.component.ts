@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-suppliers',
@@ -22,7 +23,8 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
     UpdateSupplierModalComponent,
     CommonModule,
     RouterLink,
-    LoadingComponent
+    LoadingComponent,
+    PaginationComponent,
   ],
   templateUrl: './suppliers.component.html',
 })
@@ -35,24 +37,41 @@ export class SuppliersComponent implements OnInit {
 
   constructor(private suppliersService: SuppliersService) {}
 
+  //** ---------------------- START PAGINATION -------------------------- **//
+  paginatedSuppliers: ISupplier[] = [];
+  totalItems: number = 0;
+  itemsPerPage: number = 8;
+  updatePaginatedSuppliers(page: number) {
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedSuppliers = this.suppliers.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number) {
+    this.updatePaginatedSuppliers(page);
+  }
+  //** ---------------------- END PAGINATION -------------------------- **//
+
   ngOnInit() {
     this.isLoading = true;
     this.suppliersService.getAll().subscribe({
       next: (data: ISupplier[]) => {
         this.isLoading = false;
         this.suppliers = data;
+        // ** ---------- PAGINATION ---------- **//
+        this.totalItems = this.suppliers.length;
+        this.updatePaginatedSuppliers(1);
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;
         this.error = error;
       },
     });
-    
   }
-  
+
   updateUpdatedSupplierInView(newSupplier: ISupplier) {
     const index = this.suppliers.findIndex(
-      (supplier) => supplier.id === newSupplier.id
+      (supplier) => supplier.id === newSupplier.id,
     );
     this.suppliers[index] = newSupplier;
   }
@@ -87,7 +106,9 @@ export class SuppliersComponent implements OnInit {
   onDeleteSupplier(id: number) {
     this.suppliersService.delete(id).subscribe({
       next: () => {
-        this.suppliers = this.suppliers.filter((supplier) => supplier.id !== id);
+        this.suppliers = this.suppliers.filter(
+          (supplier) => supplier.id !== id,
+        );
         console.log('Supplier deleted:', id);
       },
       error: (error) => {
