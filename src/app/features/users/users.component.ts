@@ -36,7 +36,6 @@ export class UsersComponent implements OnInit {
   users!: IUser[];
   error: any;
   user!: IUser;
-  roles!: IRole[];
 
   constructor(
     private usersService: UsersService,
@@ -67,16 +66,6 @@ export class UsersComponent implements OnInit {
         // ** ---------- PAGINATION ---------- **//
         this.totalItems = users.length;
         this.updatePaginatedUsers(1);
-      },
-      error: (error) => {
-        this.error = error.error.message;
-        this.fetchingState = false;
-      },
-    });
-    this.rolesService.getAll().subscribe({
-      next: (roles) => {
-        this.roles = roles;
-        this.fetchingState = false;
       },
       error: (error) => {
         this.error = error.error.message;
