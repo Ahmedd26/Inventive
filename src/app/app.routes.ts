@@ -24,6 +24,7 @@ import { ShowSaleOrderComponent } from './features/sales/components/show-sale-or
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { ProfileSettingsComponent } from './features/profile/components/profile-settings/profile-settings.component';
 import { LatestTransactionsComponent } from './features/profile/components/latest-transactions/latest-transactions.component';
+import { ShowUserComponent } from './features/users/components/show-user/show-user.component';
 
 export const routes: Routes = [
   {
@@ -178,6 +179,13 @@ export const routes: Routes = [
     path: 'users',
     title: 'Users',
     component: UsersComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'users/:id',
+    title: 'Users',
+    component: ShowUserComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },

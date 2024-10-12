@@ -5,12 +5,14 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../../shared/components/table/components/menu/menu.component';
 import { RolesService } from '../../core/services/temp/roles/roles.service';
-import { type IUser } from './users.model';
-import { type IRole } from '../../core/services/temp/roles/roles.model';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { UsersCreateModalComponent } from './components/users-create-modal/users-create-modal.component';
 import { UsersUpdateModalComponent } from './components/users-update-modal/users-update-modal.component';
 import { UsersDeleteModalComponent } from './components/users-delete-modal/users-delete-modal.component';
+import { RouterLink } from '@angular/router';
+import { type IUser } from './users.model';
+import { type IRole } from '../../core/services/temp/roles/roles.model';
+import { IconsModule } from '../../shared/icons/icons.module';
 
 @Component({
   selector: 'app-users',
@@ -19,6 +21,8 @@ import { UsersDeleteModalComponent } from './components/users-delete-modal/users
     FormsModule,
     LoadingComponent,
     CommonModule,
+    RouterLink,
+    IconsModule,
     MenuComponent,
     PaginationComponent,
     UsersCreateModalComponent,
