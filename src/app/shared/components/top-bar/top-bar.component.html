@@ -1,5 +1,5 @@
 <nav
-  class="fixed top-0 z-50 w-full bg-stone-50 border-b border-stone-200 dark:bg-stone-800 dark:border-stone-700"
+  class="fixed top-0 z-50 w-full border-b border-stone-200 bg-stone-50 dark:border-stone-700 dark:bg-stone-800"
 >
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
@@ -10,11 +10,11 @@
           data-drawer-backdrop="false"
           aria-controls="logo-sidebar"
           type="button"
-          class="inline-flex items-center p-2 text-sm text-stone-500 rounded-lg sm:hidden hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-stone-200 dark:text-stone-400 dark:hover:bg-stone-700 dark:focus:ring-stone-600"
+          class="inline-flex items-center rounded-lg p-2 text-sm text-stone-500 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-stone-200 dark:text-stone-400 dark:hover:bg-stone-700 dark:focus:ring-stone-600 sm:hidden"
         >
           <span class="sr-only">Open sidebar</span>
           <svg
-            class="w-6 h-6"
+            class="h-6 w-6"
             aria-hidden="true"
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -27,56 +27,64 @@
             ></path>
           </svg>
         </button>
-        <a href="/" class="flex ms-2 md:me-24">
+        <a href="/" class="ms-2 flex md:me-24">
           <span
-            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
+            class="self-center whitespace-nowrap text-xl font-semibold dark:text-white sm:text-2xl"
             >Inventive</span
           >
         </a>
       </div>
       <div class="flex items-center gap-4">
-        <div class="dark:text-amber-200 text-stone-400">
+        <div class="text-stone-400 dark:text-amber-200">
           <app-toggle-dark-light />
         </div>
-        <div class="dark:text-amber-200 text-stone-400">
+        <!-- <div class="text-stone-400 dark:text-amber-200">
           <app-logout />
-        </div>
+        </div> -->
         <!-- Profile icon/Drop down -->
-        <div class="flex items-center ms-3">
+        <div class="ms-3 flex items-center">
           <div>
             <button
               type="button"
-              class="flex text-sm bg-stone-800 rounded-full focus:ring-4 focus:ring-stone-300 dark:focus:ring-stone-600"
+              class="flex rounded-full bg-stone-800 text-sm focus:ring-4 focus:ring-stone-300 dark:focus:ring-stone-600"
               aria-expanded="false"
               data-dropdown-toggle="dropdown-user"
             >
               <span class="sr-only">Open user menu</span>
-              <img
-                class="w-8 h-8 rounded-full"
-                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                alt="user photo"
-              />
+              @if (user.image) {
+                <img
+                  class="h-8 w-8 rounded-full"
+                  [src]="user.image"
+                  alt="user photo"
+                />
+              } @else {
+                <img
+                  class="h-8 w-8 rounded-full"
+                  src="/assets/images/manager.png"
+                  alt="user photo"
+                />
+              }
             </button>
           </div>
           <div
-            class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-stone-100 rounded shadow dark:bg-stone-700 dark:divide-stone-600"
+            class="z-50 my-4 hidden list-none divide-y divide-stone-100 rounded bg-white text-base shadow dark:divide-stone-600 dark:bg-stone-700"
             id="dropdown-user"
           >
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-stone-900 dark:text-white" role="none">
-                Neil Sims
+                {{ user.name }}
               </p>
               <p
-                class="text-sm font-medium text-stone-900 truncate dark:text-stone-300"
+                class="truncate text-sm font-medium text-stone-900 dark:text-stone-300"
                 role="none"
               >
-                neil.sims-flowbite.com
+                {{ user.email }}
               </p>
             </div>
             <ul class="py-1" role="none">
               <li>
                 <a
-                  href="#"
+                  [routerLink]="['/']"
                   class="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-600 dark:hover:text-white"
                   role="menuitem"
                   >Dashboard</a
@@ -84,7 +92,7 @@
               </li>
               <li>
                 <a
-                  href="#"
+                  [routerLink]="['/settings']"
                   class="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-600 dark:hover:text-white"
                   role="menuitem"
                   >Settings</a
@@ -92,19 +100,20 @@
               </li>
               <li>
                 <a
-                  href="#"
+                  [routerLink]="['/profile']"
                   class="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-600 dark:hover:text-white"
                   role="menuitem"
-                  >Earnings</a
+                  >Profile</a
                 >
               </li>
               <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-600 dark:hover:text-white"
+                <button
+                  (click)="logout()"
+                  class="block w-full px-4 py-2 text-start text-sm text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-600 dark:hover:text-white"
                   role="menuitem"
-                  >Sign out</a
                 >
+                  Sign out
+                </button>
               </li>
             </ul>
           </div>
