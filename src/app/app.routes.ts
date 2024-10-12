@@ -23,6 +23,7 @@ import { CreateSaleComponent } from './features/orders/components/create-sale/cr
 import { ShowSaleOrderComponent } from './features/sales/components/show-sale-order/show-sale-order.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { ProfileSettingsComponent } from './features/profile/components/profile-settings/profile-settings.component';
+import { LatestTransactionsComponent } from './features/profile/components/latest-transactions/latest-transactions.component';
 
 export const routes: Routes = [
   {
@@ -159,6 +160,12 @@ export const routes: Routes = [
     // pathMatch: 'full',
     canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        title: 'Profile',
+        component: LatestTransactionsComponent,
+        canActivate: [AuthGuard],
+      },
       {
         path: 'settings',
         title: 'Profile settings',
