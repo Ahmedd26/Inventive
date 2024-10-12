@@ -20,6 +20,7 @@ import { SelectOrderTypeComponent } from './features/orders/components/select-or
 import { ShowPurchaseOrderComponent } from './features/purchases/components/show-purchase-order/show-purchase-order.component';
 import { WarehouseComponent } from './features/warehouses/warehouse/warehouse.component';
 import { WarehouseDetailsComponent } from './features/warehouses/warehouse-details/warehouse-details.component';
+import { InventoryComponent } from './features/warehouses/inventory/inventory.component';
 
 export const routes: Routes = [
   {
@@ -129,10 +130,17 @@ export const routes: Routes = [
     component: ShowPurchaseOrderComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
-  }, {
-
+  },
+  {
     path: 'inventory',
     title: 'Inventory',
+    component: InventoryComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'warehouses',
+    title: 'Warehouses',
     component: WarehouseComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
