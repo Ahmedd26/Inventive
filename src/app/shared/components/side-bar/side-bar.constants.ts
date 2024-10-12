@@ -12,6 +12,11 @@ export const links: ILink[] = [
     title: 'Inventory',
   },
   {
+    path: '/warehouses',
+    iconName: 'package',
+    title: 'Warehouses',
+  },
+  {
     path: '/products',
     iconName: 'box',
     title: 'products',
@@ -46,6 +51,11 @@ export const links: ILink[] = [
     path: '/users',
     iconName: 'users',
     title: 'Users',
+  },
+  {
+    path: '/warehouse-details',
+    iconName: 'Hash',
+    title: 'warehouse-details',
   },
 ];
 export const quickLinks: ILink[] = [

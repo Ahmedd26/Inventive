@@ -1,0 +1,185 @@
+@if (isLoading) {
+<app-loading />
+}
+
+<div class="text-stone-800 dark:text-white">
+  <div class="my-4">
+    <form #inventoryForm="ngForm" (ngSubmit)="onCreateInventory(inventoryForm.value)">
+      <div class="mb-2">
+        <label for="section_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section</label>
+        <select id="section_id"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="warehouse_section_id" required #warehouse_section_id="ngModel" ngModel>
+          <option value="">Choose a Section</option>
+          @for (section of sectionsArray; track section.id) {
+          <option value="{{ section.id }}">{{ section.section_name }}</option>
+          } @empty {
+          <p class="mx-auto">No section were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="warehouse_section_id.invalid && warehouse_section_id.touched" class="text-red-500">
+          <p *ngIf="warehouse_section_id.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['warehouse_section_id']" class="text-red-500">
+          {{ APIerrors["warehouse_section_id"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="product_id" class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product</label>
+        <select id="product_id"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="product_id" required #product_id="ngModel" ngModel>
+          <option value="">Choose a Product</option>
+          @for (product of productsArray; track product.id) {
+          <option value="{{ product.id }}">{{ product.name }}</option>
+          } @empty {
+          <p class="mx-auto">No products were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="product_id.invalid && product_id.touched" class="text-red-500">
+          <p *ngIf="product_id.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['product_id']" class="text-red-500">
+          {{ APIerrors["product_id"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="quantity " class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Quantity </label>
+        <input id="quantity " type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="quantity" required [pattern]="quantityPattern" #quantity="ngModel" ngModel />
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="quantity.invalid && quantity.touched" class="text-red-500">
+          <p *ngIf="quantity.hasError('required')">required</p>
+          <p *ngIf="quantity.hasError('pattern')">quantity must be a valid number</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="APIerrors && APIerrors['quantity']" class="text-red-500">
+          {{ APIerrors["quantity"] }}
+        </p>
+      </div>
+
+
+      <div class="flex flex-row-reverse items-center gap-2 mt-2">
+        <button type="submit"
+          class="duration-150 text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+  <div>
+    @for (inventory of inventoryArray; track inventory.id) {
+    <p>Inventory ID: {{inventory.id}} </p>
+    <p>Inventory Quantity: {{inventory.quantity}} </p>
+    @if (inventory.product) {
+    <h1 class="text-3xl">Product Information</h1>
+    <p> Product Name: {{inventory.product.name}} </p>
+    <p> Product Description: {{inventory.product.description}} </p>
+    <p> Product Price: {{inventory.product.price}} </p>
+    }
+    @if (inventory.warehouse_section) {
+    <h1 class="text-3xl">Section Information</h1>
+    <p> Section Name: {{inventory.warehouse_section.section_name}} </p>
+    <p> Section Type: {{inventory.warehouse_section.section_type}} </p>
+    <p> Section Capacity: {{inventory.warehouse_section.capacity}} </p>
+    }
+
+
+    <form #updateInventoryForm="ngForm" (ngSubmit)="onUpdateInventory(updateInventoryForm.value,inventory.id)">
+      <div class="mb-2">
+        <label for="updateSectionId"
+          class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Section</label>
+        <select id="updateSectionId"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="warehouse_section_id" required #updateSectionId="ngModel" ngModel>
+          <option value="">Choose a Section</option>
+          @for (section of sectionsArray; track section.id) {
+          <option value="{{ section.id }}">{{ section.section_name }}</option>
+          } @empty {
+          <p class="mx-auto">No section were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="updateSectionId.invalid && updateSectionId.touched" class="text-red-500">
+          <p *ngIf="updateSectionId.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="updateAPIerrors && updateAPIerrors['warehouse_section_id']" class="text-red-500">
+          {{ updateAPIerrors["warehouse_section_id"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="updateProductId"
+          class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Product</label>
+        <select id="updateProductId"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="product_id" required #updateProductId="ngModel" ngModel>
+          <option value="">Choose a Product</option>
+          @for (product of productsArray; track product.id) {
+          <option value="{{ product.id }}">{{ product.name }}</option>
+          } @empty {
+          <p class="mx-auto">No products were found</p>
+          }
+        </select>
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="updateProductId.invalid && updateProductId.touched" class="text-red-500">
+          <p *ngIf="updateProductId.hasError('required')">required</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="updateAPIerrors && updateAPIerrors['product_id']" class="text-red-500">
+          {{ updateAPIerrors["product_id"] }}
+        </p>
+      </div>
+
+
+      <div class="mb-2">
+        <label for="updateQuantity " class="block mb-2 text-sm font-medium text-stone-900 dark:text-white">Quantity
+        </label>
+        <input id="updateQuantity " type="text"
+          class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500"
+          name="quantity" required [pattern]="quantityPattern" #updateQuantity="ngModel" [ngModel]="inventory.quantity"
+          ngModel />
+        <!-- ERROR HANDLING Frontend -->
+        <div *ngIf="updateQuantity.invalid && updateQuantity.touched" class="text-red-500">
+          <p *ngIf="updateQuantity.hasError('required')">required</p>
+          <p *ngIf="updateQuantity.hasError('pattern')">quantity must be a valid number</p>
+        </div>
+        <!-- ERROR HANDLING Backend -->
+        <p *ngIf="updateAPIerrors && updateAPIerrors['quantity']" class="text-red-500">
+          {{ updateAPIerrors["quantity"] }}
+        </p>
+      </div>
+
+
+      <div class="flex flex-row-reverse items-center gap-2 mt-2">
+        <button type="submit" class="p-2 bg-green-700 hover:bg-green-800">
+          Edit
+        </button>
+      </div>
+    </form>
+
+    <button type="submit" (click)="onDeleteInventory(inventory.id)" class="p-2 bg-red-700 hover:bg-red-800 my-4">
+      Delete
+    </button>
+    <hr class="m-4">
+    }
+    @empty {
+    <p>No inventory were found</p>
+    }
+  </div>
+
+
+</div>

@@ -50,7 +50,7 @@
         <!-- ERROR HANDLING Frontend -->
         <div *ngIf="total_capacity.invalid && total_capacity.touched" class="text-red-500">
           <p *ngIf="total_capacity.hasError('required')">required</p>
-          <p *ngIf="total_capacity.hasError('pattern')">amount must be a valid number</p>
+          <p *ngIf="total_capacity.hasError('pattern')">capacity must be a valid number</p>
         </div>
         <!-- ERROR HANDLING Backend -->
         <p *ngIf="APIerrors && APIerrors['total_capacity']" class="text-red-500">

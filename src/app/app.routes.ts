@@ -25,6 +25,8 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { ProfileSettingsComponent } from './features/profile/components/profile-settings/profile-settings.component';
 import { LatestTransactionsComponent } from './features/profile/components/latest-transactions/latest-transactions.component';
 import { ShowUserComponent } from './features/users/components/show-user/show-user.component';
+import { WarehouseDetailsComponent } from './features/warehouses/warehouse-details/warehouse-details.component';
+import { InventoryComponent } from './features/warehouses/inventory/inventory.component';
 
 export const routes: Routes = [
   {
@@ -150,7 +152,21 @@ export const routes: Routes = [
   {
     path: 'inventory',
     title: 'Inventory',
+    component: InventoryComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'warehouses',
+    title: 'Warehouses',
     component: WarehouseComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'warehouse-details',
+    title: 'Warehouse Details',
+    component: WarehouseDetailsComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
