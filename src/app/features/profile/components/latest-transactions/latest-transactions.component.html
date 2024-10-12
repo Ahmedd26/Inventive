@@ -23,6 +23,7 @@
             <th scope="col" class="px-6 py-3">Description</th>
             <th scope="col" class="px-6 py-3">Event</th>
             <th scope="col" class="px-6 py-3">Subject</th>
+            <th scope="col" class="px-6 py-3">date</th>
           </tr>
         </thead>
         <tbody>
@@ -34,7 +35,13 @@
               <td class="px-6 py-4">{{ log.log_name }}</td>
               <td class="px-6 py-4">{{ log.description }}</td>
               <td class="px-6 py-4">{{ log.event }}</td>
-              <td class="px-6 py-4">{{ log.subject.name }}</td>
+              <td class="px-6 py-4">
+                {{ log.subject.name ? log.subject.name : "Untracked" }}
+              </td>
+              <td class="px-6 py-4">
+                {{ log.created_at | date }}
+                {{ log.created_at | date: "shortTime" }}
+              </td>
             </tr>
           }
         </tbody>

@@ -5,11 +5,12 @@ import { API } from '../../../../core/utils/constants.utils';
 import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { IconsModule } from '../../../../shared/icons/icons.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-latest-transactions',
   standalone: true,
-  imports: [LoadingComponent, PaginationComponent, IconsModule],
+  imports: [LoadingComponent, PaginationComponent, IconsModule, CommonModule],
   templateUrl: './latest-transactions.component.html',
 })
 export class LatestTransactionsComponent implements OnInit {
@@ -37,7 +38,8 @@ export class LatestTransactionsComponent implements OnInit {
     this.http.get(`${API}logs/user/${this.user.id}`).subscribe({
       next: (data: any) => {
         console.log(JSON.stringify(data[0]));
-        this.logs = data as ILog[];
+
+        this.logs = data.reverse() as ILog[];
         this.isLoading = false;
         // ** ---------- PAGINATION ---------- **//
         this.totalItems = this.logs.length;
@@ -52,48 +54,47 @@ export class LatestTransactionsComponent implements OnInit {
 }
 
 export interface ILog {
-  id: number
-  log_name: string
-  description: string
-  subject_type: string
-  event: string
-  subject_id: number
-  causer_type: string
-  causer_id: number
-  properties: IProperties
-  batch_uuid: any
-  created_at: string
-  updated_at: string
-  causer: ICauser
-  subject: ISubject
+  id: number;
+  log_name: string;
+  description: string;
+  subject_type: string;
+  event: string;
+  subject_id: number;
+  causer_type: string;
+  causer_id: number;
+  properties: IProperties;
+  batch_uuid: any;
+  created_at: string;
+  updated_at: string;
+  causer: ICauser;
+  subject: ISubject;
 }
 
 export interface IProperties {
-  old: any[]
-  attributes: any[]
+  old: any[];
+  attributes: any[];
 }
 
 export interface ICauser {
-  id: number
-  name: string
-  email: string
-  email_verified_at: any
-  role_id: number
-  image: string
-  deleted_at: any
-  created_at: string
-  updated_at: string
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: any;
+  role_id: number;
+  image: string;
+  deleted_at: any;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ISubject {
-  id: number
-  name: string
-  email: string
-  email_verified_at: any
-  role_id: number
-  image: string
-  deleted_at: any
-  created_at: string
-  updated_at: string
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: any;
+  role_id: number;
+  image: string;
+  deleted_at: any;
+  created_at: string;
+  updated_at: string;
 }
-
