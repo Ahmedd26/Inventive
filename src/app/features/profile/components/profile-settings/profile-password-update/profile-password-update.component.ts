@@ -15,7 +15,7 @@ export class ProfilePasswordUpdateComponent implements OnInit {
   current_passwordError = '';
   new_passwordError = '';
   new_password_confirmationError = '';
-
+  success = false;
   constructor(private usersService: UsersService) {}
 
   passwordForm(form: NgForm) {
@@ -28,6 +28,7 @@ export class ProfilePasswordUpdateComponent implements OnInit {
           const currentUserData = JSON.parse(localStorage.getItem('userData')!);
           currentUserData.user.name = res.name;
           localStorage.setItem('userData', JSON.stringify(currentUserData));
+          this.success = true;
         },
         error: (error: HttpErrorResponse) => {
           if (error?.error?.error?.current_password) {

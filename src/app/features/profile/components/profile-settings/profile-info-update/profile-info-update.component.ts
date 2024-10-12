@@ -12,7 +12,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ProfileInfoUpdateComponent implements OnInit {
   user!: IUser;
-
+  passwordError = '';
+  emailError = '';
+  success = false;
   constructor(private usersService: UsersService) {}
 
   profileInfoForm(form: NgForm) {
@@ -23,9 +25,15 @@ export class ProfileInfoUpdateComponent implements OnInit {
           const currentUserData = JSON.parse(localStorage.getItem('userData')!);
           currentUserData.user.name = res.name;
           localStorage.setItem('userData', JSON.stringify(currentUserData));
+          this.success = true;
         },
         error: (error: HttpErrorResponse) => {
-          console.error(error.error.message);
+          if (error?.error?.message) {
+            this.emailError = error.error.message;
+          }
+          if (error?.error?.error?.current_password) {
+            this.passwordError = error.error.error.current_password;
+          }
         },
       });
     }
