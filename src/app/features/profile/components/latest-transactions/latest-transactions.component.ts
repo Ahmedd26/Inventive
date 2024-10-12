@@ -6,6 +6,7 @@ import { LoadingComponent } from '../../../../shared/components/loading/loading.
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { IconsModule } from '../../../../shared/icons/icons.module';
 import { CommonModule } from '@angular/common';
+import { ActivityLogsService } from '../../../../core/services/activity-logs-service/activity-logs.service';
 
 @Component({
   selector: 'app-latest-transactions',
@@ -17,7 +18,7 @@ export class LatestTransactionsComponent implements OnInit {
   isLoading = false;
   user!: IUser;
   logs!: ILog[];
-  constructor(private http: HttpClient) {}
+  constructor(private activityLogsService: ActivityLogsService) {}
   //** ---------------------- START PAGINATION -------------------------- **//
   paginatedLogs: ILog[] = [];
   totalItems: number = 0;
@@ -35,21 +36,23 @@ export class LatestTransactionsComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.user = JSON.parse(localStorage.getItem('userData')!)?.user;
-    this.http.get(`${API}logs/user/${this.user.id}`).subscribe({
-      next: (data: any) => {
-        console.log(JSON.stringify(data[0]));
+    if (this.user.id) {
+      this.activityLogsService.get(this.user.id).subscribe({
+        next: (data: any) => {
+          console.log(JSON.stringify(data[0]));
 
-        this.logs = data.reverse() as ILog[];
-        this.isLoading = false;
-        // ** ---------- PAGINATION ---------- **//
-        this.totalItems = this.logs.length;
-        this.updatePaginatedLogs(1);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.isLoading = false;
-        console.error(error.message, error.status);
-      },
-    });
+          this.logs = data.reverse() as ILog[];
+          this.isLoading = false;
+          // ** ---------- PAGINATION ---------- **//
+          this.totalItems = this.logs.length;
+          this.updatePaginatedLogs(1);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.isLoading = false;
+          console.error(error.message, error.status);
+        },
+      });
+    }
   }
 }
 
