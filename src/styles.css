@@ -1,3 +1,6 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 /* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
@@ -14,14 +17,14 @@ i-feather {
 }
 
 .auth-input {
-  @apply bg-stone-50 border border-stone-300 text-stone-900 rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500;
+  @apply block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-stone-900 focus:border-amber-600 focus:ring-amber-600 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500;
 }
 .auth-invalid-input {
-  @apply bg-red-200 border border-red-600 placeholder:text-red-600 text-stone-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-red-950 dark:border-red-900 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500;
+  @apply block w-full rounded-lg border border-red-600 bg-red-200 p-2.5 text-stone-900 placeholder:text-red-600 focus:border-red-600 focus:ring-red-600 dark:border-red-900 dark:bg-red-950 dark:text-white dark:placeholder-red-400 dark:focus:border-red-500 dark:focus:ring-red-500;
 }
 
 .invalid-message {
-  @apply text-red-600 dark:text-red-600 font-semibold;
+  @apply font-semibold text-red-600 dark:text-red-600;
 }
 
 /**! IMP !**/
@@ -30,5 +33,5 @@ i-feather {
 }
 .image-skeleton::after {
   content: "";
-  @apply absolute -z-10 bg-stone-200 dark:bg-stone-700 inset-0 w-full h-full animate-pulse;
+  @apply absolute inset-0 -z-10 h-full w-full animate-pulse bg-stone-200 dark:bg-stone-700;
 }
