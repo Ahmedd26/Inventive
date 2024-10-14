@@ -80,7 +80,8 @@ export class TopSellingProductsComponent implements OnInit {
 
     this.basicOptions = {
       indexAxis: 'y',
-      aspectRatio: 2,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
       plugins: {
         legend: {
           labels: {

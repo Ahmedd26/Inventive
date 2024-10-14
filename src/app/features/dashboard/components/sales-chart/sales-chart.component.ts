@@ -55,7 +55,7 @@ export class SalesChartComponent implements OnInit {
       labels: res[0],
       datasets: [
         {
-          label: 'Most selling Products',
+          label: 'Profit',
           // data: [540, 325, 702, 620],
           data: res[1],
           backgroundColor: [
@@ -70,14 +70,15 @@ export class SalesChartComponent implements OnInit {
             'rgb(54, 162, 235)',
             'rgb(153, 102, 255)',
           ],
-          borderWidth: 2,
+          borderWidth: 4,
           tension: 0.4,
         },
       ],
     };
 
     this.basicOptions = {
-      aspectRatio: 2,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
       plugins: {
         legend: {
           labels: {
