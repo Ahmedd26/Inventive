@@ -28,7 +28,7 @@ export class SalesChartComponent implements OnInit {
   }
 
   fetchData(timeRange: number): void {
-    this.chartsService.sales(10, timeRange).subscribe((res: any) => {
+    this.chartsService.sales(timeRange).subscribe((res: any) => {
       this.generateChart(res);
     });
   }

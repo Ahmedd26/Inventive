@@ -1,6 +1,18 @@
 <h1 class="mb-5 text-2xl font-semibold">Dashboard</h1>
 
 <div class="grid grid-cols-1 gap-6 xl:grid-cols-4">
+  <div class="col-span-1">
+    <app-profit-amount-widget [value]="widgetsData.profit.value" />
+  </div>
+  <div class="col-span-1">
+    <app-sales-orders-count-widget [value]="widgetsData.sales.value" />
+  </div>
+  <div class="col-span-1">
+    <app-product-count-widget [value]="widgetsData.products.value" />
+  </div>
+  <div class="col-span-1">
+    <app-categories-count-widget [value]="widgetsData.categories.value" />
+  </div>
   <div class="xl:col-span-2">
     <app-top-selling-products />
   </div>
