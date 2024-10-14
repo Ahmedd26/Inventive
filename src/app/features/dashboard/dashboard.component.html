@@ -1,6 +1,6 @@
 <h1 class="mb-5 text-2xl font-semibold">Dashboard</h1>
 
-<div class="grid grid-cols-1 gap-6 xl:grid-cols-4">
+<div class="grid grid-cols-1 items-stretch gap-6 xl:grid-cols-4">
   <div class="col-span-1">
     <app-profit-amount-widget [value]="widgetsData.profit.value" />
   </div>
@@ -16,8 +16,8 @@
   <div class="xl:col-span-2">
     <app-top-selling-products />
   </div>
-  <div class="xl:col-span-2">
-    <app-top-selling-products />
+  <div class="h-full xl:col-span-2">
+    <app-category-per-products-pie />
   </div>
   <div class="xl:col-span-4">
     <app-sales-chart />

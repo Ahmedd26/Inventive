@@ -1,0 +1,15 @@
+<div
+  class="h-full w-full rounded-lg bg-white stroke-red-600 p-6 shadow dark:bg-stone-800"
+>
+  <h4 class="mb-4 text-xl font-semibold">Categories with most products</h4>
+  <p-chart
+    type="pie"
+    [data]="basicData"
+    [options]="basicOptions"
+    [responsive]="true"
+  />
+</div>
+
+<div id="primaryText" class="text-amber-600"></div>
+<div id="secondaryText" class="text-stone-400"></div>
+<div id="gridColor" class="text-stone-400/25"></div>

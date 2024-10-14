@@ -5,7 +5,8 @@ import { SalesChartComponent } from './components/sales-chart/sales-chart.compon
 import { ProfitAmountWidgetComponent } from './components/widgets/profit-amount-widget/profit-amount-widget.component';
 import { SalesOrdersCountWidgetComponent } from './components/widgets/sales-orders-count-widget/sales-orders-count-widget.component';
 import { ProductCountWidgetComponent } from './components/widgets/product-count-widget/product-count-widget.component';
-import { CategoriesCountWidgetComponent } from "./components/widgets/categories-count-widget/categories-count-widget.component";
+import { CategoriesCountWidgetComponent } from './components/widgets/categories-count-widget/categories-count-widget.component';
+import { CategoryPerProductsPieComponent } from './components/category-per-products-pie/category-per-products-pie.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +17,9 @@ import { CategoriesCountWidgetComponent } from "./components/widgets/categories-
     ProfitAmountWidgetComponent,
     SalesOrdersCountWidgetComponent,
     ProductCountWidgetComponent,
-    CategoriesCountWidgetComponent
-],
+    CategoriesCountWidgetComponent,
+    CategoryPerProductsPieComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
