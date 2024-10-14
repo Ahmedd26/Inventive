@@ -1,0 +1,29 @@
+<div
+  class="w-full rounded-lg bg-white stroke-red-600 p-6 shadow dark:bg-stone-800"
+>
+  <div class="flex items-center justify-between gap-4">
+    <h4 class="mb-4 text-xl font-semibold">Best Selling Products</h4>
+    <select
+      class="block w-36 rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+      (change)="onTimeRangeChange($event)"
+    >
+      <option value="null">Choose time range</option>
+      @for (range of timeRange; track range.label) {
+        <option [value]="range.value" [selected]="range.value === 7">
+          {{ range.label }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <p-chart
+    type="bar"
+    [data]="basicData"
+    [options]="basicOptions"
+    [responsive]="true"
+  />
+</div>
+
+<div id="primaryText" class="text-amber-600"></div>
+<div id="secondaryText" class="text-stone-400"></div>
+<div id="gridColor" class="text-stone-400/25"></div>

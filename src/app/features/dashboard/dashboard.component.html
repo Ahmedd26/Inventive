@@ -1,8 +1,10 @@
-<p>dashboard works!</p>
-<div id="primaryText" class="text-amber-600"></div>
-<div id="secondaryText" class="text-stone-400"></div>
-<div
-  class="w-96 rounded-lg bg-white stroke-red-600 p-6 shadow dark:bg-stone-800"
->
-  <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+<h1 class="mb-5 text-2xl font-semibold">Dashboard</h1>
+
+<div class="grid grid-cols-1 gap-6 xl:grid-cols-4">
+  <div class="xl:col-span-2">
+    <app-top-selling-products />
+  </div>
+  <div class="xl:col-span-2">
+    <app-top-selling-products />
+  </div>
 </div>
