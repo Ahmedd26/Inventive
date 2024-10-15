@@ -18,15 +18,13 @@ import { CreatePurchaseComponent } from './features/orders/components/create-pur
 import { OrdersComponent } from './features/orders/orders.component';
 import { SelectOrderTypeComponent } from './features/orders/components/select-order-type/select-order-type.component';
 import { ShowPurchaseOrderComponent } from './features/purchases/components/show-purchase-order/show-purchase-order.component';
-import { WarehouseComponent } from './features/warehouses/warehouse/warehouse.component';
 import { CreateSaleComponent } from './features/orders/components/create-sale/create-sale.component';
 import { ShowSaleOrderComponent } from './features/sales/components/show-sale-order/show-sale-order.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { ProfileSettingsComponent } from './features/profile/components/profile-settings/profile-settings.component';
 import { LatestTransactionsComponent } from './features/profile/components/latest-transactions/latest-transactions.component';
 import { ShowUserComponent } from './features/users/components/show-user/show-user.component';
-import { WarehouseDetailsComponent } from './features/warehouses/warehouse-details/warehouse-details.component';
-import { InventoryComponent } from './features/warehouses/inventory/inventory.component';
+import { WarehouseComponent } from './features/warehouse/warehouse.component';
 
 export const routes: Routes = [
   {
@@ -150,23 +148,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'inventory',
-    title: 'Inventory',
-    component: InventoryComponent,
-    pathMatch: 'full',
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'warehouses',
-    title: 'Warehouses',
+    path: 'warehouse',
+    title: 'Warehouse',
     component: WarehouseComponent,
-    pathMatch: 'full',
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'warehouse-details',
-    title: 'Warehouse Details',
-    component: WarehouseDetailsComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
