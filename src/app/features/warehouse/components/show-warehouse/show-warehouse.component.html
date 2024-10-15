@@ -1,0 +1,159 @@
+@if (isLoading) {
+  <app-loading />
+}
+<div class="relatve">
+  <div
+    class="mx-auto max-w-3xl rounded-lg bg-white p-8 shadow dark:bg-stone-800"
+  >
+    <h1 class="mb-5 text-center text-4xl font-bold">
+      {{ warehouse.name }} warehouse
+    </h1>
+
+    <div class="mb-5">
+      <p
+        class="flex justify-center gap-2 text-sm text-stone-600 dark:text-stone-500"
+      >
+        Created at
+        {{ warehouse.created_at | date }}
+        {{ warehouse.created_at | date: "shortTime" }}
+      </p>
+    </div>
+
+    <form #warehouseInfo="ngForm" (ngSubmit)="warehouseForm(warehouseInfo)">
+      <div class="mx-auto grid grid-cols-1 gap-4">
+        <div class="relative">
+          <input
+            type="text"
+            ngModel
+            [(ngModel)]="warehouse.name"
+            name="name"
+            id="name"
+            class="border-1 peer block w-full appearance-none rounded-lg border-stone-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-stone-900 focus:border-amber-600 focus:outline-none focus:ring-0 dark:border-stone-600 dark:text-white dark:focus:border-amber-500"
+            placeholder=" "
+          />
+          <label
+            for="name"
+            class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-800 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            >Name</label
+          >
+        </div>
+        <div class="relative">
+          <input
+            type="text"
+            ngModel
+            [(ngModel)]="warehouse.location"
+            name="location"
+            id="location"
+            class="border-1 peer block w-full appearance-none rounded-lg border-stone-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-stone-900 focus:border-amber-600 focus:outline-none focus:ring-0 dark:border-stone-600 dark:text-white dark:focus:border-amber-500"
+            placeholder=" "
+          />
+          <label
+            for="location"
+            class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-800 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            >Location</label
+          >
+        </div>
+        <div class="relative">
+          <input
+            type="text"
+            ngModel
+            [(ngModel)]="warehouse.total_capacity"
+            name="total_capacity"
+            id="total_capacity"
+            class="border-1 peer block w-full appearance-none rounded-lg border-stone-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-stone-900 focus:border-amber-600 focus:outline-none focus:ring-0 dark:border-stone-600 dark:text-white dark:focus:border-amber-500"
+            placeholder=" "
+          />
+          <label
+            for="total_capacity"
+            class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-800 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            >Total Capacity</label
+          >
+        </div>
+        @if (success) {
+          <!-- <div class="mt-5 text-center text-lg font-semibold text-green-500">
+          {{ success }}
+        </div> -->
+        }
+
+        <div class="mt-5 flex flex-row-reverse items-center justify-between">
+          <button
+            type="submit"
+            class="rounded-lg border border-amber-700 px-5 py-2.5 text-center text-sm font-medium text-amber-700 duration-200 hover:bg-amber-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-amber-300 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-500 dark:hover:text-white dark:focus:ring-amber-800"
+          >
+            Update
+          </button>
+          <app-delete-warehouse [id]="warehouse.id" />
+        </div>
+      </div>
+    </form>
+  </div>
+  @if (success) {
+    <div
+      id="toast-success"
+      class="absolute right-4 top-24 mb-4 flex w-full max-w-xs items-center rounded-lg bg-white p-4 text-gray-500 shadow dark:bg-gray-800 dark:text-gray-400"
+      role="alert"
+    >
+      <div
+        class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200"
+      >
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"
+          />
+        </svg>
+        <span class="sr-only">Check icon</span>
+      </div>
+      <div class="ms-3 text-sm font-normal">
+        Warehouse updated successfully.
+      </div>
+      <button
+        type="button"
+        class="-mx-1.5 -my-1.5 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-white"
+        data-dismiss-target="#toast-success"
+        aria-label="Close"
+        (click)="success = ''"
+      >
+        <span class="sr-only">Close</span>
+        <svg
+          class="h-3 w-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+      </button>
+    </div>
+  }
+</div>
+@if (warehouse.sections.length > 0) {
+  <h3
+    class="mt-8 inline-block text-lg font-semibold text-stone-600 dark:text-stone-400"
+  >
+    {{ warehouse.sections.length }} Sections
+  </h3>
+  <div
+    class="mt-4 flex flex-wrap items-stretch justify-center gap-4 md:justify-start"
+  >
+    @for (section of warehouse.sections; track section.id) {
+      <app-warehouse-section-card [section]="section" />
+    }
+    <app-create-warehouse-section
+      [warehouseId]="warehouse.id"
+      (newSection)="addSection($event)"
+    />
+  </div>
+}

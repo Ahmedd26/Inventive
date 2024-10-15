@@ -5,11 +5,17 @@ import { IWarehouse } from './warehouse.model';
 import { IconsModule } from '../../shared/icons/icons.module';
 import { SectionTypeSvgComponent } from './components/section-type-svg/section-type-svg.component';
 import { WarehouseCardComponent } from './components/ui/warehouse-card/warehouse-card.component';
+import { LoadingComponent } from '../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-warehouse',
   standalone: true,
-  imports: [IconsModule, SectionTypeSvgComponent, WarehouseCardComponent],
+  imports: [
+    IconsModule,
+    SectionTypeSvgComponent,
+    WarehouseCardComponent,
+    LoadingComponent,
+  ],
   templateUrl: './warehouse.component.html',
 })
 export class WarehouseComponent implements OnInit {

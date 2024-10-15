@@ -17,7 +17,7 @@ export class CustomModalComponent {
   @Input({ required: true }) buttonText!: string;
   @Input({ required: true }) buttonClasses!: string;
   @Input({ required: true }) modalHeader!: string;
-  @Input({ required: true }) acceptButtonText!: string;
+  @Input() acceptButtonText!: string;
   @Input() iconName!: string;
   @Input() declineButtonText!: string;
   @Input() disabled: boolean = false;

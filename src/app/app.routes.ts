@@ -25,6 +25,8 @@ import { ProfileSettingsComponent } from './features/profile/components/profile-
 import { LatestTransactionsComponent } from './features/profile/components/latest-transactions/latest-transactions.component';
 import { ShowUserComponent } from './features/users/components/show-user/show-user.component';
 import { WarehouseComponent } from './features/warehouse/warehouse.component';
+import { ShowWarehouseComponent } from './features/warehouse/components/show-warehouse/show-warehouse.component';
+import { ShowWarehouseSectionComponent } from './features/warehouse/components/show-warehouse-section/show-warehouse-section.component';
 
 export const routes: Routes = [
   {
@@ -151,6 +153,20 @@ export const routes: Routes = [
     path: 'warehouse',
     title: 'Warehouse',
     component: WarehouseComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'warehouse/:id',
+    title: 'Warehouse',
+    component: ShowWarehouseComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'warehouse-section/:id',
+    title: 'Warehouse Section',
+    component: ShowWarehouseSectionComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
