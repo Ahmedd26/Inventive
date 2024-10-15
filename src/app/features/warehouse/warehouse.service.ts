@@ -1,10 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API } from '../../core/utils/constants.utils';
+import { IWarehouse } from './warehouse.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WarehouseService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
+  getAllWarehouses() {
+    return this.http.get<IWarehouse[]>(`${API}warehouse-index`);
+  }
 }
 
 // all the endpoints for the inventory controller

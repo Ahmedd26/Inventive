@@ -35,3 +35,7 @@ i-feather {
   content: "";
   @apply absolute inset-0 -z-10 h-full w-full animate-pulse bg-stone-200 dark:bg-stone-700;
 }
+
+.clipped-title {
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+}
