@@ -32,6 +32,7 @@ export class ShowWarehouseComponent implements OnInit {
   warehouse!: IWarehouse;
   warehouseName = '';
   success = '';
+  capacityErrorMessage = '';
   constructor(
     private activatedRoute: ActivatedRoute,
     private warehouseService: WarehouseService,
@@ -48,6 +49,7 @@ export class ShowWarehouseComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);
+          this.capacityErrorMessage = error.error.message;
         },
       });
   }
