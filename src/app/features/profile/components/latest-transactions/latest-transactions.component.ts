@@ -39,8 +39,6 @@ export class LatestTransactionsComponent implements OnInit {
     if (this.user.id) {
       this.activityLogsService.get(this.user.id).subscribe({
         next: (data: any) => {
-          console.log(JSON.stringify(data[0]));
-
           this.logs = data.reverse() as ILog[];
           this.isLoading = false;
           // ** ---------- PAGINATION ---------- **//
