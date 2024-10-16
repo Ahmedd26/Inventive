@@ -8,6 +8,9 @@ import { IWarehouse } from './warehouse.model';
 })
 export class WarehouseService {
   constructor(private http: HttpClient) {}
+  createWarehouse(body: IWarehouse) {
+    return this.http.post<IWarehouse>(`${API}warehouse-store`, body);
+  }
   getAllWarehouses() {
     return this.http.get<IWarehouse[]>(`${API}warehouse-index`);
   }
@@ -27,8 +30,7 @@ export class WarehouseService {
     );
   }
 
-
-  createWarehouseSection(body:any){
+  createWarehouseSection(body: any) {
     return this.http.post(`${API}warehouseSection-store`, body);
   }
 }

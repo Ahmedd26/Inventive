@@ -6,6 +6,7 @@ import { IconsModule } from '../../shared/icons/icons.module';
 import { SectionTypeSvgComponent } from './components/section-type-svg/section-type-svg.component';
 import { WarehouseCardComponent } from './components/ui/warehouse-card/warehouse-card.component';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
+import { CreateWarehouseModalComponent } from './components/create-warehouse-modal/create-warehouse-modal.component';
 
 @Component({
   selector: 'app-warehouse',
@@ -15,6 +16,7 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
     SectionTypeSvgComponent,
     WarehouseCardComponent,
     LoadingComponent,
+    CreateWarehouseModalComponent,
   ],
   templateUrl: './warehouse.component.html',
 })
@@ -22,6 +24,10 @@ export class WarehouseComponent implements OnInit {
   isLoading = false;
   warehouses: IWarehouse[] = [];
   constructor(private warehouseService: WarehouseService) {}
+
+  addNewWarehouse(warehouse: IWarehouse) {
+    this.warehouses.push(warehouse);
+  }
 
   ngOnInit(): void {
     this.isLoading = true;

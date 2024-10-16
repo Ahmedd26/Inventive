@@ -1,7 +1,10 @@
 @if (isLoading) {
   <app-loading />
 }
-<h1 class="mb-5 text-2xl font-semibold">Warehouse</h1>
+<div class="flex items-center justify-between">
+  <h1 class="mb-8 text-2xl font-semibold">Warehouse</h1>
+  <app-create-warehouse-modal (newWarehouse)="addNewWarehouse($event)" />
+</div>
 
 <div class="grid gap-4">
   @for (warehouse of warehouses; track warehouse.id) {
