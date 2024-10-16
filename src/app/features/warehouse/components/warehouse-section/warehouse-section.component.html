@@ -27,14 +27,17 @@
         </p>
       </div>
       <!-- CONTROLS -->
-      <div class="ms-auto">
+      <div class="ms-auto flex items-center gap-4">
         <!-- EDIT SECTION -->
         <app-update-warehouse-section-modal
           [IncomingSection]="section"
           (updatedSection)="modifySections($event)"
         />
         <!-- DELETE SECTION -->
-        <app-delete-warehouse-section-modal [sectionId]="section.id" />
+        <app-delete-warehouse-section-modal
+          [sectionId]="section.id"
+          [warehouseId]="section.warehouse_id"
+        />
       </div>
     </div>
   </div>

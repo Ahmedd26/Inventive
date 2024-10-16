@@ -44,6 +44,12 @@ export class WarehouseService {
       body,
     );
   }
+  deleteWarehouseSection(id: number | string) {
+    return this.http.post<any>(
+      `${API}warehouseSection-destroy/${id}?_method=delete`,
+      null,
+    );
+  }
 }
 
 // all the endpoints for the inventory controller
