@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../../../products/components/product-card/product-card.component';
 import { UpdateWarehouseSectionModalComponent } from './update-warehouse-section-modal/update-warehouse-section-modal.component';
 import { DeleteWarehouseSectionModalComponent } from './delete-warehouse-section-modal/delete-warehouse-section-modal.component';
+import { NotFoundComponent } from '../../../../shared/not-found/not-found.component';
+import { LoadingComponent } from "../../../../shared/components/loading/loading.component";
 
 @Component({
   selector: 'app-warehouse-section',
@@ -17,7 +19,9 @@ import { DeleteWarehouseSectionModalComponent } from './delete-warehouse-section
     ProductCardComponent,
     UpdateWarehouseSectionModalComponent,
     DeleteWarehouseSectionModalComponent,
-  ],
+    NotFoundComponent,
+    LoadingComponent
+],
   templateUrl: './warehouse-section.component.html',
 })
 export class WarehouseSectionComponent implements OnInit {

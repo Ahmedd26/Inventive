@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { WarehouseSectionCardComponent } from '../ui/warehouse-section-card/warehouse-section-card.component';
 import { CustomModalComponent } from '../../../../shared/components/custom-modal/custom-modal.component';
 import { CreateWarehouseSectionComponent } from './create-warehouse-section/create-warehouse-section.component';
+import { NotFoundComponent } from '../../../../shared/not-found/not-found.component';
 
 @Component({
   selector: 'app-show-warehouse',
@@ -22,6 +23,7 @@ import { CreateWarehouseSectionComponent } from './create-warehouse-section/crea
     WarehouseSectionCardComponent,
     CustomModalComponent,
     CreateWarehouseSectionComponent,
+    NotFoundComponent,
   ],
   templateUrl: './show-warehouse.component.html',
 })

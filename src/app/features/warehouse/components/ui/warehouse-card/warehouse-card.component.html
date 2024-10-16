@@ -34,7 +34,7 @@
       {{ warehouse.sections.length }} Sections
     </h3>
     <div class="mt-4 flex flex-wrap items-center justify-center gap-4 p-4">
-      @for (section of warehouse.sections; track section.id) {
+      @for (section of warehouse.sections.slice(0, 5); track section.id) {
         <app-warehouse-section-card [section]="section" />
       }
     </div>

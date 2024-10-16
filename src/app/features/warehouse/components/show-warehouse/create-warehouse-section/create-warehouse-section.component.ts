@@ -20,7 +20,7 @@ export class CreateWarehouseSectionComponent {
   @Output() newSection = new EventEmitter();
   @ViewChild('createSectionModal') createSectionModal!: CustomModalComponent;
   errorMessage: string = '';
-  capacityErrorMessage=''
+  capacityErrorMessage = '';
   constructor(private warehouseService: WarehouseService) {}
 
   openModal() {
@@ -47,6 +47,7 @@ export class CreateWarehouseSectionComponent {
     this.warehouseService.createWarehouseSection(body).subscribe({
       next: (res) => {
         this.newSection.emit(res);
+        this.createSectionModal.closeModal();
       },
       error: (error) => {
         this.capacityErrorMessage = error.error.message;
