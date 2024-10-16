@@ -37,7 +37,9 @@ export class CreateWarehouseModalComponent {
   createWarehouse(form: NgForm) {
     this.warehouseService.createWarehouse(form.value).subscribe({
       next: (res) => {
-        this.newWarehouse.emit(res);
+        const warehouse = { ...res, sections: [] };
+        this.newWarehouse.emit(warehouse);
+        this.createWarehouseModal.closeModal();
       },
       error: (error) => {
         if (error.error.errors) {

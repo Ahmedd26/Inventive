@@ -1,32 +1,34 @@
 <div class="rounded-lg bg-white shadow dark:bg-stone-800">
-  <div
-    [ngClass]="warehouse.sections.length > 0 ? 'border-b' : ''"
-    class="flex items-center justify-between border-stone-200 p-4 dark:border-stone-700"
-  >
-    <div class="space-y-2">
-      <a
-        [routerLink]="['/warehouse', warehouse.id]"
-        class="mb-2 text-3xl font-extrabold capitalize text-stone-700 dark:text-stone-200 dark:hover:text-white"
-      >
-        {{ warehouse.name }} Warehouse
-      </a>
-      <h5
-        class="flex items-center gap-2 text-lg font-semibold capitalize text-stone-500 dark:text-stone-400"
-      >
-        <i-feather name="map-pin" />
-        {{ warehouse.location }}
-      </h5>
+  @if (warehouse.sections) {
+    <div
+      [ngClass]="warehouse.sections.length > 0 ? 'border-b' : ''"
+      class="flex items-center justify-between border-stone-200 p-4 dark:border-stone-700"
+    >
+      <div class="space-y-2">
+        <a
+          [routerLink]="['/warehouse', warehouse.id]"
+          class="mb-2 text-3xl font-extrabold capitalize text-stone-700 dark:text-stone-200 dark:hover:text-white"
+        >
+          {{ warehouse.name }} Warehouse
+        </a>
+        <h5
+          class="flex items-center gap-2 text-lg font-semibold capitalize text-stone-500 dark:text-stone-400"
+        >
+          <i-feather name="map-pin" />
+          {{ warehouse.location }}
+        </h5>
+      </div>
+      <div class="space-y-2">
+        <span
+          class="text-md flex items-center justify-center gap-2 rounded bg-amber-100 px-2.5 py-0.5 font-medium text-amber-800 dark:bg-amber-900 dark:text-amber-300"
+        >
+          <i-feather name="archive" />
+          {{ warehouse.total_capacity }}
+        </span>
+        <h6 class="text-xs">Total Capacity</h6>
+      </div>
     </div>
-    <div class="space-y-2">
-      <span
-        class="text-md flex items-center justify-center gap-2 rounded bg-amber-100 px-2.5 py-0.5 font-medium text-amber-800 dark:bg-amber-900 dark:text-amber-300"
-      >
-        <i-feather name="archive" />
-        {{ warehouse.total_capacity }}
-      </span>
-      <h6 class="text-xs">Total Capacity</h6>
-    </div>
-  </div>
+  }
   @if (warehouse.sections && warehouse.sections.length > 0) {
     <h3
       class="clipped-title inline-block bg-stone-100 p-3 pr-10 text-lg font-semibold text-stone-600 dark:bg-stone-900/40 dark:text-stone-400"

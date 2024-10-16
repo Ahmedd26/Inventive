@@ -4,6 +4,7 @@ import { IconsModule } from '../../../../../shared/icons/icons.module';
 import { RouterLink } from '@angular/router';
 import { IWarehouse } from '../../../warehouse.model';
 import { WarehouseSectionCardComponent } from '../warehouse-section-card/warehouse-section-card.component';
+import { NotFoundComponent } from '../../../../../shared/not-found/not-found.component';
 
 @Component({
   selector: 'app-warehouse-card',
@@ -13,6 +14,7 @@ import { WarehouseSectionCardComponent } from '../warehouse-section-card/warehou
     IconsModule,
     RouterLink,
     WarehouseSectionCardComponent,
+    NotFoundComponent,
   ],
   templateUrl: './warehouse-card.component.html',
 })
