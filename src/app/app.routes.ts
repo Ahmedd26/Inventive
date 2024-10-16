@@ -26,7 +26,7 @@ import { LatestTransactionsComponent } from './features/profile/components/lates
 import { ShowUserComponent } from './features/users/components/show-user/show-user.component';
 import { WarehouseComponent } from './features/warehouse/warehouse.component';
 import { ShowWarehouseComponent } from './features/warehouse/components/show-warehouse/show-warehouse.component';
-import { ShowWarehouseSectionComponent } from './features/warehouse/components/show-warehouse-section/show-warehouse-section.component';
+import { WarehouseSectionComponent } from './features/warehouse/components/warehouse-section/warehouse-section.component';
 
 export const routes: Routes = [
   {
@@ -166,7 +166,7 @@ export const routes: Routes = [
   {
     path: 'warehouse-section/:id',
     title: 'Warehouse Section',
-    component: ShowWarehouseSectionComponent,
+    component: WarehouseSectionComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },

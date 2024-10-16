@@ -7,6 +7,7 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +18,7 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
     CommonModule,
     RouterLink,
     PaginationComponent,
+    ProductCardComponent,
   ],
   templateUrl: './products.component.html',
 })

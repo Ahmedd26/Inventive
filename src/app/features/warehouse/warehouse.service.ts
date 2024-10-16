@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '../../core/utils/constants.utils';
-import { IWarehouse } from './warehouse.model';
+import { type ISection, type IWarehouse } from './warehouse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,17 @@ export class WarehouseService {
 
   createWarehouseSection(body: any) {
     return this.http.post(`${API}warehouseSection-store`, body);
+  }
+
+  getWarehouseSection(id: number | string) {
+    return this.http.get<ISection>(`${API}warehouseSection-show/${id}`);
+  }
+
+  updateWarehouseSection(id: number | string, body: ISection) {
+    return this.http.post<ISection>(
+      `${API}warehouseSection-update/${id}?_method=put`,
+      body,
+    );
   }
 }
 
