@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    @for (category of categories; track category.id) {
+    @for (category of paginatedCategories; track category.id) {
       <div class="mb-4">
         <h2 class="text-3xl font-bold text-stone-700 dark:text-stone-200">
           {{ category.name }}
@@ -23,6 +23,13 @@
         }
       </div>
     }
+  </div>
+  <div class="mt-12">
+    <app-pagination
+      [totalItems]="totalItems"
+      [itemsPerPage]="itemsPerPage"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
   </div>
   @if (categories) {
   } @else {
