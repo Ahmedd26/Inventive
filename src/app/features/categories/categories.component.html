@@ -10,18 +10,10 @@
     </div>
 
     @for (category of paginatedCategories; track category.id) {
-      <div class="mb-4">
-        <h2 class="text-3xl font-bold text-stone-700 dark:text-stone-200">
-          {{ category.name }}
-        </h2>
-        @if (category.products && category.products.length > 0) {
-          <app-category-product [products]="category.products" />
-        } @else {
-          <h4 class="mt-4 text-xl text-stone-700 dark:text-stone-600">
-            There is not product assigned to this category to be found
-          </h4>
-        }
-      </div>
+      <app-category-card
+        [category]="category"
+        (deletedCategoryId)="removeCategory($event)"
+      />
     }
   </div>
   <div class="mt-12">

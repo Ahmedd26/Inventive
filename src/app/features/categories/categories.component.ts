@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from './categories.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoadingComponent } from '../../shared/components/loading/loading.component';
 import { NotFoundComponent } from '../../shared/not-found/not-found.component';
-import { type ICategory } from './categories.model';
-import { CategoryProductComponent } from './components/category-product/category-product.component';
 import { CreateCategoryModalComponent } from './components/create-category-modal/create-category-modal.component';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { CategoryCardComponent } from './components/category-card/category-card.component';
+import { CategoriesService } from './categories.service';
+import { type ICategory } from './categories.model';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   imports: [
     FormsModule,
-    NgIf,
     LoadingComponent,
     NotFoundComponent,
-    CategoryProductComponent,
     CreateCategoryModalComponent,
     PaginationComponent,
+    CategoryCardComponent,
   ],
   templateUrl: './categories.component.html',
 })
@@ -46,7 +44,12 @@ export class CategoriesComponent implements OnInit {
   //** ---------------------- END PAGINATION -------------------------- **//
 
   addNewCategory(category: ICategory) {
-    this.categories.push(category);
+    this.categories.unshift(category);
+    this.updatePaginatedCategories(1);
+  }
+  removeCategory(id: number | string) {
+    this.categories = this.categories.filter((category) => category.id !== id);
+    this.updatePaginatedCategories(1);
   }
 
   ngOnInit(): void {

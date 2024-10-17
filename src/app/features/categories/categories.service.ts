@@ -12,7 +12,7 @@ export class CategoriesService {
   constructor(private http: HttpClient) {}
 
   get(id: number | string) {
-    return this.http.get<ICategory[]>(ENDPOINT + id);
+    return this.http.get<ICategory>(ENDPOINT + id);
   }
 
   getAll() {
@@ -27,6 +27,6 @@ export class CategoriesService {
     return this.http.post<any>(`${ENDPOINT}${id}?_method=delete`, null);
   }
   update(id: number | string, body: ICategory) {
-    return this.http.post<ICategory>(`${ENDPOINT}${id}?_method=delete`, body);
+    return this.http.post<ICategory>(`${ENDPOINT}${id}?_method=put`, body);
   }
 }
