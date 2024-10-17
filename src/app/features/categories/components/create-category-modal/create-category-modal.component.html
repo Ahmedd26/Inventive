@@ -1,0 +1,54 @@
+<custom-modal
+  buttonText=""
+  iconName="plus-circle"
+  buttonClasses="text-4xl text-stone-700 duration-150 hover:text-amber-700 dark:text-stone-400 dark:hover:text-amber-600"
+  [modalHeader]="'Add new category'"
+  #createCategoryModal
+>
+  <form>
+    <form #createCategory="ngForm" (ngSubmit)="create(createCategory)">
+      <div class="mx-auto grid grid-cols-1 gap-4">
+        <div>
+          <div class="relative">
+            <input
+              type="text"
+              ngModel
+              name="name"
+              id="name"
+              required
+              class="border-1 peer block w-full appearance-none rounded-lg border-stone-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-stone-900 focus:border-amber-600 focus:outline-none focus:ring-0 dark:border-stone-600 dark:text-white dark:focus:border-amber-500"
+              placeholder=" "
+            />
+            <label
+              for="name"
+              class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-stone-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-amber-600 dark:bg-stone-800 dark:text-stone-400 peer-focus:dark:text-amber-500 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+              >Category name</label
+            >
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between gap-4">
+          <!-- Back-end Validations -->
+          @if (backendErrorMessages) {
+            <p class="text-sm text-red-500">
+              {{ backendErrorMessages }}
+            </p>
+          }
+          <!-- Front-end Validations -->
+          @if (frontEndErrorMessages) {
+            <p class="text-sm text-red-500">
+              {{ frontEndErrorMessages }}
+            </p>
+          }
+          <button
+            type="submit"
+            [disabled]="createCategory.invalid"
+            class="ms-auto rounded-lg border border-amber-700 px-5 py-2.5 text-center text-sm font-medium text-amber-700 duration-200 hover:bg-amber-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-amber-300 disabled:cursor-not-allowed dark:border-amber-500 dark:text-amber-500 dark:hover:bg-amber-500 dark:hover:text-white dark:focus:ring-amber-800"
+          >
+            Add category
+          </button>
+        </div>
+      </div>
+    </form>
+  </form>
+</custom-modal>

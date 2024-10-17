@@ -4,7 +4,9 @@
   <div class="">
     <div class="mb-8 flex items-center justify-between">
       <h1 class="text-2xl font-semibold">Categories</h1>
-      <!-- <app-create-category-modal (newCategory)="addNewCategory($event)" /> -->
+      <div class="flex items-center gap-2">
+        <app-create-category-modal (newCategory)="addNewCategory($event)" />
+      </div>
     </div>
 
     @for (category of categories; track category.id) {
@@ -12,8 +14,12 @@
         <h2 class="text-3xl font-bold text-stone-700 dark:text-stone-200">
           {{ category.name }}
         </h2>
-        @if (category.products) {
+        @if (category.products && category.products.length > 0) {
           <app-category-product [products]="category.products" />
+        } @else {
+          <h4 class="mt-4 text-xl text-stone-700 dark:text-stone-600">
+            There is not product assigned to this category to be found
+          </h4>
         }
       </div>
     }

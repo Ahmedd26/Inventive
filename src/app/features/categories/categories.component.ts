@@ -7,6 +7,7 @@ import { LoadingComponent } from '../../shared/components/loading/loading.compon
 import { NotFoundComponent } from '../../shared/not-found/not-found.component';
 import { type ICategory } from './categories.model';
 import { CategoryProductComponent } from './components/category-product/category-product.component';
+import { CreateCategoryModalComponent } from './components/create-category-modal/create-category-modal.component';
 
 @Component({
   selector: 'app-categories',
@@ -17,6 +18,7 @@ import { CategoryProductComponent } from './components/category-product/category
     LoadingComponent,
     NotFoundComponent,
     CategoryProductComponent,
+    CreateCategoryModalComponent,
   ],
   templateUrl: './categories.component.html',
 })
@@ -25,6 +27,10 @@ export class CategoriesComponent implements OnInit {
   categories!: ICategory[];
 
   constructor(private categoriesService: CategoriesService) {}
+
+  addNewCategory(category: ICategory) {
+    this.categories.push(category);
+  }
 
   ngOnInit(): void {
     this.isLoading = true;
