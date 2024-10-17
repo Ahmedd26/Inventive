@@ -5,26 +5,28 @@ import { ICategory } from './categories.model';
 
 const ENDPOINT = `${API}categories/`;
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class CategoriesService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getAllCategories() {
-    return this.http.get<ICategory[]>(ENDPOINT)
+  get(id: number | string) {
+    return this.http.get<ICategory[]>(ENDPOINT + id);
   }
 
-  createNewCategory(category: ICategory) {
-    return this.http.post<ICategory>(ENDPOINT, category)
+  getAll() {
+    return this.http.get<ICategory[]>(ENDPOINT);
   }
 
-  deleteCategory(categId: any) {
-    return this.http.delete(ENDPOINT + categId)
+  create(category: ICategory) {
+    return this.http.post<ICategory>(ENDPOINT, category);
   }
 
-
+  delete(id: number | string) {
+    return this.http.post<any>(`${ENDPOINT}${id}?_method=delete`, null);
+  }
+  update(id: number | string, body: ICategory) {
+    return this.http.post<ICategory>(`${ENDPOINT}${id}?_method=delete`, body);
+  }
 }

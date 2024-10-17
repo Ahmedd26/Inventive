@@ -151,7 +151,7 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
       },
     });
     // Get Categories list for the dropdown list
-    this.categoryService.getAllCategories().subscribe({
+    this.categoryService.getAll().subscribe({
       next: (categories) => {
         this.categoriesArray = categories;
       },
