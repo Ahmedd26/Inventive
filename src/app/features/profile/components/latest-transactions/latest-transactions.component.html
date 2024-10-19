@@ -31,16 +31,22 @@
             <tr
               class="border-b bg-white dark:border-stone-700 dark:bg-stone-800"
             >
-              <td class="px-6 py-4">{{ log.id }}</td>
-              <td class="px-6 py-4">{{ log.log_name }}</td>
-              <td class="px-6 py-4">{{ log.description }}</td>
-              <td class="px-6 py-4">{{ log.event }}</td>
+              <td class="px-6 py-4">{{ log?.id ? log.id : "N/A" }}</td>
               <td class="px-6 py-4">
-                {{ log.subject.name ? log.subject.name : "Untracked" }}
+                {{ log?.log_name ? log.log_name : "N/A" }}
               </td>
               <td class="px-6 py-4">
-                {{ log.created_at | date }}
-                {{ log.created_at | date: "shortTime" }}
+                {{ log?.description ? log.description : "N/A" }}
+              </td>
+              <td class="px-6 py-4">{{ log?.event ? log.event : "N/A" }}</td>
+
+              <td class="px-6 py-4">
+                {{ log?.subject?.name ? log.subject.name : "N/A" }}
+              </td>
+
+              <td class="px-6 py-4">
+                {{ log?.created_at | date }}
+                {{ log?.created_at | date: "shortTime" }}
               </td>
             </tr>
           }

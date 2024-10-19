@@ -17,16 +17,17 @@ import { ActivityLogsService } from '../../../../core/services/activity-logs-ser
 export class LatestTransactionsComponent implements OnInit {
   isLoading = false;
   user!: IUser;
-  logs!: ILog[];
+  logs!: any[];
   constructor(private activityLogsService: ActivityLogsService) {}
   //** ---------------------- START PAGINATION -------------------------- **//
-  paginatedLogs: ILog[] = [];
+  paginatedLogs: any[] = [];
   totalItems: number = 0;
   itemsPerPage: number = 10;
   updatePaginatedLogs(page: number) {
     const startIndex = (page - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.paginatedLogs = this.logs.slice(startIndex, endIndex);
+    console.log(this.paginatedLogs);
   }
 
   onPageChange(page: number) {
@@ -39,7 +40,7 @@ export class LatestTransactionsComponent implements OnInit {
     if (this.user.id) {
       this.activityLogsService.get(this.user.id).subscribe({
         next: (data: any) => {
-          this.logs = data.reverse() as ILog[];
+          this.logs = data.reverse() as any[];
           this.isLoading = false;
           // ** ---------- PAGINATION ---------- **//
           this.totalItems = this.logs.length;
