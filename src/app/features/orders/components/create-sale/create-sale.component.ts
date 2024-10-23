@@ -15,7 +15,12 @@ import { IconsModule } from '../../../../shared/icons/icons.module';
 @Component({
   selector: 'app-create-sale',
   standalone: true,
-  imports: [LoadingComponent, SaleProductCardComponent, FormsModule, IconsModule],
+  imports: [
+    LoadingComponent,
+    SaleProductCardComponent,
+    FormsModule,
+    IconsModule,
+  ],
   templateUrl: './create-sale.component.html',
 })
 export class CreateSaleComponent implements OnInit {
@@ -56,7 +61,10 @@ export class CreateSaleComponent implements OnInit {
   }
 
   onAddSelectedProduct(product: ISelectedProduct) {
-    this.selectedProducts.push(product);
+    // TODO: REMOVE STATIC SECTION ID, IMPLEMENT SELECT ELEMENT FOR IT
+    const warehouse_section_id = 12;
+    const newProduct = { ...product, warehouse_section_id };
+    this.selectedProducts.push(newProduct);
     this.validRequest = true;
   }
 
