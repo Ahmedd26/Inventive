@@ -8,6 +8,7 @@ export interface ISelectedProduct {
   product_id: number;
   quantity: number;
   price: number;
+  warehouse_section_id?: number;
 }
 
 @Component({

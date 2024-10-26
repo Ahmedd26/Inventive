@@ -62,9 +62,9 @@ export class CreateSaleComponent implements OnInit {
 
   onAddSelectedProduct(product: ISelectedProduct) {
     // TODO: REMOVE STATIC SECTION ID, IMPLEMENT SELECT ELEMENT FOR IT
-    const warehouse_section_id = 12;
-    const newProduct = { ...product, warehouse_section_id };
-    this.selectedProducts.push(newProduct);
+    // const warehouse_section_id = 12;
+    // const newProduct = { ...product, warehouse_section_id };
+    this.selectedProducts.push(product);
     this.validRequest = true;
   }
 

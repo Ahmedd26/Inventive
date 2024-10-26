@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IProduct } from '../../../../products/products.model';
+import {
+  IProduct,
+  ProductWarehouse,
+} from '../../../../products/products.model';
 import { ISelectedProduct } from '../../create-purchase/purchase-product-card/purchase-product-card.component';
 import { IconsModule } from '../../../../../shared/icons/icons.module';
 import { CommonModule } from '@angular/common';
@@ -17,9 +20,10 @@ export class SaleProductCardComponent {
   @Output() dismissProduct = new EventEmitter<number>();
   selectedQuantity = 0;
   confirmed = false;
+  selectedProductWarehouse!: ProductWarehouse;
 
   increment() {
-    if (this.product.quantity > this.selectedQuantity) {
+    if (this.selectedProductWarehouse.quantity > this.selectedQuantity) {
       this.selectedQuantity++;
     }
   }
@@ -28,13 +32,25 @@ export class SaleProductCardComponent {
       this.selectedQuantity--;
     }
   }
+
+  onWarehouseSectionSelect(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const sectionId = target.value;
+    const productWarehouse = this.product.product_warehouse.find(
+      (warehouse) => warehouse.id === +sectionId,
+    );
+    if (productWarehouse) {
+      this.selectedProductWarehouse = productWarehouse;
+    }
+  }
+
   changeQuantity(event: Event) {
     const target = event.target as HTMLInputElement;
     const quantity = target.value;
     const regex = /^\d+$/;
 
     if (regex.test(quantity)) {
-      if (this.product.quantity > this.selectedQuantity) {
+      if (this.selectedProductWarehouse.quantity > this.selectedQuantity) {
         this.selectedQuantity = +quantity;
       } else {
         this.selectedQuantity = 0;
@@ -45,11 +61,13 @@ export class SaleProductCardComponent {
   }
   confirm() {
     this.confirmed = true;
-    if (this.product.id) {
+    if (this.product.id && this.selectedProductWarehouse.warehouse_section_id) {
       this.selectedProduct.emit({
         product_id: this.product.id,
         price: this.product.price,
         quantity: this.selectedQuantity,
+        warehouse_section_id:
+          this.selectedProductWarehouse.warehouse_section_id,
       });
     }
   }
