@@ -61,6 +61,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   addNewProduct(product: IProduct) {
-    this.products.push(product);
+    this.products.unshift(product);
+    this.paginatedProducts.unshift(product);
   }
 }
