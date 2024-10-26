@@ -8,6 +8,12 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './product-sales-orders.component.html',
 })
-export class ProductSalesOrdersComponent {
+export class ProductSalesOrdersComponent implements OnInit {
   @Input({ required: true }) salesOrders!: IProductSalesOrder[];
+
+  ngOnInit() {
+    if (this.salesOrders) {
+      this.salesOrders = this.salesOrders.reverse();
+    }
+  }
 }

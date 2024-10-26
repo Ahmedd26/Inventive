@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { type IProductPurchaseOrders } from '../../../../products.model';
 
@@ -8,6 +8,12 @@ import { type IProductPurchaseOrders } from '../../../../products.model';
   imports: [CommonModule],
   templateUrl: './product-purchase-orders.component.html',
 })
-export class ProductPurchaseOrdersComponent {
+export class ProductPurchaseOrdersComponent implements OnInit {
   @Input({ required: true }) purchaseOrders!: IProductPurchaseOrders[];
+
+  ngOnInit() {
+    if (this.purchaseOrders) {
+      this.purchaseOrders = this.purchaseOrders.reverse();
+    }
+  }
 }
