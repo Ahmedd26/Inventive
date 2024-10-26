@@ -61,6 +61,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   addNewProduct(product: IProduct) {
+    console.log(product);
     this.products.push(product);
   }
 }

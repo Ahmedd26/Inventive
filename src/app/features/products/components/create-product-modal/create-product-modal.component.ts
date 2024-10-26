@@ -53,7 +53,6 @@ export class CreateProductModalComponent implements OnInit {
       ]),
       sku: new FormControl(null, Validators.required),
       price: new FormControl(null, Validators.required),
-      quantity: new FormControl(null, Validators.required),
       category_id: new FormControl(null, Validators.required),
       supplier_id: new FormControl(null, Validators.required),
       image: new FormControl(null, Validators.required),
