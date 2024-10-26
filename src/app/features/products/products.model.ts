@@ -43,6 +43,7 @@ export interface IProduct {
   product_sales_orders?: IProductSalesOrder[];
   product_purchase_orders?: IProductPurchaseOrders[];
   adjustments?: IAdjustment[];
+  product_warehouse: ProductWarehouse[];
 }
 
 export interface IInventoryMovement {
@@ -92,6 +93,40 @@ export interface IProductPurchaseOrders {
   purchase_order_id: number;
   quantity: number;
   price: number;
+  created_at: string;
+  updated_at: string;
+}
+export interface ProductWarehouse {
+  id: number;
+  warehouse_section_id: number;
+  product_id: number;
+  quantity: number;
+  deleted_at: any;
+  created_at: string;
+  updated_at: string;
+  warehouse_section: WarehouseSection;
+}
+
+export interface WarehouseSection {
+  id: number;
+  warehouse_id: number;
+  section_name: string;
+  section_type: string;
+  capacity: number;
+  empty_slots: number;
+  reserved_slots: number;
+  deleted_at: any;
+  created_at: string;
+  updated_at: string;
+  warehouse: Warehouse;
+}
+
+export interface Warehouse {
+  id: number;
+  name: string;
+  location: string;
+  total_capacity: number;
+  deleted_at: any;
   created_at: string;
   updated_at: string;
 }

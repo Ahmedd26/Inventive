@@ -1,3 +1,4 @@
+import { WarehouseService } from './../../../warehouse/warehouse.service';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { ISupplier } from '../../../suppliers/suppliers.model';
 import { SuppliersService } from '../../../suppliers/suppliers.service';
@@ -13,6 +14,7 @@ import {
 import { API } from '../../../../core/utils/constants.utils';
 import { Router, RouterLink } from '@angular/router';
 import { IPurchase } from '../../../purchases/purchases.model';
+import { IWarehouse } from '../../../warehouse/warehouse.model';
 
 @Component({
   selector: 'app-create-purchase',
@@ -34,9 +36,12 @@ export class CreatePurchaseComponent implements OnInit {
   selectedSupplierId!: number;
   selectedProducts: ISelectedProduct[] = [];
   validRequest = false;
-
+  warehouses: IWarehouse[] = [];
+  section_id: null | number = null;
+  sectionError= ''
   constructor(
     private suppliersService: SuppliersService,
+    private warehouseService: WarehouseService,
     private http: HttpClient,
     private router: Router,
   ) {}
@@ -52,7 +57,11 @@ export class CreatePurchaseComponent implements OnInit {
       this.validRequest = false;
     }
   }
-
+  onWarehouseSectionSelect(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const id = +target.value;
+    this.section_id = id;
+  }
   onAddSelectedProduct(selectedProduct: ISelectedProduct) {
     this.selectedProducts.push(selectedProduct);
     this.validRequest = true;
@@ -67,9 +76,13 @@ export class CreatePurchaseComponent implements OnInit {
   }
 
   submitPurchase() {
-    if (this.validRequest) {
+    if(!this.section_id){
+      this.sectionError = 'Please select a warehouse to store the purchase'
+    }
+    if (this.validRequest && this.section_id) {
       const requestBody = {
         supplier_id: this.selectedSupplierId,
+        warehouse_section_id: this.section_id,
         products: this.selectedProducts,
       };
       this.http.post<IPurchase>(`${API}purchase`, requestBody).subscribe({
@@ -83,6 +96,10 @@ export class CreatePurchaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.getSuppliers();
+    this.getWarehouses();
+  }
+  getSuppliers() {
     this.suppliersService.getAll().subscribe({
       next: (suppliers) => {
         this.isLoading = false;
@@ -91,6 +108,20 @@ export class CreatePurchaseComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;
         console.error(error.message);
+      },
+    });
+  }
+  getWarehouses() {
+    this.warehouseService.getAllWarehouses().subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        this.warehouses = res;
+        console.log(res);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.isLoading = false;
+
+        console.error(error);
       },
     });
   }

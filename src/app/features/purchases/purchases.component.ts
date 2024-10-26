@@ -50,7 +50,7 @@ export class PurchasesComponent {
     this.purchasesService.getAll().subscribe({
       next: (data) => {
         this.isLoading = false;
-        this.purchasesArray = data;
+        this.purchasesArray = data.reverse();
         // ** ---------- PAGINATION ---------- **//
         this.totalItems = this.purchasesArray.length;
         this.updatePaginatedPurchases(1);

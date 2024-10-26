@@ -62,7 +62,7 @@ export class SalesComponent implements OnInit {
     this.salesService.getAll().subscribe({
       next: (sales) => {
         this.isLoading = false;
-        this.sales = sales;
+        this.sales = sales.reverse();
         // ** ---------- PAGINATION ---------- **//
         this.totalItems = this.sales.length;
         this.updatePaginatedSales(1);

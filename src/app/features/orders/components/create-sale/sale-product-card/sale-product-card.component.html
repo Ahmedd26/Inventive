@@ -27,9 +27,43 @@
         <span>{{ product.category?.name }}</span>
       </div>
       <div class="flex items-center gap-2">
-        <i-feather name="layers" />
+        <!-- <i-feather name="layers" />
         <span class="font-semibold">Current stock:</span>
-        <span>{{ product.quantity }}</span>
+        <span>{{ product.quantity }}</span> -->
+        <div class="">
+          @if (product.product_warehouse) {
+            <h4 class="mb-2.5 text-lg">
+              Select a warehouse section to cut of the quantity
+            </h4>
+            <select
+              id="warehouseSection"
+              class="block min-w-24 rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+              (change)="onWarehouseSectionSelect($event)"
+            >
+              <option selected>Choose a warehouse section</option>
+              @for (
+                productWarehouse of product.product_warehouse;
+                track productWarehouse.id
+              ) {
+                <option [value]="productWarehouse.warehouse_section_id">
+                  {{
+                    productWarehouse.warehouse_section.warehouse.name +
+                      " - " +
+                      productWarehouse.warehouse_section.section_name +
+                      " - " +
+                      productWarehouse.quantity +
+                      " units"
+                  }}
+                </option>
+              }
+            </select>
+          } @else {
+            <h3 class="text-2xltext-stone-700 dark:text-stone-400">
+              Please add warehouses and sections in order to proceed with the
+              purchase process
+            </h3>
+          }
+        </div>
       </div>
       <div class="flex items-center gap-2">
         <i-feather name="dollar-sign" />
