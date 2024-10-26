@@ -37,7 +37,7 @@ export class SaleProductCardComponent {
     const target = event.target as HTMLInputElement;
     const sectionId = target.value;
     const productWarehouse = this.product.product_warehouse.find(
-      (warehouse) => warehouse.id === +sectionId,
+      (warehouse) => warehouse.warehouse_section_id === +sectionId,
     );
     if (productWarehouse) {
       this.selectedProductWarehouse = productWarehouse;
