@@ -4,7 +4,7 @@
 @if (products) {
   <h2 class="mb-5 text-2xl font-semibold">Place an order</h2>
 
-  <div class="flex items-center justify-between">
+  <div class="flex flex-wrap-reverse items-center justify-between gap-5">
     <div class="flex items-center gap-4">
       <div class="relative">
         <input
@@ -45,7 +45,7 @@
     <button
       (click)="submitSale()"
       [disabled]="!validRequest"
-      class="rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-300 disabled:cursor-not-allowed disabled:bg-amber-800/70 dark:focus:ring-amber-900 dark:disabled:bg-amber-800/70"
+      class="ms-auto rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-300 disabled:cursor-not-allowed disabled:bg-amber-800/70 dark:focus:ring-amber-900 dark:disabled:bg-amber-800/70"
     >
       Place Order
     </button>
@@ -92,11 +92,13 @@
 
   <div class="mt-10 grid grid-cols-1 gap-4 2xl:grid-cols-2">
     @for (product of filteredProducts; track product.id) {
-      <app-sale-product-card
-        [product]="product"
-        (selectedProduct)="onAddSelectedProduct($event)"
-        (dismissProduct)="dismissSelectedProduct($event)"
-      />
+      @if (product.quantity > 0 && product.product_warehouse.length > 0) {
+        <app-sale-product-card
+          [product]="product"
+          (selectedProduct)="onAddSelectedProduct($event)"
+          (dismissProduct)="dismissSelectedProduct($event)"
+        />
+      }
     } @empty {
       <div
         class="justify-centre col-span-2 mt-10 flex flex-col items-center gap-8 text-stone-600"
