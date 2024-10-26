@@ -28,6 +28,9 @@ export class SupplierProductsComponent implements OnInit {
   }
   //** ---------------------- END PAGINATION -------------------------- **//
   ngOnInit() {
+    if (this.products) {
+      this.products = this.products.reverse();
+    }
     // ** ---------- PAGINATION ---------- **//
     this.totalItems = this.products.length;
     this.updatePaginatedProducts(1);

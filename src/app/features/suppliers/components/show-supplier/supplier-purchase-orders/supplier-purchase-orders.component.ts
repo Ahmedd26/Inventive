@@ -12,7 +12,7 @@ import { IconsModule } from '../../../../../shared/icons/icons.module';
 @Component({
   selector: 'app-supplier-purchase-orders',
   standalone: true,
-  imports: [CommonModule, RouterLink,IconsModule],
+  imports: [CommonModule, RouterLink, IconsModule],
   templateUrl: './supplier-purchase-orders.component.html',
 })
 export class SupplierPurchaseOrdersComponent implements OnInit {
@@ -32,6 +32,9 @@ export class SupplierPurchaseOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.purchaseOrders) {
+      this.purchaseOrders = this.purchaseOrders.reverse();
+    }
     this.usersService.getAll().subscribe({
       next: (users: IUser[]) => {
         users.forEach((user) => this.userMap.set(user.id!, user.name));
