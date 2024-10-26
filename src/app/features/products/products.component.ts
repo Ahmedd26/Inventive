@@ -49,7 +49,7 @@ export class ProductsComponent implements OnInit {
     this.productSrv.getAll().subscribe({
       next: (products: IProduct[]) => {
         this.isLoading = false;
-        this.products = products;
+        this.products = products.reverse();
         // ** ---------- PAGINATION ---------- **//
         this.totalItems = products.length;
         this.updatePaginatedProducts(1);
@@ -61,7 +61,6 @@ export class ProductsComponent implements OnInit {
     });
   }
   addNewProduct(product: IProduct) {
-    console.log(product);
     this.products.push(product);
   }
 }
