@@ -63,10 +63,6 @@ export class UpdateProductModalComponent implements OnInit, OnChanges {
         ]),
         sku: new FormControl(this.inputProduct.sku, Validators.required),
         price: new FormControl(this.inputProduct.price, Validators.required),
-        quantity: new FormControl(
-          this.inputProduct.quantity,
-          Validators.required,
-        ),
         category_id: new FormControl(
           this.inputProduct.category_id,
           Validators.required,

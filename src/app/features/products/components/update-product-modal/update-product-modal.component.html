@@ -96,7 +96,7 @@
       }
     </div>
 
-    <div class="col-span-6 mb-4 lg:col-span-2">
+    <div class="col-span-6 mb-4 lg:col-span-3">
       <label
         for=""
         class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
@@ -123,7 +123,7 @@
       }
     </div>
 
-    <div class="col-span-3 mb-4 lg:col-span-2">
+    <div class="col-span-3 mb-4 lg:col-span-3">
       <label
         for=""
         class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
@@ -147,36 +147,6 @@
       @if (
         getControl("price")?.hasError("required") &&
         getControl("price")?.touched
-      ) {
-        <p class="mt-2.5 text-sm text-red-500">Required, numbers only.</p>
-      }
-    </div>
-
-    <div class="col-span-3 mb-4 lg:col-span-2">
-      <label
-        for=""
-        class="mb-2 block text-sm font-medium text-stone-900 dark:text-white"
-        >Quantity</label
-      >
-      <input
-        formControlName="quantity"
-        type="text"
-        (input)="validateNumberOnInput($event, 'quantity')"
-        class="block w-full rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      />
-      @if (apiErrors?.quantity) {
-        <p class="mt-2.5 text-sm text-red-500">
-          {{ apiErrors?.quantity }}
-        </p>
-      }
-      @if (frontEndErrors.quantity) {
-        <p class="mt-2.5 text-sm text-red-500">
-          {{ frontEndErrors.quantity }}
-        </p>
-      }
-      @if (
-        getControl("quantity")?.hasError("required") &&
-        getControl("quantity")?.touched
       ) {
         <p class="mt-2.5 text-sm text-red-500">Required, numbers only.</p>
       }
