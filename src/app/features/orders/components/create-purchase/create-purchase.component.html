@@ -21,28 +21,33 @@
     </p>
   }
 }
-<div class="mt-6">
-  @if (warehouses) {
-    <h4 class="mb-2.5 text-lg">Select a section to store your purchase</h4>
-    <select
-      id="warehouseSection"
-      class="block min-w-24 rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
-      (change)="onWarehouseSectionSelect($event)"
-    >
-      <option selected>Choose a warehouse</option>
-      @for (warehouse of warehouses; track warehouse.id) {
-        @for (section of warehouse.sections; track section.id) {
-          <option [value]="section.id">
-            {{ warehouse.name }} - {{ section.section_name }}
-          </option>
+<div class="mt-6 flex items-baseline gap-4">
+  <div class="">
+    @if (warehouses) {
+      <h4 class="mb-2.5 text-lg">Select a section to store your purchase</h4>
+      <select
+        id="warehouseSection"
+        class="block min-w-24 rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
+        (change)="onWarehouseSectionSelect($event)"
+      >
+        <option selected>Choose a warehouse</option>
+        @for (warehouse of warehouses; track warehouse.id) {
+          @for (section of warehouse.sections; track section.id) {
+            <option [value]="section.id">
+              {{ warehouse.name }} - {{ section.section_name }}
+            </option>
+          }
         }
-      }
-    </select>
-  } @else {
-    <h3 class="text-2xltext-stone-700 dark:text-stone-400">
-      Please add warehouses and sections in order to proceed with the purchase
-      process
-    </h3>
+      </select>
+    } @else {
+      <h3 class="text-2xltext-stone-700 dark:text-stone-400">
+        Please add warehouses and sections in order to proceed with the purchase
+        process
+      </h3>
+    }
+  </div>
+  @if (sectionError) {
+    <p class="text-red-500">{{ sectionError }}</p>
   }
 </div>
 @if (selectedSupplier) {

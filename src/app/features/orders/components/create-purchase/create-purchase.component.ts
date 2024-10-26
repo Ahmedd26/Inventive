@@ -38,6 +38,7 @@ export class CreatePurchaseComponent implements OnInit {
   validRequest = false;
   warehouses: IWarehouse[] = [];
   section_id: null | number = null;
+  sectionError= ''
   constructor(
     private suppliersService: SuppliersService,
     private warehouseService: WarehouseService,
@@ -75,7 +76,10 @@ export class CreatePurchaseComponent implements OnInit {
   }
 
   submitPurchase() {
-    if (this.validRequest) {
+    if(!this.section_id){
+      this.sectionError = 'Please select a warehouse to store the purchase'
+    }
+    if (this.validRequest && this.section_id) {
       const requestBody = {
         supplier_id: this.selectedSupplierId,
         warehouse_section_id: this.section_id,
