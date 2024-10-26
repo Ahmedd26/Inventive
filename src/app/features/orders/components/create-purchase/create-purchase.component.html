@@ -29,6 +29,7 @@
       class="block min-w-24 rounded-lg border border-stone-300 bg-stone-50 p-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-700 dark:text-white dark:placeholder-stone-400 dark:focus:border-amber-500 dark:focus:ring-amber-500"
       (change)="onWarehouseSectionSelect($event)"
     >
+      <option selected>Choose a warehouse</option>
       @for (warehouse of warehouses; track warehouse.id) {
         @for (section of warehouse.sections; track section.id) {
           <option [value]="section.id">
