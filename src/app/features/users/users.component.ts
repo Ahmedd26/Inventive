@@ -61,7 +61,7 @@ export class UsersComponent implements OnInit {
     this.fetchingState = true;
     this.usersService.getAll().subscribe({
       next: (users) => {
-        this.users = users;
+        this.users = users.reverse();
         this.fetchingState = false;
         // ** ---------- PAGINATION ---------- **//
         this.totalItems = users.length;
