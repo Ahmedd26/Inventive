@@ -11,59 +11,40 @@
   <div
     class="-mt-8 w-11/12 rounded-2xl border border-stone-200 bg-white p-4 dark:border-stone-950 dark:bg-stone-800 md:-mt-12 lg:-mt-16 xl:-mt-20"
   >
-    <div class="flex flex-wrap items-center justify-between gap-6">
-      <!-- ProPic & Name -->
-      <div class="flex gap-4">
-        <div
-          class="overflow-hidden rounded-lg border border-amber-400 bg-stone-600 dark:border-amber-200"
-        >
-          @if (user.image) {
-            <img
-              [src]="user.image"
-              alt="user avatar"
-              class="image-skeleton h-full w-full max-w-24 object-cover"
-            />
-          } @else {
-            <img
-              src="assets/images/manager.png"
-              alt="user avatar"
-              class="image-skeleton h-full w-full max-w-24 object-cover"
-            />
-          }
-        </div>
-        <div class="space-y-2">
-          <h2
-            class="m-0 text-2xl font-semibold capitalize text-stone-700 dark:text-stone-200"
-          >
-            {{ user.name }}
-          </h2>
-          <h4 class="m-0 text-sm capitalize text-stone-400">
-            {{ user.role?.name }}
-          </h4>
-          <h4 class="text-sm capitalize text-stone-400">
-            {{ user.email }}
-          </h4>
-        </div>
-      </div>
-      <!-- BTN GP -->
+    <!-- <div class="flex flex-wrap items-center justify-between gap-6"> -->
+    <!-- ProPic & Name -->
+    <div class="flex gap-4">
       <div
-        class="flex flex-1 items-center justify-center gap-0.5 lg:justify-end"
+        class="overflow-hidden rounded-lg border border-amber-400 bg-stone-600 dark:border-amber-200"
       >
-        <button
-          class="flex items-center gap-2 rounded-s-lg border border-stone-200 bg-white px-4 py-2 text-base font-medium text-stone-900 hover:bg-stone-100 hover:text-amber-700 focus:z-10 focus:text-amber-700 focus:ring-2 focus:ring-amber-700 dark:border-stone-700 dark:bg-stone-800 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-amber-500"
-        >
-          <!-- YET TO IMPLEMENT WHEN THE ROLES ARE READY -->
-          <i-feather name="tool" />
-          Edit
-        </button>
-        <button
-          class="flex items-center gap-2 rounded-e-lg border border-stone-200 bg-white px-4 py-2 text-base font-medium text-stone-900 hover:bg-stone-100 hover:text-amber-700 focus:z-10 focus:text-amber-700 focus:ring-2 focus:ring-amber-700 dark:border-stone-700 dark:bg-stone-800 dark:text-white dark:hover:bg-stone-700 dark:hover:text-white dark:focus:text-white dark:focus:ring-amber-500"
-        >
-          <!-- YET TO IMPLEMENT WHEN THE ROLES ARE READY -->
-          <i-feather name="trash" />
-          Delete
-        </button>
+        @if (user.image) {
+          <img
+            [src]="user.image"
+            alt="user avatar"
+            class="image-skeleton h-full w-full max-w-24 object-cover"
+          />
+        } @else {
+          <img
+            src="assets/images/manager.png"
+            alt="user avatar"
+            class="image-skeleton h-full w-full max-w-24 object-cover"
+          />
+        }
       </div>
+      <div class="space-y-2">
+        <h2
+          class="m-0 text-2xl font-semibold capitalize text-stone-700 dark:text-stone-200"
+        >
+          {{ user.name }}
+        </h2>
+        <h4 class="m-0 text-sm capitalize text-stone-400">
+          {{ user.role?.name }}
+        </h4>
+        <h4 class="text-sm capitalize text-stone-400">
+          {{ user.email }}
+        </h4>
+      </div>
+      <!-- </div> -->
     </div>
   </div>
 </div>

@@ -1,4 +1,8 @@
-# InventoryManagementSystem
+# Inventive "Inventory Management System"
+
+This is a group graduation project, for Information Technology Institute (ITI) In Egypt.
+
+You can View the backend part at [Link](https://github.com/MohamedSalahAbdallah/inventory_management_system)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
 
